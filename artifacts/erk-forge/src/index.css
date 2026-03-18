@@ -158,3 +158,12 @@
 .clip-path-slant {
   clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
 }
+
+@keyframes spin-conic {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.hero-photo-ring {
+  animation: spin-conic 3s linear infinite;
+}

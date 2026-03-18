@@ -107,33 +107,50 @@ export function Hero() {
         </video>
       </div>
 
-      {/* ── Coach Photo — pinned to bottom-right, behind overlays ── */}
+      {/* ── Coach Photo — above overlays, pinned to bottom-right ── */}
       <motion.div
         initial={{ opacity: 0, x: 60 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-        className="absolute bottom-0 right-0 z-[3] hidden lg:flex items-end justify-end pointer-events-none"
+        className="absolute bottom-0 right-0 z-[6] hidden lg:flex items-end justify-end pointer-events-none"
         style={{ width: "40%", height: "100%" }}
       >
         {/* Glow behind figure */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-3/4 pointer-events-none"
           style={{
-            background: "radial-gradient(ellipse at bottom, rgba(245,197,24,0.15) 0%, rgba(245,197,24,0.04) 55%, transparent 80%)",
+            background: "radial-gradient(ellipse at bottom, rgba(245,197,24,0.22) 0%, rgba(245,197,24,0.06) 55%, transparent 80%)",
             filter: "blur(40px)",
           }}
         />
-        <img
-          src={`${import.meta.env.BASE_URL}images/coach-hero.png`}
-          alt="Erk Forge Koç"
-          className="relative w-full max-w-[500px] h-auto object-contain object-bottom select-none"
-          style={{ filter: "drop-shadow(0 0 60px rgba(245,197,24,0.10))" }}
-          draggable={false}
-        />
+
+        {/* Photo + spinning border */}
+        <div className="relative w-full max-w-[500px]">
+          {/* Spinning gradient ring — only THIS div rotates */}
+          <div
+            className="hero-photo-ring absolute inset-[-3px] pointer-events-none"
+            style={{
+              background: "conic-gradient(from 0deg, transparent 50deg, #F5C518 80deg, #fff8a0 110deg, #F5C518 140deg, transparent 170deg, transparent 360deg)",
+              zIndex: 0,
+            }}
+          />
+          {/* Image — stationary */}
+          <img
+            src={`${import.meta.env.BASE_URL}images/coach-hero.png`}
+            alt="Erk Forge Koç"
+            className="relative w-full h-auto object-contain object-bottom select-none block"
+            style={{
+              zIndex: 1,
+              filter: "brightness(1.08) contrast(1.05) drop-shadow(0 0 30px rgba(245,197,24,0.2))",
+            }}
+            draggable={false}
+          />
+        </div>
+
         {/* Ground glow */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-8 pointer-events-none"
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-10 pointer-events-none"
           style={{
-            background: "radial-gradient(ellipse, rgba(245,197,24,0.28) 0%, transparent 70%)",
-            filter: "blur(12px)",
+            background: "radial-gradient(ellipse, rgba(245,197,24,0.35) 0%, transparent 70%)",
+            filter: "blur(14px)",
           }}
         />
       </motion.div>
