@@ -69,7 +69,7 @@ export default function BlogPostPage() {
     return (
       <main className="min-h-screen bg-black text-white flex flex-col">
         <Navbar />
-        <div className="flex-1 flex items-center justify-center flex-col gap-5">
+        <div className="flex-1 flex items-center justify-center flex-col gap-5 pt-28">
           <BookOpen className="w-16 h-16 text-white/15" />
           <h1 className="font-display text-3xl uppercase text-white">Yazı Bulunamadı</h1>
           <Link href="/blog">
@@ -90,7 +90,7 @@ export default function BlogPostPage() {
       <Navbar />
 
       {/* ── Hero Image ── */}
-      <div className="relative h-[55vh] min-h-[400px] overflow-hidden">
+      <div className="relative h-[55vh] min-h-[400px] overflow-hidden mt-24">
         <img
           src={post.image}
           alt={post.title}
