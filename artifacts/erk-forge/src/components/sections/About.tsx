@@ -33,9 +33,9 @@ export function About() {
   )
 
   return (
-    <section id="about" className="py-32 bg-black relative border-t border-white/5" ref={ref}>
+    <section id="about" className="py-20 bg-black relative border-t border-white/5" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
           {/* Image Side */}
           <motion.div 
@@ -79,12 +79,12 @@ export function About() {
             <h2 className="text-primary font-display uppercase tracking-[0.3em] mb-4 flex items-center gap-4 text-sm">
               <span className="w-12 h-[2px] bg-primary block"></span> Demir Ustası
             </h2>
-            <h3 className="text-5xl md:text-7xl font-display font-bold mb-8 leading-[0.9]">
+            <h3 className="text-3xl md:text-5xl font-display font-bold mb-6 leading-[0.95]">
               PROGRAM YAZMIYORUM.<br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">SİLAH ÜRETİYORUM.</span>
+              <span className="text-gray-500">SİLAH ÜRETİYORUM.</span>
             </h3>
             
-            <div className="space-y-6 text-gray-300 text-lg mb-12 font-sans font-light leading-relaxed">
+            <div className="space-y-4 text-gray-400 text-sm md:text-base mb-10 font-sans font-light leading-relaxed">
               <p>
                 Demir ocağına hoş geldin. Benim adım Erk ve felsefem çok basit: Zayıf metal kırılır, güçlü demir dayanır. Sıradanlıktan sıkılmış, sınırlarını zorlamaya hazır bireyleri alıyor; onları fiziksel ve mental zirvelerine ulaştırıyorum.
               </p>
@@ -93,14 +93,14 @@ export function About() {
               </p>
             </div>
 
-            <div className="mb-12">
+            <div className="mb-8">
               <StatBar label="BESLENME BİLİMİ" percentage={95} delay={0.2} />
               <StatBar label="ANTRENMAN PROTOKOLÜ" percentage={98} delay={0.4} />
               <StatBar label="MENTAL DİRENÇ" percentage={100} delay={0.6} />
             </div>
 
-            <div className="bg-[#0A0A0A] border border-white/5 p-8 rounded-sm">
-              <h4 className="font-display text-2xl text-white mb-6 tracking-widest border-b border-white/10 pb-4">Neden Ben?</h4>
+            <div className="bg-[#0A0A0A] border border-white/5 p-6 rounded-sm">
+              <h4 className="font-display text-lg text-white mb-5 tracking-widest border-b border-white/10 pb-3">Neden Ben?</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {features.map((feature, idx) => (
                   <div key={idx} className="flex gap-3">

@@ -25,10 +25,10 @@ export function Contact() {
   const LabelClass = "block text-sm text-gray-400 mb-2 uppercase font-display tracking-widest"
 
   return (
-    <section id="contact" className="py-32 bg-black relative border-t border-white/5">
+    <section id="contact" className="py-20 bg-black relative border-t border-white/5">
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           
           {/* Sol: İletişim Bilgileri */}
           <motion.div
@@ -36,13 +36,13 @@ export function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-primary font-display uppercase tracking-[0.3em] mb-4 flex items-center gap-4 text-sm">
-              <span className="w-12 h-[2px] bg-primary block"></span> İLETİŞİME GEÇ
+            <h2 className="text-primary font-display uppercase tracking-[0.3em] mb-3 flex items-center gap-3 text-xs">
+              <span className="w-10 h-[2px] bg-primary block"></span> İLETİŞİME GEÇ
             </h2>
-            <h3 className="text-5xl md:text-7xl font-display font-bold uppercase text-white mb-8 leading-[0.9]">
-              ATEŞE ADIM <br/> <span className="text-primary forge-glow">ATMAYA HAZIR MISIN?</span>
+            <h3 className="text-3xl md:text-5xl font-display font-bold uppercase text-white mb-6 leading-[0.95]">
+              ATEŞE ADIM <br/> <span className="text-primary">ATMAYA HAZIR MISIN?</span>
             </h3>
-            <p className="text-gray-400 mb-12 text-lg font-sans leading-relaxed">
+            <p className="text-gray-400 mb-10 text-sm md:text-base font-sans leading-relaxed">
               Bahane üretmeyi bırakıp harekete geçme vakti. Koçluk başvurusu için formu doldur. Sadece demire ve değişime adanmış kişilerle çalışıyorum. Kontenjanlar son derece sınırlıdır.
             </p>
 

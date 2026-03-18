@@ -34,8 +34,8 @@ export function Hero() {
 
     return (
       <div className="flex flex-col items-center">
-        <span className="font-display text-4xl md:text-5xl text-white font-bold">{count}+</span>
-        <span className="text-primary font-display tracking-widest text-sm uppercase">{label}</span>
+        <span className="font-display text-3xl md:text-4xl text-white font-bold">{count}+</span>
+        <span className="text-primary font-display tracking-widest text-xs uppercase mt-1">{label}</span>
       </div>
     )
   }
@@ -78,9 +78,9 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-8 inline-flex items-center gap-2 px-5 py-2 rounded-full border border-primary/50 bg-primary/10 text-primary font-display uppercase tracking-widest text-sm shadow-[0_0_15px_rgba(245,197,24,0.3)]"
+          className="mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/40 bg-primary/10 text-primary font-display uppercase tracking-widest text-xs"
         >
-          <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(245,197,24,1)]" />
+          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
           Elit Vücut Geliştirme & Fitness Koçluğu
         </motion.div>
 
@@ -88,17 +88,17 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="font-display text-7xl sm:text-8xl md:text-[9rem] font-bold leading-[0.85] mb-6 drop-shadow-2xl"
+          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] mb-5 drop-shadow-2xl"
         >
           DEMİRİ <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#FFF5CC] to-primary forge-glow">FORGE ET</span>
+          <span className="text-primary">FORGE ET</span>
         </motion.h1>
 
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="max-w-2xl text-lg md:text-2xl text-gray-300 mb-12 font-sans font-light"
+          className="max-w-xl text-base md:text-lg text-gray-300 mb-10 font-sans font-light"
         >
           Bahane yok. Kestirme yok. Sadece ağır demir, saf disiplin ve ustaca bir plan. 
           Fiziğini Erk Forge Koçluğu rehberliğinde baştan yarat.
@@ -108,17 +108,17 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-6 mb-16"
+          className="flex flex-col sm:flex-row gap-4 mb-14"
         >
           <button 
             onClick={() => scrollTo("contact")}
-            className="px-10 py-5 bg-primary text-black font-display text-2xl tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105 shadow-[0_0_30px_rgba(245,197,24,0.5)]"
+            className="px-8 py-3.5 bg-primary text-black font-display text-base tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_20px_rgba(245,197,24,0.4)]"
           >
             Hemen Başla
           </button>
           <button 
             onClick={() => scrollTo("programs")}
-            className="px-10 py-5 bg-black/50 border border-white/20 text-white font-display text-2xl tracking-widest uppercase hover:border-primary hover:text-primary backdrop-blur-sm transition-all duration-300"
+            className="px-8 py-3.5 bg-black/50 border border-white/20 text-white font-display text-base tracking-widest uppercase hover:border-primary hover:text-primary backdrop-blur-sm transition-all duration-300"
           >
             Programları İncele
           </button>
@@ -129,7 +129,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="grid grid-cols-3 gap-8 md:gap-24 w-full max-w-4xl border-t border-white/10 pt-10"
+          className="grid grid-cols-3 gap-4 md:gap-16 w-full max-w-2xl border-t border-white/10 pt-8"
         >
           <div className="flex flex-col items-center gap-2">
             <Users className="w-8 h-8 text-primary/50 mb-2" />

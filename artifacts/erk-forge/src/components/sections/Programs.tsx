@@ -53,17 +53,17 @@ export function Programs() {
   ]
 
   return (
-    <section id="programs" className="py-32 relative bg-[#050505]">
+    <section id="programs" className="py-20 relative bg-[#050505]">
       {/* Background Texture */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#333 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#333 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-14">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary font-display uppercase tracking-[0.3em] mb-4 text-sm"
+            className="text-primary font-display uppercase tracking-[0.3em] mb-3 text-xs"
           >
             KOÇLUK SEVİYELERİ
           </motion.h2>
@@ -72,55 +72,54 @@ export function Programs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-display font-bold uppercase"
+            className="text-4xl md:text-5xl font-display font-bold uppercase"
           >
-            SİLAHINI <span className="text-primary forge-glow">SEÇ</span>
+            SİLAHINI <span className="text-primary">SEÇ</span>
           </motion.h3>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {plans.map((plan, idx) => (
             <motion.div
               key={plan.name}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.2, duration: 0.6 }}
-              whileHover={{ y: -10, rotateX: 2, rotateY: 2 }}
-              style={{ transformStyle: "preserve-3d" }}
-              className={`relative flex flex-col p-10 bg-[#0A0A0A] transition-all duration-300 ${
+              transition={{ delay: idx * 0.15, duration: 0.5 }}
+              whileHover={{ y: -6 }}
+              className={`relative flex flex-col p-8 bg-[#0A0A0A] transition-all duration-300 ${
                 plan.highlight 
-                  ? "border-2 border-primary shadow-[0_0_30px_rgba(245,197,24,0.15)] z-10 scale-105" 
+                  ? "border-2 border-primary shadow-[0_0_20px_rgba(245,197,24,0.12)] z-10 lg:scale-[1.03]" 
                   : "border border-white/5 hover:border-white/20"
               }`}
             >
               {plan.highlight && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-black font-display uppercase tracking-[0.2em] text-sm py-1.5 px-6 font-bold shadow-[0_0_15px_rgba(245,197,24,0.5)]">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-black font-display uppercase tracking-[0.2em] text-xs py-1 px-5 font-bold">
                   EN POPÜLER
                 </div>
               )}
               
               {plan.icon}
 
-              <h4 className="font-display text-3xl font-bold uppercase mb-4 text-white tracking-wider">{plan.name}</h4>
-              <p className="text-gray-400 text-base mb-8 h-12">{plan.desc}</p>
+              <h4 className="font-display text-2xl font-bold uppercase mb-3 text-white tracking-wider">{plan.name}</h4>
+              <p className="text-gray-400 text-sm mb-6">{plan.desc}</p>
               
-              <div className="mb-10 flex items-end gap-2 border-b border-white/10 pb-8">
-                <span className="text-6xl font-display font-bold text-white">{plan.price}</span>
-                <span className="text-gray-500 font-sans mb-2">{plan.period}</span>
+              <div className="mb-6 flex items-end gap-2 border-b border-white/10 pb-6">
+                <span className="text-4xl font-display font-bold text-white">{plan.price}</span>
+                <span className="text-gray-500 font-sans text-sm mb-1">{plan.period}</span>
               </div>
 
-              <ul className="flex-1 space-y-5 mb-10">
+              <ul className="flex-1 space-y-3 mb-8">
                 {plan.features.map((feat, i) => (
-                  <li key={i} className="flex items-start gap-4 text-base text-gray-300">
-                    <Check className={`w-6 h-6 shrink-0 ${plan.highlight ? 'text-primary' : 'text-gray-500'}`} />
+                  <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
+                    <Check className={`w-4 h-4 shrink-0 mt-0.5 ${plan.highlight ? 'text-primary' : 'text-gray-500'}`} />
                     <span>{feat}</span>
                   </li>
                 ))}
               </ul>
 
               <button 
-                className={`w-full py-4 font-display text-xl tracking-widest uppercase transition-all duration-300 ${
+                className={`w-full py-3 font-display text-sm tracking-widest uppercase transition-all duration-300 ${
                   plan.highlight 
                     ? "bg-primary text-black hover:bg-white" 
                     : "bg-transparent border border-white/20 text-white hover:bg-white/5 hover:border-white"

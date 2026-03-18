@@ -27,25 +27,25 @@ export function Blog() {
   ]
 
   return (
-    <section id="blog" className="py-32 bg-[#050505] relative border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="blog" className="py-20 bg-[#050505] relative border-t border-white/5">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
           <div>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-primary font-display uppercase tracking-[0.3em] mb-4 text-sm flex items-center gap-3"
+              className="text-primary font-display uppercase tracking-[0.3em] mb-3 text-xs flex items-center gap-2"
             >
-              <BookOpen className="w-5 h-5" /> DEMİR KÜTÜPHANESİ
+              <BookOpen className="w-4 h-4" /> DEMİR KÜTÜPHANESİ
             </motion.h2>
             <motion.h3 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-5xl md:text-6xl font-display font-bold uppercase text-white"
+              className="text-4xl md:text-5xl font-display font-bold uppercase text-white"
             >
               BİLGİ <span className="text-gray-600">GÜÇTÜR</span>
             </motion.h3>

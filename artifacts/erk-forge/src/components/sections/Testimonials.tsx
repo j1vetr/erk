@@ -57,16 +57,16 @@ export function Testimonials() {
   const duplicatedReviews = [...reviews, ...reviews]
 
   return (
-    <section id="testimonials" className="py-32 bg-black relative overflow-hidden border-t border-white/5">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
+    <section id="testimonials" className="py-20 bg-black relative overflow-hidden border-t border-white/5">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-12">
         <div className="text-center">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary font-display uppercase tracking-[0.3em] mb-4 text-sm"
+            className="text-primary font-display uppercase tracking-[0.3em] mb-3 text-xs"
           >
             ATEŞTE DÖVÜLENLER
           </motion.h2>
@@ -75,7 +75,7 @@ export function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-display font-bold uppercase text-white"
+            className="text-4xl md:text-5xl font-display font-bold uppercase text-white"
           >
             BAŞARI <span className="text-gray-600">HİKAYELERİ</span>
           </motion.h3>
