@@ -93,7 +93,7 @@ export function About() {
             transition={{ duration: 0.8, delay: 0.15 }}
           >
             {/* Manifesto başlık */}
-            <h2 className="font-display text-4xl md:text-5xl xl:text-6xl font-bold uppercase leading-[1.0] mb-8 tracking-tight">
+            <h2 className="font-display text-4xl md:text-5xl xl:text-6xl font-bold uppercase leading-[1.2] mb-8 tracking-tight">
               KİŞİSEL KOÇLUKLA<br />
               <span className="text-primary">GERÇEK BİR</span><br />
               DÖNÜŞÜM.

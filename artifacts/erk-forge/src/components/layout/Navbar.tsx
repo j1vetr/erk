@@ -60,7 +60,7 @@ export function Navbar() {
               <img
                 src={`${import.meta.env.BASE_URL}images/logo.png`}
                 alt="Erk Forge Coaching"
-                className="h-20 w-auto object-contain group-hover:scale-105 transition-transform duration-200"
+                className={`w-auto object-contain group-hover:scale-105 transition-all duration-300 ${isScrolled ? "h-14" : "h-20"}`}
               />
             </div>
           </Link>

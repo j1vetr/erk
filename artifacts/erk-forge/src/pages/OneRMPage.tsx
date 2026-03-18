@@ -34,7 +34,7 @@ export default function OneRMPage() {
   return (
     <main className="min-h-screen bg-black text-foreground flex flex-col">
       <Navbar />
-      <div className="flex-1 pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+      <div className="flex-1 pt-32 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto w-full flex flex-col lg:flex-row gap-8">
           <ToolsSidebar />
           <div className="flex-1">
