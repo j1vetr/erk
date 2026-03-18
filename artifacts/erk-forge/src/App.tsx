@@ -6,14 +6,15 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import Home from "@/pages/Home"
 import NotFound from "@/pages/not-found"
 
-// Araç Sayfaları
 import ToolsHub from "@/pages/ToolsHub"
 import BMIPage from "@/pages/BMIPage"
 import CaloriePage from "@/pages/CaloriePage"
 import OneRMPage from "@/pages/OneRMPage"
 import BodyFatPage from "@/pages/BodyFatPage"
 
-// Create a client
+import BlogListPage from "@/pages/BlogListPage"
+import BlogPostPage from "@/pages/BlogPostPage"
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -32,6 +33,8 @@ function Router() {
       <Route path="/araclar/kalori" component={CaloriePage} />
       <Route path="/araclar/1rm" component={OneRMPage} />
       <Route path="/araclar/vucut-analizi" component={BodyFatPage} />
+      <Route path="/blog" component={BlogListPage} />
+      <Route path="/blog/:slug" component={BlogPostPage} />
       <Route component={NotFound} />
     </Switch>
   )
@@ -50,4 +53,4 @@ function App() {
   )
 }
 
-export default App;
+export default App
