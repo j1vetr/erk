@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { ChevronDown, Users, Target, Trophy } from "lucide-react"
 
-function ForgeBackground() {
+function EmberOverlay() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -24,77 +24,48 @@ function ForgeBackground() {
       size: number; life: number; maxLife: number; brightness: number
     }
     const embers: Ember[] = []
-
-    const spawnEmber = () => {
-      embers.push({
-        x: Math.random() * canvas.width,
-        y: canvas.height + 5,
-        vx: (Math.random() - 0.5) * 1.2,
-        vy: -(1.5 + Math.random() * 3),
-        size: 0.8 + Math.random() * 2.5,
-        life: 0,
-        maxLife: 80 + Math.random() * 120,
-        brightness: 0.7 + Math.random() * 0.3,
-      })
-    }
+    const spawn = () => embers.push({
+      x: Math.random() * canvas.width,
+      y: canvas.height + 5,
+      vx: (Math.random() - 0.5) * 1.0,
+      vy: -(1.2 + Math.random() * 2.5),
+      size: 0.6 + Math.random() * 2.0,
+      life: 0,
+      maxLife: 90 + Math.random() * 130,
+      brightness: 0.6 + Math.random() * 0.4,
+    })
 
     let frame = 0
     const draw = () => {
       frame++
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Bottom forge glow
-      const grd = ctx.createRadialGradient(
-        canvas.width * 0.65, canvas.height * 0.9, 0,
-        canvas.width * 0.65, canvas.height * 0.9, canvas.width * 0.5
-      )
-      grd.addColorStop(0, "rgba(80, 50, 0, 0.22)")
-      grd.addColorStop(0.5, "rgba(40, 25, 0, 0.10)")
-      grd.addColorStop(1, "rgba(0,0,0,0)")
-      ctx.fillStyle = grd
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      if (frame % 3 === 0) spawnEmber()
-      if (frame % 7 === 0) spawnEmber()
+      if (frame % 4 === 0) spawn()
+      if (frame % 9 === 0) spawn()
 
       for (let i = embers.length - 1; i >= 0; i--) {
         const e = embers[i]
-        e.x += e.vx + Math.sin(e.life * 0.05) * 0.3
-        e.y += e.vy
-        e.vy *= 0.998
-        e.life++
+        e.x += e.vx + Math.sin(e.life * 0.05) * 0.25
+        e.y += e.vy; e.vy *= 0.999; e.life++
         if (e.life >= e.maxLife || e.y < -10) { embers.splice(i, 1); continue }
         const t = e.life / e.maxLife
         const alpha = e.brightness * (t < 0.15 ? t / 0.15 : 1 - ((t - 0.15) / 0.85))
-        const glow = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, e.size * 3.5)
-        glow.addColorStop(0, `rgba(255,200,40,${alpha * 0.9})`)
-        glow.addColorStop(0.4, `rgba(240,140,10,${alpha * 0.4})`)
-        glow.addColorStop(1, `rgba(200,60,0,0)`)
-        ctx.beginPath(); ctx.arc(e.x, e.y, e.size * 3.5, 0, Math.PI * 2)
-        ctx.fillStyle = glow; ctx.fill()
+        const g = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, e.size * 4)
+        g.addColorStop(0, `rgba(255,210,50,${alpha * 0.85})`)
+        g.addColorStop(0.45, `rgba(240,130,10,${alpha * 0.35})`)
+        g.addColorStop(1, "rgba(180,50,0,0)")
+        ctx.beginPath(); ctx.arc(e.x, e.y, e.size * 4, 0, Math.PI * 2)
+        ctx.fillStyle = g; ctx.fill()
         ctx.beginPath(); ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(255,230,120,${alpha})`; ctx.fill()
+        ctx.fillStyle = `rgba(255,235,130,${alpha})`; ctx.fill()
       }
-
-      // Grid
-      ctx.save()
-      ctx.strokeStyle = "rgba(245,197,24,0.035)"
-      ctx.lineWidth = 1
-      for (let gx = 0; gx < canvas.width; gx += 80) {
-        ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, canvas.height); ctx.stroke()
-      }
-      for (let gy = 0; gy < canvas.height; gy += 80) {
-        ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(canvas.width, gy); ctx.stroke()
-      }
-      ctx.restore()
-
       animId = requestAnimationFrame(draw)
     }
     draw()
     return () => { cancelAnimationFrame(animId); window.removeEventListener("resize", resize) }
   }, [])
 
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }} />
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 2 }} />
 }
 
 export function Hero() {
@@ -105,18 +76,16 @@ export function Hero() {
   const Counter = ({ end, duration, label }: { end: number; duration: number; label: string }) => {
     const [count, setCount] = useState(0)
     useEffect(() => {
-      let startTime: number
-      let animationFrame: number
-      const step = (timestamp: number) => {
-        if (!startTime) startTime = timestamp
-        const progress = Math.min((timestamp - startTime) / duration, 1)
-        setCount(Math.floor((1 - Math.pow(1 - progress, 4)) * end))
-        if (progress < 1) animationFrame = window.requestAnimationFrame(step)
+      let startTime: number; let af: number
+      const step = (ts: number) => {
+        if (!startTime) startTime = ts
+        const p = Math.min((ts - startTime) / duration, 1)
+        setCount(Math.floor((1 - Math.pow(1 - p, 4)) * end))
+        if (p < 1) af = requestAnimationFrame(step)
       }
-      animationFrame = window.requestAnimationFrame(step)
-      return () => window.cancelAnimationFrame(animationFrame)
+      af = requestAnimationFrame(step)
+      return () => cancelAnimationFrame(af)
     }, [end, duration])
-
     return (
       <div className="flex flex-col items-center">
         <span className="font-display text-2xl md:text-3xl text-white font-bold">{count}+</span>
@@ -128,148 +97,122 @@ export function Hero() {
   return (
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-black">
 
-      {/* AI-generated background image */}
+      {/* ── Background Video ── */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={`${import.meta.env.BASE_URL}images/hero-bg.png`}
-          alt=""
+        <video
+          autoPlay muted loop playsInline
           className="w-full h-full object-cover object-center"
-          aria-hidden="true"
-        />
+        >
+          <source src={`${import.meta.env.BASE_URL}videos/hero-bg.mp4`} type="video/mp4" />
+        </video>
       </div>
 
-      <ForgeBackground />
+      {/* ── Coach Photo — pinned to bottom-right, behind overlays ── */}
+      <motion.div
+        initial={{ opacity: 0, x: 60 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+        className="absolute bottom-0 right-0 z-[3] hidden lg:flex items-end justify-end pointer-events-none"
+        style={{ width: "40%", height: "100%" }}
+      >
+        {/* Glow behind figure */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-3/4 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at bottom, rgba(245,197,24,0.15) 0%, rgba(245,197,24,0.04) 55%, transparent 80%)",
+            filter: "blur(40px)",
+          }}
+        />
+        <img
+          src={`${import.meta.env.BASE_URL}images/coach-hero.png`}
+          alt="Erk Forge Koç"
+          className="relative w-full max-w-[500px] h-auto object-contain object-bottom select-none"
+          style={{ filter: "drop-shadow(0 0 60px rgba(245,197,24,0.10))" }}
+          draggable={false}
+        />
+        {/* Ground glow */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-8 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse, rgba(245,197,24,0.28) 0%, transparent 70%)",
+            filter: "blur(12px)",
+          }}
+        />
+      </motion.div>
 
-      {/* Overlays */}
-      <div className="absolute inset-0 z-[2] pointer-events-none">
+      {/* ── Ember particle overlay ── */}
+      <EmberOverlay />
+
+      {/* ── Dark overlays ── */}
+      <div className="absolute inset-0 z-[4] pointer-events-none">
+        <div className="absolute inset-0 bg-black/60" />
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black to-transparent" />
-        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black to-transparent" />
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent" />
-        {/* Darken so text stays readable but background shows through */}
-        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black/60 to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black/40 to-transparent" />
       </div>
 
-      {/* Layout: text left, photo right */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16
-                      flex flex-col lg:flex-row items-center lg:items-end gap-8 lg:gap-0 min-h-screen">
+      {/* ── Content ── */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 min-h-screen flex flex-col justify-center lg:justify-end lg:pb-24">
 
-        {/* LEFT — Text Content */}
-        <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left lg:pb-24 order-2 lg:order-1">
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.1, ease: "easeOut" }}
+          className="font-display text-5xl sm:text-6xl md:text-7xl xl:text-8xl font-bold leading-[0.88] mb-6 drop-shadow-2xl max-w-2xl"
+        >
+          DEMİRDEN <br />
+          <span className="text-primary">YOĞRUL</span>
+        </motion.h1>
 
-          <motion.h1
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, delay: 0.1, ease: "easeOut" }}
-            className="font-display text-5xl sm:text-6xl md:text-7xl xl:text-8xl font-bold leading-[0.88] mb-6 drop-shadow-2xl"
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.3 }}
+          className="max-w-md text-sm md:text-base text-gray-300 mb-8 font-sans font-light leading-relaxed"
+        >
+          Mazeret yok, kestirme yok. Ağır demir, saf irade ve profesyonel rehberlik.
+          Bedenini sıfırdan yeniden inşa etmek için ilk adımı at.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="flex flex-col sm:flex-row gap-3 mb-12"
+        >
+          <button
+            onClick={() => scrollTo("contact")}
+            className="px-8 py-3.5 bg-primary text-black font-display text-sm tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_20px_rgba(245,197,24,0.4)]"
           >
-            DEMİRİ <br />
-            <span className="text-primary">FORGE ET</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, delay: 0.3 }}
-            className="max-w-md text-sm md:text-base text-gray-400 mb-8 font-sans font-light leading-relaxed"
+            Hemen Başla
+          </button>
+          <button
+            onClick={() => scrollTo("programs")}
+            className="px-8 py-3.5 bg-black/50 border border-white/20 text-white font-display text-sm tracking-widest uppercase hover:border-primary hover:text-primary backdrop-blur-sm transition-all duration-300"
           >
-            Bahane yok. Kestirme yok. Sadece ağır demir, saf disiplin ve ustaca bir plan.
-            Fiziğini Erk Forge Koçluğu rehberliğinde baştan yarat.
-          </motion.p>
+            Programları İncele
+          </button>
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex flex-col sm:flex-row gap-3 mb-12"
-          >
-            <button
-              onClick={() => scrollTo("contact")}
-              className="px-8 py-3.5 bg-primary text-black font-display text-sm tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_20px_rgba(245,197,24,0.4)]"
-            >
-              Hemen Başla
-            </button>
-            <button
-              onClick={() => scrollTo("programs")}
-              className="px-8 py-3.5 bg-black/50 border border-white/20 text-white font-display text-sm tracking-widest uppercase hover:border-primary hover:text-primary backdrop-blur-sm transition-all duration-300"
-            >
-              Programları İncele
-            </button>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="grid grid-cols-3 gap-6 md:gap-10 w-full max-w-sm border-t border-white/10 pt-6"
-          >
-            <div className="flex flex-col items-center gap-1">
-              <Users className="w-5 h-5 text-primary/60 mb-1" />
-              <Counter end={500} duration={2000} label="Mutlu Müşteri" />
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <Trophy className="w-5 h-5 text-primary/60 mb-1" />
-              <Counter end={8} duration={2000} label="Yıl Deneyim" />
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <Target className="w-5 h-5 text-primary/60 mb-1" />
-              <Counter end={97} duration={2000} label="% Başarı Oranı" />
-            </div>
-          </motion.div>
-        </div>
-
-        {/* RIGHT — Coach Photo */}
-        <div className="relative flex-shrink-0 flex items-end justify-center order-1 lg:order-2
-                        w-full lg:w-auto h-[55vw] sm:h-[45vw] lg:h-screen max-h-[750px]">
-
-          {/* Yellow glow behind figure */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.5, delay: 0.4 }}
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[60%] rounded-full"
-            style={{
-              background: "radial-gradient(ellipse at bottom, rgba(245,197,24,0.22) 0%, rgba(245,197,24,0.07) 50%, transparent 75%)",
-              filter: "blur(30px)",
-            }}
-          />
-
-          {/* Vertical accent line */}
-          <motion.div
-            initial={{ scaleY: 0, opacity: 0 }}
-            animate={{ scaleY: 1, opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
-            className="absolute left-4 top-[10%] bottom-[5%] w-[2px] bg-gradient-to-b from-transparent via-primary to-transparent origin-top hidden lg:block"
-          />
-
-          {/* Coach image — floating animation */}
-          <motion.div
-            initial={{ opacity: 0, x: 60, filter: "brightness(0.3)" }}
-            animate={{ opacity: 1, x: 0, filter: "brightness(1)" }}
-            transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-            className="relative h-full flex items-end"
-          >
-            <motion.img
-              src={`${import.meta.env.BASE_URL}images/coach-hero.png`}
-              alt="Erk Forge Koç"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-              className="h-full w-auto object-contain object-bottom select-none"
-              style={{ filter: "drop-shadow(0 0 40px rgba(245,197,24,0.15))" }}
-              draggable={false}
-            />
-          </motion.div>
-
-          {/* Bottom ground glow */}
-          <div
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-12 rounded-full"
-            style={{
-              background: "radial-gradient(ellipse, rgba(245,197,24,0.25) 0%, transparent 70%)",
-              filter: "blur(12px)",
-            }}
-          />
-        </div>
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="grid grid-cols-3 gap-6 md:gap-10 w-full max-w-sm border-t border-white/10 pt-6"
+        >
+          <div className="flex flex-col items-center gap-1">
+            <Users className="w-5 h-5 text-primary/60 mb-1" />
+            <Counter end={500} duration={2000} label="Mutlu Müşteri" />
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Trophy className="w-5 h-5 text-primary/60 mb-1" />
+            <Counter end={8} duration={2000} label="Yıl Deneyim" />
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Target className="w-5 h-5 text-primary/60 mb-1" />
+            <Counter end={97} duration={2000} label="% Başarı Oranı" />
+          </div>
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
@@ -281,10 +224,7 @@ export function Hero() {
         onClick={() => scrollTo("about")}
       >
         <span className="font-display uppercase text-xs tracking-[0.3em] hidden sm:block">AŞAĞI İN</span>
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-        >
+        <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}>
           <ChevronDown className="w-6 h-6" />
         </motion.div>
       </motion.div>
