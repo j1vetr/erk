@@ -1,4 +1,5 @@
 import { useState, useRef } from "react"
+import { SEO } from "@/hooks/useSEO"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
@@ -47,6 +48,11 @@ export default function MacroPage() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
+      <SEO
+        title="Makro Hesaplayıcı | Protein Karbonhidrat Yağ Oranları"
+        description="Hedefine göre günlük protein, karbonhidrat ve yağ miktarlarını hesapla. Cut, bulk ve idame fazları için optimize edilmiş makro dağılımı."
+        canonical="/araclar/makro"
+      />
       <Navbar />
 
       <div className="relative pt-28 pb-14 overflow-hidden border-b border-white/8">

@@ -3,6 +3,7 @@ import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
 import { Flame, ChevronRight, ArrowRight, Info, CheckCircle2, TrendingDown, TrendingUp, Minus } from "lucide-react"
+import { SEO } from "@/hooks/useSEO"
 import { Link } from "wouter"
 
 const otherTools = [
@@ -50,6 +51,11 @@ export default function CaloriePage() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
+      <SEO
+        title="Günlük Kalori & TDEE Hesaplayıcı | Erk Forge"
+        description="Yaşına, boyuna, kilona ve aktivite seviyene göre günlük kalori ihtiyacını (TDEE) hesapla. Cut, bulk ve idame için özel kalori hedefleri."
+        canonical="/araclar/kalori"
+      />
       <Navbar />
 
       {/* ── Dramatic Header ── */}

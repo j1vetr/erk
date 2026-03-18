@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer"
 import { motion } from "framer-motion"
 import { Calculator, Activity, Dumbbell, Percent, PieChart, Target, Droplets, Heart } from "lucide-react"
 import { Link } from "wouter"
+import { SEO } from "@/hooks/useSEO"
 
 export default function ToolsHub() {
   const tools = [
@@ -76,6 +77,11 @@ export default function ToolsHub() {
     <main className="min-h-screen bg-black text-foreground flex flex-col">
       <Navbar />
 
+      <SEO
+        title="Forge Araçları | Ücretsiz Fitness Hesaplayıcılar"
+        description="BMI, TDEE, 1RM, vücut yağ oranı, makro, ideal kilo, su ihtiyacı ve nabız bölgesi hesaplayıcıları. Tüm fitness hesaplamalarını tek yerden yap."
+        canonical="/araclar"
+      />
       <div className="flex-1 flex flex-col items-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 relative">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-primary/8 rounded-full blur-[120px] pointer-events-none" />
 

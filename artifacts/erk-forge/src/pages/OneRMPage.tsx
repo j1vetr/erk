@@ -3,6 +3,7 @@ import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
 import { Dumbbell, ChevronRight, ArrowRight, Info, CheckCircle2, Zap } from "lucide-react"
+import { SEO } from "@/hooks/useSEO"
 import { Link } from "wouter"
 
 const otherTools = [
@@ -50,6 +51,11 @@ export default function OneRMPage() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
+      <SEO
+        title="1RM Hesaplayıcı | Maksimum Ağırlık Gücünü Öğren"
+        description="Bench press, squat, deadlift için 1 tekrar maksimumunu (1RM) hesapla. Antrenman yüzdelerini ve güç bölgelerini otomatik olarak gör."
+        canonical="/araclar/1rm"
+      />
       <Navbar />
 
       {/* ── Dramatic Header ── */}

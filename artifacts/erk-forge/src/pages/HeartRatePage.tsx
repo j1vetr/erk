@@ -1,4 +1,5 @@
 import { useState, useRef } from "react"
+import { SEO } from "@/hooks/useSEO"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
@@ -54,6 +55,11 @@ export default function HeartRatePage() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
+      <SEO
+        title="Nabız Bölgesi Hesaplayıcı | Kalp Atış Hızı Bölgeleri"
+        description="Yaşına göre maksimum kalp atış hızını ve antrenman nabız bölgelerini hesapla. Yağ yakma, kardiyo ve zirve bölgelerinde doğru antrenman yap."
+        canonical="/araclar/nabiz-bolgesi"
+      />
       <Navbar />
 
       <div className="relative pt-28 pb-14 overflow-hidden border-b border-white/8">

@@ -5,6 +5,7 @@ import { ArrowLeft, Clock, Tag, ArrowRight, BookOpen } from "lucide-react"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { blogPosts, getBlogPost, type BlogSection } from "@/data/blogPosts"
+import { SEO } from "@/hooks/useSEO"
 
 function RenderSection({ section }: { section: BlogSection }) {
   switch (section.type) {
@@ -87,6 +88,12 @@ export default function BlogPostPage() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
+      <SEO
+        title={`${post.title} | Erk Forge Blog`}
+        description={post.excerpt}
+        canonical={`/blog/${post.slug}`}
+        ogImage={post.image}
+      />
       <Navbar />
 
       {/* ── Hero Image ── */}

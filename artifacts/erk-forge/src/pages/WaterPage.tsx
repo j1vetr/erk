@@ -1,4 +1,5 @@
 import { useState, useRef } from "react"
+import { SEO } from "@/hooks/useSEO"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
@@ -49,6 +50,11 @@ export default function WaterPage() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
+      <SEO
+        title="Su İhtiyacı Hesaplayıcı | Günlük Su Tüketim Miktarı"
+        description="Kilona, aktivite seviyene ve iklime göre günlük su ihtiyacını hesapla. Dehidrasyon belirtilerini ve su tüketim taktiklerini öğren."
+        canonical="/araclar/su-ihtiyaci"
+      />
       <Navbar />
 
       <div className="relative pt-28 pb-14 overflow-hidden border-b border-white/8">

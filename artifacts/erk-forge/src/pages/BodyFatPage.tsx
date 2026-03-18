@@ -3,6 +3,7 @@ import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
 import { Percent, ChevronRight, ArrowRight, Info, CheckCircle2, AlertCircle } from "lucide-react"
+import { SEO } from "@/hooks/useSEO"
 import { Link } from "wouter"
 
 const otherTools = [
@@ -75,6 +76,11 @@ export default function BodyFatPage() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
+      <SEO
+        title="Vücut Yağ Oranı Hesaplayıcı | Yağsız Kütle Analizi"
+        description="ABD Donanması formülüyle vücut yağ oranını ve yağsız vücut kütleni hesapla. Hangi kategoride olduğunu ve ideal hedefini öğren."
+        canonical="/araclar/vucut-analizi"
+      />
       <Navbar />
 
       {/* ── Dramatic Header ── */}

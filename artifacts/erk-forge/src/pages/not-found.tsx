@@ -1,4 +1,5 @@
 import { Link } from "wouter"
+import { SEO } from "@/hooks/useSEO"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { motion } from "framer-motion"
@@ -7,6 +8,12 @@ import { ArrowLeft, Dumbbell, RotateCcw } from "lucide-react"
 export default function NotFound() {
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
+      <SEO
+        title="Sayfa Bulunamadı | Erk Forge Coaching"
+        description="Aradığın sayfa bulunamadı."
+        canonical="/404"
+        noIndex
+      />
       <Navbar />
 
       <div className="flex-1 flex flex-col items-center justify-center relative overflow-hidden pt-24 pb-16 px-4">

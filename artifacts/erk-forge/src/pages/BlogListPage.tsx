@@ -4,6 +4,7 @@ import { Link } from "wouter"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { blogPosts } from "@/data/blogPosts"
+import { SEO } from "@/hooks/useSEO"
 
 export default function BlogListPage() {
   const featured = blogPosts[0]
@@ -11,6 +12,11 @@ export default function BlogListPage() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
+      <SEO
+        title="Blog | Fitness, Beslenme & Zihinsel Güç Yazıları"
+        description="Kas hipertrofisi, yağ yakımı, beslenme stratejileri ve zihinsel güç üzerine bilimsel temelli yazılar. Erk Forge Coaching blogu."
+        canonical="/blog"
+      />
       <Navbar />
 
       {/* ── Header ── */}

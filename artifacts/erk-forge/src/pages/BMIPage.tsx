@@ -3,6 +3,7 @@ import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
 import { Calculator, ChevronRight, ArrowRight, Ruler, Scale, Info, CheckCircle2 } from "lucide-react"
+import { SEO } from "@/hooks/useSEO"
 import { Link } from "wouter"
 
 const otherTools = [
@@ -56,6 +57,11 @@ export default function BMIPage() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
+      <SEO
+        title="BMI Hesaplayıcı | Vücut Kitle İndeksi Hesapla"
+        description="Boy ve kilona göre BMI değerini, sağlık kategorini ve ideal kilo aralığını öğren. Ücretsiz online BMI hesaplayıcı."
+        canonical="/araclar/bmi"
+      />
       <Navbar />
 
       {/* ── Dramatic Header ── */}

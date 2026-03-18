@@ -1,4 +1,5 @@
 import { useState, useRef } from "react"
+import { SEO } from "@/hooks/useSEO"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
@@ -62,6 +63,11 @@ export default function IdealWeightPage() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
+      <SEO
+        title="İdeal Kilo Hesaplayıcı | Sağlıklı Kilo Aralığın"
+        description="Boyuna ve cinsiyetine göre ideal kilonu öğren. Devine, Robinson, Miller ve Hamwi formülleriyle bilimsel ideal kilo hesaplama."
+        canonical="/araclar/ideal-kilo"
+      />
       <Navbar />
 
       <div className="relative pt-28 pb-14 overflow-hidden border-b border-white/8">
