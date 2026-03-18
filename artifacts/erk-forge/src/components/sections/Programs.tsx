@@ -107,39 +107,50 @@ export function Programs() {
               className={`relative text-center py-6 px-4 border transition-all duration-300 group ${
                 selected === i
                   ? p.highlight
-                    ? "bg-primary border-primary"
-                    : "bg-white/8 border-white/40"
-                  : "bg-transparent border-white/10 hover:border-white/30"
+                    ? "bg-primary border-primary shadow-[0_0_40px_rgba(245,197,24,0.3)]"
+                    : "bg-white/8 border-primary/60"
+                  : p.highlight
+                    ? "bg-primary/5 border-primary/30 hover:bg-primary/10 hover:border-primary/60"
+                    : "bg-[#0D0D0D] border-white/15 hover:border-white/35 hover:bg-white/5"
               }`}
             >
-              {p.highlight && selected !== i && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-black font-display text-[9px] tracking-[0.25em] uppercase px-3 py-0.5 font-bold">
-                  {p.tag}
-                </div>
-              )}
-              {selected === i && p.highlight && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-black text-primary font-display text-[9px] tracking-[0.25em] uppercase px-3 py-0.5 font-bold border border-primary">
-                  {p.tag}
-                </div>
-              )}
+              {/* Tag badge — her zaman görünür */}
+              <div className={`absolute -top-3 left-1/2 -translate-x-1/2 font-display text-[9px] tracking-[0.25em] uppercase px-3 py-0.5 font-bold transition-all duration-300 ${
+                selected === i && p.highlight
+                  ? "bg-black text-primary border border-primary"
+                  : p.highlight
+                    ? "bg-primary text-black"
+                    : selected === i
+                      ? "bg-primary/20 text-primary border border-primary/50"
+                      : "bg-white/8 text-white/50 border border-white/15"
+              }`}>
+                {p.tag}
+              </div>
+
               <div className={`font-display text-5xl md:text-7xl font-bold leading-none mb-1 transition-colors ${
                 selected === i
                   ? p.highlight ? "text-black" : "text-primary"
-                  : "text-white/25 group-hover:text-white/50"
+                  : p.highlight
+                    ? "text-primary/70 group-hover:text-primary"
+                    : "text-white/55 group-hover:text-white/80"
               }`}>
                 {p.duration}
               </div>
               <div className={`font-display text-sm tracking-[0.3em] uppercase mb-3 transition-colors ${
                 selected === i
                   ? p.highlight ? "text-black/70" : "text-white"
-                  : "text-white/30 group-hover:text-white/50"
+                  : p.highlight
+                    ? "text-primary/50 group-hover:text-primary/80"
+                    : "text-white/45 group-hover:text-white/70"
               }`}>
                 HAFTA
               </div>
               <div className={`font-display text-xl font-bold transition-colors ${
                 selected === i
                   ? p.highlight ? "text-black" : "text-primary"
-                  : "text-white/40 group-hover:text-white/60"
+                  : p.highlight
+                    ? "text-primary/65 group-hover:text-primary"
+                    : "text-white/55 group-hover:text-white/80"
               }`}>
                 €{p.price}
               </div>
