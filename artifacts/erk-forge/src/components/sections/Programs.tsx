@@ -91,7 +91,7 @@ export function Programs() {
             <div className="w-8 h-px bg-primary" />
           </div>
           <h2 className="font-display text-4xl md:text-6xl font-bold uppercase leading-none mb-4">
-            KAÇA HAFTA <span className="text-primary">ÇALIŞIYORUZ?</span>
+            KAÇ HAFTA <span className="text-primary">ÇALIŞIYORUZ?</span>
           </h2>
           <p className="text-gray-500 text-sm font-sans max-w-lg mx-auto">
             Her pakette aynı koçluk kalitesi, aynı 11 özellik sunulur. Yalnızca süre değişir — süre arttıkça dönüşüm derinleşir.
