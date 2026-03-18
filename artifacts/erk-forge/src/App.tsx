@@ -13,6 +13,10 @@ import BMIPage from "@/pages/BMIPage"
 import CaloriePage from "@/pages/CaloriePage"
 import OneRMPage from "@/pages/OneRMPage"
 import BodyFatPage from "@/pages/BodyFatPage"
+import MacroPage from "@/pages/MacroPage"
+import IdealWeightPage from "@/pages/IdealWeightPage"
+import WaterPage from "@/pages/WaterPage"
+import HeartRatePage from "@/pages/HeartRatePage"
 
 import BlogListPage from "@/pages/BlogListPage"
 import BlogPostPage from "@/pages/BlogPostPage"
@@ -45,6 +49,10 @@ function Router() {
         <Route path="/araclar/kalori" component={CaloriePage} />
         <Route path="/araclar/1rm" component={OneRMPage} />
         <Route path="/araclar/vucut-analizi" component={BodyFatPage} />
+        <Route path="/araclar/makro" component={MacroPage} />
+        <Route path="/araclar/ideal-kilo" component={IdealWeightPage} />
+        <Route path="/araclar/su-ihtiyaci" component={WaterPage} />
+        <Route path="/araclar/nabiz-bolgesi" component={HeartRatePage} />
         <Route path="/blog" component={BlogListPage} />
         <Route path="/blog/:slug" component={BlogPostPage} />
         <Route component={NotFound} />
