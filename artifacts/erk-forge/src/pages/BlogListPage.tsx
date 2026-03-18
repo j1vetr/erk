@@ -55,6 +55,8 @@ export default function BlogListPage() {
                   src={featured.image}
                   alt={featured.title}
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-black/45 group-hover:bg-black/20 transition-colors duration-500" />
                 <div className="absolute top-4 left-4 flex gap-2">
@@ -101,6 +103,8 @@ export default function BlogListPage() {
                       src={post.image}
                       alt={post.title}
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-black/50 group-hover:bg-black/25 transition-colors duration-500" />
                     <div className="absolute top-3 left-3">

@@ -126,7 +126,7 @@ export function Hero() {
         {/* Coach photo */}
         <div className="relative w-full max-w-[460px]">
           <img
-            src={`${import.meta.env.BASE_URL}images/coach-hero.png`}
+            src={`${import.meta.env.BASE_URL}images/coach-hero.webp`}
             alt="Erk Forge Koç"
             className="relative w-full h-auto object-contain object-bottom select-none block"
             style={{

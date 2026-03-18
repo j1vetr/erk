@@ -27,7 +27,7 @@ export const blogPosts: BlogPost[] = [
       "Haftada 5 mi, 4 mü, 3 mü? Antrenman sıklığı sorusunun bilimsel cevabı — ve neden çoğu insanın yaptığı yanlış.",
     date: "14 Mart 2026",
     readTime: "7 dk okuma",
-    image: "/images/blog-antrenman-sikligi.png",
+    image: "/images/blog-antrenman-sikligi.webp",
     tags: ["Hipertrofi", "Antrenman Planı", "Bilim"],
     content: [
       {
@@ -98,7 +98,7 @@ export const blogPosts: BlogPost[] = [
       "Kalori açığındayken kas kütleni nasıl korursun? Bilimsel temelli 5 strateji ile definasyon sürecini daha akıllıca yönet.",
     date: "28 Şubat 2026",
     readTime: "8 dk okuma",
-    image: "/images/blog-definasyon.png",
+    image: "/images/blog-definasyon.webp",
     tags: ["Definasyon", "Beslenme", "Kas Koruma"],
     content: [
       {
@@ -173,7 +173,7 @@ export const blogPosts: BlogPost[] = [
       "\"Aç karnına sabah koşusu daha fazla yağ yakar\" tezi yıllardır fitness dünyasında dolaşıyor. Bilim ne diyor?",
     date: "10 Şubat 2026",
     readTime: "6 dk okuma",
-    image: "/images/blog-sabah-kardiyo.png",
+    image: "/images/blog-sabah-kardiyo.webp",
     tags: ["Kardiyo", "Yağ Yakımı", "Bilim"],
     content: [
       {
@@ -240,7 +240,7 @@ export const blogPosts: BlogPost[] = [
       "Antrenman sonrası 30 dakika içinde protein yemezsen kas kaybeder misin? Anabolik pencere efsanesinin gerçeği.",
     date: "25 Ocak 2026",
     readTime: "7 dk okuma",
-    image: "/images/blog-protein.png",
+    image: "/images/blog-protein.webp",
     tags: ["Protein", "Beslenme", "Anabolik Pencere"],
     content: [
       {
@@ -307,7 +307,7 @@ export const blogPosts: BlogPost[] = [
       "Zor setin ortasında aklın seni durdurmaya çalışır. Beden hazır olsa bile beyin dur der. İşte bu sinyalin nasıl aşıldığı.",
     date: "8 Ocak 2026",
     readTime: "6 dk okuma",
-    image: "/images/blog-mental.png",
+    image: "/images/blog-mental.webp",
     tags: ["Mental Güç", "Disiplin", "Psikoloji"],
     content: [
       {

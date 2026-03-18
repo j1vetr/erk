@@ -64,9 +64,11 @@ export function About() {
             {/* Fotoğraf */}
             <div className="overflow-hidden relative">
               <img
-                src={`${import.meta.env.BASE_URL}images/coach-portrait.jpg`}
+                src={`${import.meta.env.BASE_URL}images/coach-portrait.webp`}
                 alt="Erk Forge Koç"
                 className="w-full object-cover object-top"
+                loading="lazy"
+                decoding="async"
                 style={{ aspectRatio: "3/4", filter: "contrast(1.08) brightness(0.92)" }}
               />
               {/* Fotoğraf üstü gradient */}
