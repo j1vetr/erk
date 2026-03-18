@@ -11,11 +11,17 @@ export function Programs() {
       period: "€",
       desc: "Temeli sağlam atmak isteyenler için güçlü bir başlangıç.",
       features: [
-        "Kişiselleştirilmiş Antrenman Programı",
-        "Makro ve Kalori Planlaması",
-        "Haftalık Form ve Gelişim Takibi",
-        "WhatsApp Destek Hattı",
-        "Egzersiz Video Kütüphanesi"
+        "Hedefe ve yaşam tarzına özel antrenman planı",
+        "Kişiye özel makro ve kalori hesaplaması",
+        "Sürdürülebilir beslenme planı",
+        "Haftalık check-in (ölçü, kilo, fotoğraf değerlendirmesi)",
+        "İlerlemeye göre program revizyonu",
+        "WhatsApp üzerinden destek ve günlük mesajlaşma",
+        "Doğru form ve teknik rehberliği",
+        "Gerekirse birebir video analiz",
+        "Kısa ve uzun vadeli hedef belirleme",
+        "Disiplin ve alışkanlık kazandırma",
+        "Takviye (supplement) rehberliği"
       ],
       highlight: false
     },
@@ -27,12 +33,17 @@ export function Programs() {
       period: "€",
       desc: "Kalıcı dönüşüm için en çok tercih edilen program.",
       features: [
-        "Kişiselleştirilmiş Antrenman Periyotlaması",
-        "Detaylı Kişiye Özel Beslenme Planı",
-        "Haftalık Form ve Gelişim Kontrolü",
-        "Sınırsız Video Form Analizi",
-        "Doğrudan WhatsApp İletişimi",
-        "Supplement Protokolleri"
+        "Hedefe ve yaşam tarzına özel antrenman planı",
+        "Kişiye özel makro ve kalori hesaplaması",
+        "Sürdürülebilir beslenme planı",
+        "Haftalık check-in (ölçü, kilo, fotoğraf değerlendirmesi)",
+        "İlerlemeye göre program revizyonu",
+        "WhatsApp üzerinden destek ve günlük mesajlaşma",
+        "Doğru form ve teknik rehberliği",
+        "Gerekirse birebir video analiz",
+        "Kısa ve uzun vadeli hedef belirleme",
+        "Disiplin ve alışkanlık kazandırma",
+        "Takviye (supplement) rehberliği"
       ],
       highlight: true
     },
@@ -44,12 +55,17 @@ export function Programs() {
       period: "€",
       desc: "Fiziğinin sınırlarını zorlamak isteyen kararlı sporcular için.",
       features: [
-        "12 Haftalık Paketteki Her Şey",
-        "Günlük Mikro Ayarlamalar",
-        "Yarışma / Peak Haftası Planlaması",
-        "1x Canlı Görüntülü Görüşme",
-        "Kan Tahlili Analizi ve Yönlendirme",
-        "Öncelikli 7/24 Erişim"
+        "Hedefe ve yaşam tarzına özel antrenman planı",
+        "Kişiye özel makro ve kalori hesaplaması",
+        "Sürdürülebilir beslenme planı",
+        "Haftalık check-in (ölçü, kilo, fotoğraf değerlendirmesi)",
+        "İlerlemeye göre program revizyonu",
+        "WhatsApp üzerinden destek ve günlük mesajlaşma",
+        "Doğru form ve teknik rehberliği",
+        "Gerekirse birebir video analiz",
+        "Kısa ve uzun vadeli hedef belirleme",
+        "Disiplin ve alışkanlık kazandırma",
+        "Takviye (supplement) rehberliği"
       ],
       highlight: false
     }
