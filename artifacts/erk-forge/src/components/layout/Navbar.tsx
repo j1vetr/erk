@@ -56,11 +56,13 @@ export function Navbar() {
           
           {/* Logo */}
           <Link href="/" className="flex items-center cursor-pointer group">
-            <img
-              src={`${import.meta.env.BASE_URL}images/logo.png`}
-              alt="Erk Forge Coaching"
-              className="h-14 w-auto object-contain group-hover:scale-105 transition-transform duration-200"
-            />
+            <div className="bg-black/60 rounded-sm px-3 py-1 backdrop-blur-sm border border-white/5 group-hover:border-primary/30 transition-all duration-200">
+              <img
+                src={`${import.meta.env.BASE_URL}images/logo.png`}
+                alt="Erk Forge Coaching"
+                className="h-20 w-auto object-contain group-hover:scale-105 transition-transform duration-200"
+              />
+            </div>
           </Link>
 
           {/* Desktop Nav */}
