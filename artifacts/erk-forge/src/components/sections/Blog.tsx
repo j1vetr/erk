@@ -10,13 +10,13 @@ export function Blog() {
     <section id="blog" className="py-20 bg-[#050505] relative border-t border-white/5">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-4 text-center md:text-left">
           <div>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-primary font-display uppercase tracking-[0.3em] mb-3 text-xs flex items-center gap-2"
+              className="text-primary font-display uppercase tracking-[0.3em] mb-3 text-xs flex items-center justify-center md:justify-start gap-2"
             >
               <BookOpen className="w-4 h-4" /> DEMİR KÜTÜPHANESİ
             </motion.h2>
@@ -32,7 +32,7 @@ export function Blog() {
           </div>
 
           <Link href="/blog">
-            <button className="text-primary font-display tracking-widest uppercase hover:text-white transition-colors flex items-center gap-2 pb-2 border-b border-primary/30 hover:border-white text-sm">
+            <button className="text-primary font-display tracking-widest uppercase hover:text-white transition-colors flex items-center gap-2 pb-2 border-b border-primary/30 hover:border-white text-sm mx-auto md:mx-0">
               Tüm Yazıları Gör <ArrowRight className="w-4 h-4" />
             </button>
           </Link>
