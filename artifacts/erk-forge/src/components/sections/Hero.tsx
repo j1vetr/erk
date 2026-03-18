@@ -164,7 +164,7 @@ export function Hero() {
       </div>
 
       {/* ── Content ── */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 min-h-screen flex flex-col justify-center lg:justify-end lg:pb-24">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 min-h-screen flex flex-col items-center lg:items-start justify-center lg:justify-end lg:pb-24 text-center lg:text-left">
 
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
@@ -190,7 +190,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex flex-col sm:flex-row gap-3 mb-12"
+          className="flex flex-col sm:flex-row gap-3 mb-12 w-full max-w-sm lg:max-w-none lg:w-auto"
         >
           <button
             onClick={() => scrollTo("contact")}
