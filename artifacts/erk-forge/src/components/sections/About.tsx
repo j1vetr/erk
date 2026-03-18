@@ -47,9 +47,9 @@ export function About() {
             <div className="absolute -inset-4 bg-primary/10 blur-3xl z-0 rounded-full" />
             <div className="relative z-10 border-2 border-white/5 bg-[#050505] p-2 transform -rotate-2 hover:rotate-0 transition-transform duration-500">
               <img 
-                src={`${import.meta.env.BASE_URL}images/coach-portrait.png`} 
+                src={`${import.meta.env.BASE_URL}images/coach-portrait.jpg`} 
                 alt="Koç Erk" 
-                className="w-full h-auto object-cover grayscale-[0.5] contrast-[1.2]"
+                className="w-full h-auto object-cover object-top"
               />
             </div>
             
