@@ -63,7 +63,7 @@ export function Contact() {
                 </div>
                 <div>
                   <div className="text-sm text-gray-500 font-display uppercase tracking-[0.2em] mb-1">Telefon / WhatsApp</div>
-                  <div className="font-sans text-xl text-white group-hover:text-primary transition-colors">+90 555 123 45 67</div>
+                  <div className="font-sans text-xl text-white group-hover:text-primary transition-colors">+90 548 844 19 99</div>
                 </div>
               </div>
 
