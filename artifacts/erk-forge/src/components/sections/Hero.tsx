@@ -113,7 +113,7 @@ export function Hero() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
         className="absolute bottom-0 z-[6] hidden lg:flex items-end justify-end pointer-events-none"
-        style={{ width: "28%", height: "100%", right: "4%" }}
+        style={{ width: "33%", height: "100%", right: "12%" }}
       >
         {/* Glow behind figure */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-3/4 pointer-events-none"
@@ -124,7 +124,7 @@ export function Hero() {
         />
 
         {/* Coach photo */}
-        <div className="relative w-full max-w-[400px]">
+        <div className="relative w-full max-w-[460px]">
           <img
             src={`${import.meta.env.BASE_URL}images/coach-hero.png`}
             alt="Erk Forge Koç"
@@ -136,7 +136,7 @@ export function Hero() {
                 "drop-shadow(0 0 1px #F5C518)",
                 "drop-shadow(0 0 4px rgba(245,197,24,0.45))",
               ].join(" "),
-              opacity: 0.88,
+              opacity: 0.70,
             }}
             draggable={false}
           />
