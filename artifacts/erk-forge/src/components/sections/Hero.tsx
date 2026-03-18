@@ -123,8 +123,9 @@ export function Hero() {
           }}
         />
 
-        {/* Coach photo with neon silhouette outline */}
+        {/* Coach photo — ince kontur + dönen ışık orbu */}
         <div className="relative w-full max-w-[500px]">
+          {/* Fotoğraf: ince statik altın kontur */}
           <img
             src={`${import.meta.env.BASE_URL}images/coach-hero.png`}
             alt="Erk Forge Koç"
@@ -133,14 +134,44 @@ export function Hero() {
               filter: [
                 "brightness(1.06)",
                 "contrast(1.08)",
-                "drop-shadow(0 0 2px #F5C518)",
-                "drop-shadow(0 0 5px #F5C518)",
-                "drop-shadow(0 0 12px rgba(245,197,24,0.75))",
-                "drop-shadow(0 0 28px rgba(245,197,24,0.35))",
+                "drop-shadow(0 0 1px #F5C518)",
+                "drop-shadow(0 0 3px rgba(245,197,24,0.55))",
               ].join(" "),
             }}
             draggable={false}
           />
+
+          {/* Dönen parlak ışık orbu — vücudun siluetini takip eder */}
+          <div className="absolute inset-0 pointer-events-none overflow-visible">
+            {/* Ana orb */}
+            <div
+              style={{
+                position: "absolute",
+                width: "14px",
+                height: "14px",
+                borderRadius: "50%",
+                background: "radial-gradient(circle, #ffffff 0%, #F5C518 45%, transparent 75%)",
+                boxShadow: "0 0 10px 4px rgba(245,197,24,1), 0 0 22px 10px rgba(245,197,24,0.55), 0 0 40px 18px rgba(245,197,24,0.2)",
+                offsetPath: "ellipse(36% 44% at 50% 42%)",
+                animation: "body-orbit 4s linear infinite",
+              } as React.CSSProperties}
+            />
+            {/* Kuyruk / iz — biraz geride, sönük */}
+            <div
+              style={{
+                position: "absolute",
+                width: "10px",
+                height: "10px",
+                borderRadius: "50%",
+                background: "radial-gradient(circle, #F5C518 0%, transparent 70%)",
+                boxShadow: "0 0 8px 4px rgba(245,197,24,0.6)",
+                opacity: 0.55,
+                offsetPath: "ellipse(36% 44% at 50% 42%)",
+                animation: "body-orbit 4s linear infinite",
+                animationDelay: "-0.35s",
+              } as React.CSSProperties}
+            />
+          </div>
         </div>
 
         {/* Ground glow */}
