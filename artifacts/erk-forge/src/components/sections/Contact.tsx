@@ -39,7 +39,7 @@ export function Contact() {
             <h2 className="text-primary font-display uppercase tracking-[0.3em] mb-3 flex items-center gap-3 text-xs">
               <span className="w-10 h-[2px] bg-primary block"></span> İLETİŞİME GEÇ
             </h2>
-            <h3 className="text-3xl md:text-5xl font-display font-bold uppercase text-white mb-6 leading-[0.95]">
+            <h3 className="text-3xl md:text-5xl font-display font-bold uppercase text-white mb-6 leading-[1.1]">
               ATEŞE ADIM <br/> <span className="text-primary">ATMAYA HAZIR MISIN?</span>
             </h3>
             <p className="text-gray-400 mb-10 text-sm md:text-base font-sans leading-relaxed">

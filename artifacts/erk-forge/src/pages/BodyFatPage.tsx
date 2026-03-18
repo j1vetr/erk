@@ -57,7 +57,7 @@ export default function BodyFatPage() {
             <div className="flex items-center gap-3 mb-4">
               <Percent className="w-7 h-7 text-primary" />
               <h1 className="text-3xl md:text-4xl font-display font-bold uppercase text-white">
-                VÜCUT YAĞ <span className="text-gray-600">ORANI</span>
+                VÜCUT YAĞ <span className="text-white/30">ORANI</span>
               </h1>
             </div>
             <p className="text-gray-400 font-sans mb-6 text-sm leading-relaxed max-w-3xl">

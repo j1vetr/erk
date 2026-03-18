@@ -47,7 +47,7 @@ export function Blog() {
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-5xl font-display font-bold uppercase text-white"
             >
-              BİLGİ <span className="text-gray-600">GÜÇTÜR</span>
+              BİLGİ <span className="text-white/35">GÜÇTÜR</span>
             </motion.h3>
           </div>
           

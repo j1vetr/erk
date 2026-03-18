@@ -41,7 +41,7 @@ export default function OneRMPage() {
             <div className="flex items-center gap-3 mb-4">
               <Dumbbell className="w-7 h-7 text-primary" />
               <h1 className="text-3xl md:text-4xl font-display font-bold uppercase text-white">
-                1RM <span className="text-gray-600">HESAPLAYICI</span>
+                1RM <span className="text-white/30">HESAPLAYICI</span>
               </h1>
             </div>
             <p className="text-gray-400 font-sans mb-6 text-sm leading-relaxed max-w-3xl">

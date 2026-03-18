@@ -77,7 +77,7 @@ export function Testimonials() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-5xl font-display font-bold uppercase text-white"
           >
-            BAŞARI <span className="text-gray-600">HİKAYELERİ</span>
+            BAŞARI <span className="text-white/35">HİKAYELERİ</span>
           </motion.h3>
         </div>
       </div>

@@ -47,7 +47,7 @@ export default function BMIPage() {
             <div className="flex items-center gap-3 mb-6">
               <Calculator className="w-7 h-7 text-primary" />
               <h1 className="text-3xl md:text-4xl font-display font-bold uppercase text-white">
-                BMI <span className="text-gray-600">HESAPLAYICI</span>
+                BMI <span className="text-white/30">HESAPLAYICI</span>
               </h1>
             </div>
 

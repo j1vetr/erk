@@ -37,7 +37,7 @@ export default function CaloriePage() {
             <div className="flex items-center gap-3 mb-6">
               <Activity className="w-7 h-7 text-primary" />
               <h1 className="text-3xl md:text-4xl font-display font-bold uppercase text-white">
-                GÜNLÜK KALORİ <span className="text-gray-600">(TDEE)</span>
+                GÜNLÜK KALORİ <span className="text-white/30">(TDEE)</span>
               </h1>
             </div>
 
