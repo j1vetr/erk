@@ -164,13 +164,4 @@
   to   { transform: rotate(360deg); }
 }
 
-@keyframes body-orbit {
-  from { offset-distance: 0%; }
-  to   { offset-distance: 100%; }
-}
-
-@keyframes orb-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.75; transform: scale(0.7); }
-}
 
