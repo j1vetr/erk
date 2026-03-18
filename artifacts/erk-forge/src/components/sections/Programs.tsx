@@ -5,47 +5,50 @@ export function Programs() {
   const plans = [
     {
       icon: <Zap className="w-10 h-10 text-gray-400 mb-6" />,
-      name: "BAŞLANGIÇ",
-      price: "1500",
-      period: "₺ / aylık",
-      desc: "Ateşe ilk adımını atanlar için temel disiplin.",
+      name: "8 HAFTA",
+      duration: "8 Haftalık Program",
+      price: "135",
+      period: "€",
+      desc: "Temeli sağlam atmak isteyenler için güçlü bir başlangıç.",
       features: [
-        "Kişiselleştirilmiş Antrenman Programı", 
-        "Temel Makro ve Kalori Planlaması", 
-        "Aylık Form Kontrolü", 
-        "E-posta Desteği",
+        "Kişiselleştirilmiş Antrenman Programı",
+        "Makro ve Kalori Planlaması",
+        "Haftalık Form ve Gelişim Takibi",
+        "WhatsApp Destek Hattı",
         "Egzersiz Video Kütüphanesi"
       ],
       highlight: false
     },
     {
       icon: <Flame className="w-10 h-10 text-primary mb-6 drop-shadow-[0_0_10px_rgba(245,197,24,0.8)]" />,
-      name: "PRO FORGE",
-      price: "2500",
-      period: "₺ / aylık",
-      desc: "Ciddi hedefleri olan sporcular için kapsamlı koçluk.",
+      name: "12 HAFTA",
+      duration: "12 Haftalık Program",
+      price: "170",
+      period: "€",
+      desc: "Kalıcı dönüşüm için en çok tercih edilen program.",
       features: [
-        "İleri Seviye Antrenman Periyotlaması", 
-        "Detaylı Kişiye Özel Beslenme Planı", 
-        "Haftalık Form ve Gelişim Kontrolü", 
-        "Sınırsız Video Form Analizi", 
-        "Doğrudan WhatsApp İletişimi", 
+        "Kişiselleştirilmiş Antrenman Periyotlaması",
+        "Detaylı Kişiye Özel Beslenme Planı",
+        "Haftalık Form ve Gelişim Kontrolü",
+        "Sınırsız Video Form Analizi",
+        "Doğrudan WhatsApp İletişimi",
         "Supplement Protokolleri"
       ],
       highlight: true
     },
     {
       icon: <Crown className="w-10 h-10 text-white mb-6" />,
-      name: "ELİT DEMİR",
-      price: "4000",
-      period: "₺ / aylık",
-      desc: "Fiziğinin sınırlarını zorlamak isteyen şampiyonlar için.",
+      name: "16 HAFTA",
+      duration: "16 Haftalık Program",
+      price: "200",
+      period: "€",
+      desc: "Fiziğinin sınırlarını zorlamak isteyen kararlı sporcular için.",
       features: [
-        "Pro Forge'daki Her Şey", 
-        "Günlük Mikro Ayarlamalar", 
-        "Yarışma / Peak Haftası Planlaması", 
-        "Aylık 1x Canlı Görüntülü Görüşme", 
-        "Kan Tahlili Analizi ve Yönlendirme", 
+        "12 Haftalık Paketteki Her Şey",
+        "Günlük Mikro Ayarlamalar",
+        "Yarışma / Peak Haftası Planlaması",
+        "1x Canlı Görüntülü Görüşme",
+        "Kan Tahlili Analizi ve Yönlendirme",
         "Öncelikli 7/24 Erişim"
       ],
       highlight: false
@@ -65,7 +68,7 @@ export function Programs() {
             viewport={{ once: true }}
             className="text-primary font-display uppercase tracking-[0.3em] mb-3 text-xs"
           >
-            KOÇLUK SEVİYELERİ
+            KOÇLUK PAKETLERİ
           </motion.h2>
           <motion.h3 
             initial={{ opacity: 0, y: 20 }}
@@ -74,7 +77,7 @@ export function Programs() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-5xl font-display font-bold uppercase"
           >
-            SİLAHINI <span className="text-primary">SEÇ</span>
+            PROGRAMINI <span className="text-primary">SEÇ</span>
           </motion.h3>
         </div>
 
@@ -101,12 +104,13 @@ export function Programs() {
               
               {plan.icon}
 
-              <h4 className="font-display text-2xl font-bold uppercase mb-3 text-white tracking-wider">{plan.name}</h4>
+              <h4 className="font-display text-2xl font-bold uppercase mb-1 text-white tracking-wider">{plan.name}</h4>
+              <p className="text-primary/70 font-display text-xs uppercase tracking-widest mb-3">{plan.duration}</p>
               <p className="text-gray-400 text-sm mb-6">{plan.desc}</p>
               
-              <div className="mb-6 flex items-end gap-2 border-b border-white/10 pb-6">
-                <span className="text-4xl font-display font-bold text-white">{plan.price}</span>
-                <span className="text-gray-500 font-sans text-sm mb-1">{plan.period}</span>
+              <div className="mb-6 flex items-end gap-1 border-b border-white/10 pb-6">
+                <span className="text-gray-400 font-sans text-xl mb-1">{plan.period}</span>
+                <span className="text-5xl font-display font-bold text-white leading-none">{plan.price}</span>
               </div>
 
               <ul className="flex-1 space-y-3 mb-8">
