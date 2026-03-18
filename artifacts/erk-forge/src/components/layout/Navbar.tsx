@@ -34,11 +34,14 @@ export function Navbar() {
   ]
 
   const toolLinks = [
-    { name: "Araçlar Merkezi", path: "/araclar" },
     { name: "BMI Hesaplayıcı", path: "/araclar/bmi" },
     { name: "Kalori (TDEE)", path: "/araclar/kalori" },
     { name: "1RM Maksimum", path: "/araclar/1rm" },
     { name: "Vücut Analizi", path: "/araclar/vucut-analizi" },
+    { name: "Makro Hesaplayıcı", path: "/araclar/makro" },
+    { name: "İdeal Kilo", path: "/araclar/ideal-kilo" },
+    { name: "Su İhtiyacı", path: "/araclar/su-ihtiyaci" },
+    { name: "Nabız Bölgesi", path: "/araclar/nabiz-bolgesi" },
   ]
 
   return (
@@ -95,13 +98,21 @@ export function Navbar() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 w-56 bg-[#111] border border-white/10 shadow-2xl rounded-sm py-2 overflow-hidden"
+                    className="absolute top-full left-1/2 -translate-x-1/2 w-[380px] bg-[#111] border border-white/10 shadow-2xl rounded-sm overflow-hidden"
                   >
-                    {toolLinks.map((tool) => (
-                      <Link key={tool.path} href={tool.path} className="block px-4 py-3 font-display tracking-wider text-gray-400 hover:text-black hover:bg-primary transition-colors text-sm">
-                        {tool.name}
+                    <div className="px-4 py-3 border-b border-white/8 flex items-center justify-between">
+                      <span className="font-display text-xs uppercase tracking-widest text-white/40">Forge Araçları</span>
+                      <Link href="/araclar" className="font-display text-xs uppercase tracking-widest text-primary hover:text-white transition-colors">
+                        Tümü →
                       </Link>
-                    ))}
+                    </div>
+                    <div className="grid grid-cols-2 gap-px bg-white/5 p-px">
+                      {toolLinks.map((tool) => (
+                        <Link key={tool.path} href={tool.path} className="block px-4 py-3 bg-[#111] font-display tracking-wider text-gray-400 hover:text-black hover:bg-primary transition-colors text-xs uppercase">
+                          {tool.name}
+                        </Link>
+                      ))}
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
