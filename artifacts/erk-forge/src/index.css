@@ -164,6 +164,3 @@
   to   { transform: rotate(360deg); }
 }
 
-.hero-photo-ring {
-  animation: spin-conic 3s linear infinite;
-}

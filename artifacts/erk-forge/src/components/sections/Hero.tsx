@@ -123,24 +123,21 @@ export function Hero() {
           }}
         />
 
-        {/* Photo + spinning border */}
+        {/* Coach photo with neon silhouette outline */}
         <div className="relative w-full max-w-[500px]">
-          {/* Spinning gradient ring — only THIS div rotates */}
-          <div
-            className="hero-photo-ring absolute inset-[-3px] pointer-events-none"
-            style={{
-              background: "conic-gradient(from 0deg, transparent 50deg, #F5C518 80deg, #fff8a0 110deg, #F5C518 140deg, transparent 170deg, transparent 360deg)",
-              zIndex: 0,
-            }}
-          />
-          {/* Image — stationary */}
           <img
             src={`${import.meta.env.BASE_URL}images/coach-hero.png`}
             alt="Erk Forge Koç"
             className="relative w-full h-auto object-contain object-bottom select-none block"
             style={{
-              zIndex: 1,
-              filter: "brightness(1.08) contrast(1.05) drop-shadow(0 0 30px rgba(245,197,24,0.2))",
+              filter: [
+                "brightness(1.06)",
+                "contrast(1.08)",
+                "drop-shadow(0 0 2px #F5C518)",
+                "drop-shadow(0 0 5px #F5C518)",
+                "drop-shadow(0 0 12px rgba(245,197,24,0.75))",
+                "drop-shadow(0 0 28px rgba(245,197,24,0.35))",
+              ].join(" "),
             }}
             draggable={false}
           />
