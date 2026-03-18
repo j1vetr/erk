@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
@@ -24,12 +24,14 @@ export default function OneRMPage() {
   const [weight, setWeight] = useState("")
   const [reps, setReps] = useState("")
   const [result, setResult] = useState<number | null>(null)
+  const resultRef = useRef<HTMLDivElement>(null)
 
   const calculate = (e: React.FormEvent) => {
     e.preventDefault()
     const w = parseFloat(weight), r = parseInt(reps)
     if (w > 0 && r > 0 && r <= 30) {
       setResult(Math.round(w * (1 + r / 30)))
+      setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }), 120)
     }
   }
 
@@ -162,7 +164,7 @@ export default function OneRMPage() {
             </div>
 
             {/* Result */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-3" ref={resultRef}>
               <AnimatePresence mode="wait">
                 {result ? (
                   <motion.div key="result" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
@@ -41,6 +41,7 @@ export default function BodyFatPage() {
   const [hipVal, setHipVal] = useState("")
   const [result, setResult] = useState<number | null>(null)
   const [showGuide, setShowGuide] = useState(false)
+  const resultRef = useRef<HTMLDivElement>(null)
 
   const calculate = (e: React.FormEvent) => {
     e.preventDefault()
@@ -53,7 +54,10 @@ export default function BodyFatPage() {
         const hp = parseFloat(hipVal)
         if (hp > 0) bf = 495 / (1.29579 - 0.35004 * Math.log10(w + hp - n) + 0.22100 * Math.log10(h)) - 450
       }
-      if (!isNaN(bf)) setResult(Math.max(1, Math.min(60, bf)))
+      if (!isNaN(bf)) {
+        setResult(Math.max(1, Math.min(60, bf)))
+        setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }), 120)
+      }
     }
   }
 
@@ -226,7 +230,7 @@ export default function BodyFatPage() {
             </div>
 
             {/* Result */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2" ref={resultRef}>
               <AnimatePresence mode="wait">
                 {result !== null && cat ? (
                   <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">

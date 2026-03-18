@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
@@ -16,8 +16,11 @@ export default function BMIPage() {
   const [weight, setWeight] = useState("")
   const [result, setResult] = useState<{ bmi: string; category: string; color: string; bgColor: string; text: string; tip: string } | null>(null)
   const [showCTA, setShowCTA] = useState(false)
+  const resultRef = useRef<HTMLDivElement>(null)
 
-  const calculate = (h = height, w = weight) => {
+  const scrollToResult = () => setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }), 120)
+
+  const calculate = (h = height, w = weight, scroll = false) => {
     const hNum = parseFloat(h) / 100
     const wNum = parseFloat(w)
     if (hNum > 0 && wNum > 0) {
@@ -43,6 +46,7 @@ export default function BMIPage() {
       }
       setResult({ bmi, category, color, bgColor, text, tip })
       setShowCTA(true)
+      if (scroll) scrollToResult()
     }
   }
 
@@ -147,7 +151,7 @@ export default function BMIPage() {
                 </div>
 
                 <button
-                  onClick={() => calculate()}
+                  onClick={() => calculate(height, weight, true)}
                   disabled={!filed}
                   className="w-full bg-primary text-black py-4 font-display text-sm uppercase tracking-[0.2em] font-bold hover:bg-white transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(245,197,24,0.25)] flex items-center justify-center gap-3"
                 >
@@ -180,7 +184,7 @@ export default function BMIPage() {
             </div>
 
             {/* Result */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2" ref={resultRef}>
               <AnimatePresence mode="wait">
                 {result ? (
                   <motion.div

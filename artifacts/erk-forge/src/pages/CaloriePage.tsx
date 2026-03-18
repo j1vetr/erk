@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
@@ -27,6 +27,7 @@ export default function CaloriePage() {
   const [gender, setGender] = useState("erkek")
   const [activity, setActivity] = useState("")
   const [result, setResult] = useState<{ tdee: number; bmr: number; cut: number; bulk: number } | null>(null)
+  const resultRef = useRef<HTMLDivElement>(null)
 
   const calculate = () => {
     const w = parseFloat(weight), h = parseFloat(height), a = parseFloat(age)
@@ -35,6 +36,7 @@ export default function CaloriePage() {
       bmr += gender === "erkek" ? 5 : -161
       const tdee = Math.round(bmr * parseFloat(activity))
       setResult({ bmr: Math.round(bmr), tdee, cut: tdee - 500, bulk: tdee + 300 })
+      setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }), 120)
     }
   }
 
@@ -227,7 +229,7 @@ export default function CaloriePage() {
             </div>
 
             {/* Result */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2" ref={resultRef}>
               <AnimatePresence mode="wait">
                 {result ? (
                   <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
