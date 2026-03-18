@@ -31,7 +31,6 @@ export function Navbar() {
     { name: "Hakkımda", id: "about" },
     { name: "Programlar", id: "programs" },
     { name: "Referanslar", id: "testimonials" },
-    { name: "Blog", id: "blog" },
   ]
 
   const toolLinks = [
@@ -74,6 +73,11 @@ export function Navbar() {
                 {link.name}
               </button>
             ))}
+
+            {/* Blog direct link */}
+            <Link href="/blog" className="text-[15px] font-display tracking-[0.18em] text-white/80 hover:text-primary transition-colors uppercase">
+              Blog
+            </Link>
 
             {/* Tools Dropdown */}
             <div
@@ -141,6 +145,10 @@ export function Navbar() {
                   {link.name}
                 </button>
               ))}
+
+              <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="text-left font-display text-3xl text-white/80 hover:text-primary border-b border-white/5 pb-4 uppercase tracking-widest">
+                Blog
+              </Link>
 
               <div className="border-b border-white/5 pb-4">
                 <span className="text-left font-display text-3xl text-primary block mb-4 uppercase tracking-widest">Araçlar</span>
