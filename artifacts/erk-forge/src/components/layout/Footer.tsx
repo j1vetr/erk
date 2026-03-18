@@ -1,4 +1,4 @@
-import { Flame, Instagram, Youtube, Twitter, MapPin, Mail, Phone } from "lucide-react"
+import { Instagram, Youtube, Twitter, MapPin, Mail, Phone } from "lucide-react"
 
 export function Footer() {
   return (
@@ -8,11 +8,12 @@ export function Footer() {
           
           {/* Brand */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2">
-              <Flame className="w-8 h-8 text-primary" />
-              <span className="font-display text-3xl tracking-widest text-white">
-                ERK <span className="text-primary">FORGE</span>
-              </span>
+            <div>
+              <img
+                src={`${import.meta.env.BASE_URL}images/logo.png`}
+                alt="Erk Forge Coaching"
+                className="h-20 w-auto object-contain"
+              />
             </div>
             <p className="text-gray-400 font-sans leading-relaxed">
               Bahane yok. Kestirme yok. Sadece ağır demir, saf disiplin ve ustaca bir plan. 
