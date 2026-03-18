@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Erk Forge Coaching"
+version = "1.0.0"
+id = "artifacts/erk-forge"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+localPort = 20880
+name = "web"
+paths = ["/"]
+
+[services.development]
+run = "pnpm --filter @workspace/erk-forge run dev"
+
+[services.env]
+PORT = "20880"
+BASE_PATH = "/"
+
+[services.production]
+build = ["pnpm", "--filter", "@workspace/erk-forge", "run", "build"]
+publicDir = "artifacts/erk-forge/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"

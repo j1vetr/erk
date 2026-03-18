@@ -1,0 +1,22 @@
+packages:
+  "framer-motion": "For dramatic scroll animations, page transitions, and interactive hover effects"
+  "react-hook-form": "For managing state in complex interactive fitness calculators and the contact form"
+  "@hookform/resolvers": "For Zod schema validation integration"
+  "clsx": "For conditional class merging in custom UI components"
+  "tailwind-merge": "For merging Tailwind classes efficiently"
+
+images:
+  - path: "artifacts/erk-forge/public/images/hero-forge.png"
+    description: "Dark, gritty, masculine industrial gym background. Glowing embers, flying sparks, heavy iron plates, deep shadows with intense fiery orange rim lighting. Cinematic and raw."
+    aspect_ratio: "16:9"
+  - path: "artifacts/erk-forge/public/images/coach-portrait.png"
+    description: "A muscular fitness coach in shadows, dramatic rim lighting with fiery orange tones, intense confident gaze, cinematic dark gym setting, gritty texture."
+    aspect_ratio: "3:4"
+  - path: "artifacts/erk-forge/public/images/texture-metal.png"
+    description: "Dark scratched brushed metal texture, industrial and heavy, almost black."
+    aspect_ratio: "16:9"
+
+notes:
+  - Fully client-side application using Framer Motion for premium feel.
+  - Calculators (BMI, TDEE, 1RM) are implemented with local React state.
+  - Contact form simulates a successful submission for demonstration purposes.
