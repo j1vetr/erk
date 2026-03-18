@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Flame, ChevronDown } from "lucide-react"
+import { Menu, X, ChevronDown } from "lucide-react"
 import { Link, useLocation } from "wouter"
 
 export function Navbar() {
@@ -55,11 +55,12 @@ export function Navbar() {
         <div className="flex justify-between items-center">
           
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 cursor-pointer group">
-            <Flame className="w-8 h-8 text-primary group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(245,197,24,0.8)]" />
-            <span className="font-display text-3xl tracking-widest text-white">
-              ERK <span className="text-primary">FORGE</span>
-            </span>
+          <Link href="/" className="flex items-center cursor-pointer group">
+            <img
+              src={`${import.meta.env.BASE_URL}images/logo.png`}
+              alt="Erk Forge Coaching"
+              className="h-14 w-auto object-contain group-hover:scale-105 transition-transform duration-200"
+            />
           </Link>
 
           {/* Desktop Nav */}
