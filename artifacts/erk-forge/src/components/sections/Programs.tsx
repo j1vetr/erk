@@ -1,30 +1,30 @@
-import { motion, useInView } from "framer-motion"
-import { Check } from "lucide-react"
-import { useRef, useState } from "react"
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Check, ArrowRight } from "lucide-react"
 
 const plans = [
   {
-    num: "01",
-    name: "8 HAFTA",
+    duration: "8",
+    label: "8 Haftalık Program",
     tag: "Başlangıç",
     price: "135",
-    desc: "Temeli sağlam atmak isteyenler için güçlü bir başlangıç.",
+    desc: "Temeli sağlam atmak isteyenler için güçlü bir başlangıç. Doğru alışkanlıkları kazanacak, vücudunu tanıyacak ve ilk gerçek dönüşümünü yaşayacaksın.",
     highlight: false,
   },
   {
-    num: "02",
-    name: "12 HAFTA",
+    duration: "12",
+    label: "12 Haftalık Program",
     tag: "En Popüler",
     price: "170",
-    desc: "Kalıcı dönüşüm için en çok tercih edilen program.",
+    desc: "Kalıcı dönüşüm için en çok tercih edilen program. Yeterli süre, yeterli baskı, maksimum sonuç. Çoğu danışan bu paketle hedefine ulaşır.",
     highlight: true,
   },
   {
-    num: "03",
-    name: "16 HAFTA",
+    duration: "16",
+    label: "16 Haftalık Program",
     tag: "Elite",
     price: "200",
-    desc: "Fiziğinin sınırlarını zorlamak isteyen kararlı sporcular için.",
+    desc: "Fiziğinin sınırlarını zorlamak isteyen kararlı sporcular için. Derinlemesine program revizyonu, ileri düzey optimizasyon ve uzun vadeli alışkanlık inşası.",
     highlight: false,
   },
 ]
@@ -44,149 +44,158 @@ const features = [
 ]
 
 export function Programs() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-80px" })
-  const [open, setOpen] = useState<number | null>(1)
+  const [selected, setSelected] = useState(1)
+  const plan = plans[selected]
 
   return (
-    <section id="programs" className="bg-[#050505] relative border-t border-white/5 overflow-hidden" ref={ref}>
+    <section id="programs" className="bg-[#050505] border-t border-white/5 py-20 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      {/* Arka plan dekorasyon */}
-      <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/5 to-transparent pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-
-        {/* Başlık */}
-        <motion.div
-          className="flex items-end justify-between mb-16 gap-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-        >
-          <div>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-px bg-primary" />
-              <span className="font-display text-primary text-xs tracking-[0.4em] uppercase">Koçluk Paketleri</span>
-            </div>
-            <h2 className="font-display text-4xl md:text-6xl font-bold uppercase leading-none">
-              PROGRAMINI<br />
-              <span className="text-primary">SEÇ.</span>
-            </h2>
+        {/* ── Başlık ── */}
+        <div className="text-center mb-14">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="w-8 h-px bg-primary" />
+            <span className="font-display text-primary text-xs tracking-[0.45em] uppercase">Koçluk Paketleri</span>
+            <div className="w-8 h-px bg-primary" />
           </div>
-          <p className="hidden md:block text-gray-500 text-sm font-sans max-w-xs text-right leading-relaxed">
-            Her paket, tüm koçluk özelliklerini içerir. Fark yalnızca süre ve dönüşüm derinliğindedir.
+          <h2 className="font-display text-4xl md:text-6xl font-bold uppercase leading-none mb-4">
+            KAÇA HAFTA <span className="text-primary">ÇALIŞIYORUZ?</span>
+          </h2>
+          <p className="text-gray-500 text-sm font-sans max-w-lg mx-auto">
+            Her pakette aynı koçluk kalitesi, aynı 11 özellik sunulur. Yalnızca süre değişir — süre arttıkça dönüşüm derinleşir.
           </p>
-        </motion.div>
-
-        {/* Accordion satırları */}
-        <div className="divide-y divide-white/8">
-          {plans.map((plan, idx) => {
-            const isOpen = open === idx
-            return (
-              <motion.div
-                key={plan.num}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: idx * 0.12 }}
-              >
-                {/* Satır başlığı — tıklanabilir */}
-                <button
-                  onClick={() => setOpen(isOpen ? null : idx)}
-                  className={`w-full text-left group transition-colors duration-300 ${
-                    plan.highlight ? "bg-primary/5 hover:bg-primary/8" : "hover:bg-white/3"
-                  }`}
-                >
-                  <div className="flex items-center gap-6 px-6 py-7">
-
-                    {/* Numara */}
-                    <span className={`font-display text-6xl md:text-8xl font-bold leading-none shrink-0 transition-colors duration-300 ${
-                      isOpen ? "text-primary" : "text-white/10 group-hover:text-white/20"
-                    }`}>
-                      {plan.num}
-                    </span>
-
-                    {/* İsim + etiket */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 mb-1">
-                        <span className={`font-display text-2xl md:text-4xl font-bold uppercase tracking-wide transition-colors ${
-                          isOpen ? "text-white" : "text-white/70 group-hover:text-white"
-                        }`}>
-                          {plan.name}
-                        </span>
-                        {plan.highlight && (
-                          <span className="bg-primary text-black font-display text-[10px] tracking-[0.25em] uppercase px-3 py-1 font-bold shrink-0">
-                            {plan.tag}
-                          </span>
-                        )}
-                        {!plan.highlight && (
-                          <span className="border border-white/15 text-gray-500 font-display text-[10px] tracking-[0.25em] uppercase px-3 py-1 shrink-0">
-                            {plan.tag}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-gray-500 text-sm font-sans hidden sm:block">{plan.desc}</p>
-                    </div>
-
-                    {/* Fiyat */}
-                    <div className="text-right shrink-0">
-                      <div className="flex items-start justify-end gap-1">
-                        <span className="text-gray-400 font-sans text-base mt-2">€</span>
-                        <span className={`font-display text-5xl md:text-6xl font-bold leading-none transition-colors ${
-                          isOpen ? "text-primary" : "text-white/60 group-hover:text-white"
-                        }`}>
-                          {plan.price}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Açma oku */}
-                    <div className={`w-8 h-8 border flex items-center justify-center shrink-0 transition-all duration-300 ${
-                      isOpen ? "border-primary bg-primary text-black rotate-45" : "border-white/15 text-white/40 group-hover:border-white/40"
-                    }`}>
-                      <span className="text-lg leading-none font-light">+</span>
-                    </div>
-                  </div>
-                </button>
-
-                {/* Açılan özellik listesi */}
-                <motion.div
-                  initial={false}
-                  animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                  className="overflow-hidden"
-                >
-                  <div className={`px-6 pb-8 pt-2 border-t ${plan.highlight ? "border-primary/20" : "border-white/5"}`}>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-3 mb-8">
-                      {features.map((feat, i) => (
-                        <motion.div
-                          key={i}
-                          className="flex items-start gap-3"
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={isOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-                          transition={{ delay: i * 0.04, duration: 0.3 }}
-                        >
-                          <Check className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${plan.highlight ? "text-primary" : "text-white/40"}`} />
-                          <span className="text-gray-400 text-xs font-sans leading-relaxed">{feat}</span>
-                        </motion.div>
-                      ))}
-                    </div>
-                    <button
-                      onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                      className={`font-display text-sm uppercase tracking-[0.2em] px-8 py-3 transition-all duration-200 ${
-                        plan.highlight
-                          ? "bg-primary text-black hover:bg-white"
-                          : "border border-white/20 text-white hover:border-white/60 hover:bg-white/5"
-                      }`}
-                    >
-                      Bu Paketi Seç →
-                    </button>
-                  </div>
-                </motion.div>
-              </motion.div>
-            )
-          })}
         </div>
+
+        {/* ── Tab seçici ── */}
+        <div className="grid grid-cols-3 gap-3 mb-10">
+          {plans.map((p, i) => (
+            <button
+              key={i}
+              onClick={() => setSelected(i)}
+              className={`relative text-center py-6 px-4 border transition-all duration-300 group ${
+                selected === i
+                  ? p.highlight
+                    ? "bg-primary border-primary"
+                    : "bg-white/8 border-white/40"
+                  : "bg-transparent border-white/10 hover:border-white/30"
+              }`}
+            >
+              {p.highlight && selected !== i && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-black font-display text-[9px] tracking-[0.25em] uppercase px-3 py-0.5 font-bold">
+                  {p.tag}
+                </div>
+              )}
+              {selected === i && p.highlight && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-black text-primary font-display text-[9px] tracking-[0.25em] uppercase px-3 py-0.5 font-bold border border-primary">
+                  {p.tag}
+                </div>
+              )}
+              <div className={`font-display text-5xl md:text-7xl font-bold leading-none mb-1 transition-colors ${
+                selected === i
+                  ? p.highlight ? "text-black" : "text-primary"
+                  : "text-white/25 group-hover:text-white/50"
+              }`}>
+                {p.duration}
+              </div>
+              <div className={`font-display text-sm tracking-[0.3em] uppercase mb-3 transition-colors ${
+                selected === i
+                  ? p.highlight ? "text-black/70" : "text-white"
+                  : "text-white/30 group-hover:text-white/50"
+              }`}>
+                HAFTA
+              </div>
+              <div className={`font-display text-xl font-bold transition-colors ${
+                selected === i
+                  ? p.highlight ? "text-black" : "text-primary"
+                  : "text-white/40 group-hover:text-white/60"
+              }`}>
+                €{p.price}
+              </div>
+            </button>
+          ))}
+        </div>
+
+        {/* ── Detay paneli ── */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selected}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.35 }}
+            className={`border ${plan.highlight ? "border-primary/50 bg-primary/4" : "border-white/10 bg-white/2"}`}
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
+
+              {/* Sol: paket özeti */}
+              <div className={`lg:col-span-2 p-8 flex flex-col justify-between ${plan.highlight ? "border-b lg:border-b-0 lg:border-r border-primary/20" : "border-b lg:border-b-0 lg:border-r border-white/8"}`}>
+                <div>
+                  <div className={`inline-block font-display text-[10px] tracking-[0.35em] uppercase px-3 py-1 mb-4 ${
+                    plan.highlight ? "bg-primary text-black" : "border border-white/20 text-gray-400"
+                  }`}>
+                    {plan.tag}
+                  </div>
+                  <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase mb-3 leading-tight">
+                    {plan.label}
+                  </h3>
+                  <p className="text-gray-400 text-sm font-sans leading-relaxed mb-8">
+                    {plan.desc}
+                  </p>
+                </div>
+
+                <div>
+                  <div className="flex items-end gap-2 mb-6 pb-6 border-b border-white/8">
+                    <span className="text-gray-400 text-lg mb-1 font-sans">€</span>
+                    <span className="font-display text-6xl font-bold text-white leading-none">
+                      {plan.price}
+                    </span>
+                    <span className="text-gray-500 text-sm font-sans mb-2">/ tek seferlik</span>
+                  </div>
+                  <button
+                    onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                    className={`w-full flex items-center justify-center gap-2 py-4 font-display text-sm tracking-[0.2em] uppercase font-bold transition-all duration-200 group ${
+                      plan.highlight
+                        ? "bg-primary text-black hover:bg-white"
+                        : "bg-white/8 border border-white/20 text-white hover:bg-white hover:text-black"
+                    }`}
+                  >
+                    Bu Paketi Seç
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Sağ: özellik listesi */}
+              <div className="lg:col-span-3 p-8">
+                <div className="font-display text-xs text-gray-500 tracking-[0.35em] uppercase mb-6">
+                  Bu pakette neler var?
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {features.map((feat, i) => (
+                    <motion.div
+                      key={i}
+                      className="flex items-start gap-3"
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.04 }}
+                    >
+                      <div className={`w-4 h-4 flex items-center justify-center shrink-0 mt-0.5 ${
+                        plan.highlight ? "text-primary" : "text-white/40"
+                      }`}>
+                        <Check className="w-3.5 h-3.5" />
+                      </div>
+                      <span className="text-gray-300 text-xs font-sans leading-relaxed">{feat}</span>
+                    </motion.div>
+                  ))}
+                </div>
+                <p className="text-gray-600 text-xs font-sans mt-6 pt-5 border-t border-white/5">
+                  Tüm paketler aynı özellikleri içerir. Süre farkı; dönüşümün derinliğini ve program revizyonu sayısını belirler.
+                </p>
+              </div>
+
+            </div>
+          </motion.div>
+        </AnimatePresence>
 
       </div>
     </section>
