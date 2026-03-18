@@ -94,18 +94,17 @@ export function About() {
           >
             {/* Manifesto başlık */}
             <h2 className="font-display text-4xl md:text-5xl xl:text-6xl font-bold uppercase leading-[1.0] mb-8 tracking-tight">
-              PROGRAM<br />
-              YAZMIYORUM.<br />
-              <span className="text-primary">SİLAH</span>{" "}
-              <span className="text-white/30">ÜRETİYORUM.</span>
+              KİŞİSEL KOÇLUKLA<br />
+              <span className="text-primary">GERÇEK BİR</span><br />
+              DÖNÜŞÜM.
             </h2>
 
             {/* Body text */}
             <div className="border-l-2 border-primary/40 pl-5 mb-10 space-y-3 max-w-xl">
-              <p className="text-gray-400 text-sm leading-relaxed font-sans">
+              <p className="text-white/80 text-sm leading-relaxed font-sans">
                 Benim adım Erk. Felsefem çok basit: zayıf metal kırılır, güçlü demir dayanır. Sıradanlıktan sıkılmış, sınırlarını zorlamaya hazır bireyleri alıyor; fiziksel ve mental zirvelerine ulaştırıyorum.
               </p>
-              <p className="text-gray-500 text-sm leading-relaxed font-sans">
+              <p className="text-white/60 text-sm leading-relaxed font-sans">
                 Bu 30 günlük geçici bir çözüm değil — antrenman yapma, beslenme ve düşünme biçiminin baştan aşağı yeniden inşası.
               </p>
             </div>
@@ -123,7 +122,7 @@ export function About() {
                   <div className="font-display text-4xl md:text-5xl font-bold text-primary leading-none mb-1.5">
                     {s.value}
                   </div>
-                  <div className="text-gray-500 text-[10px] font-display tracking-[0.3em] uppercase">
+                  <div className="text-white/55 text-[10px] font-display tracking-[0.3em] uppercase">
                     {s.label}
                   </div>
                 </motion.div>
@@ -145,7 +144,7 @@ export function About() {
                   </div>
                   <div>
                     <div className="text-white font-display text-xs tracking-wider uppercase mb-0.5">{p.title}</div>
-                    <div className="text-gray-500 text-xs font-sans leading-relaxed">{p.desc}</div>
+                    <div className="text-white/60 text-xs font-sans leading-relaxed">{p.desc}</div>
                   </div>
                 </motion.div>
               ))}
