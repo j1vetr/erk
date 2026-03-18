@@ -67,6 +67,16 @@ export function Contact() {
                 </div>
               </div>
 
+              <a href="https://www.instagram.com/erk_ozkunt" target="_blank" rel="noopener noreferrer" className="flex items-start gap-6 group cursor-pointer">
+                <div className="bg-[#111] p-4 border border-white/10 group-hover:border-primary transition-colors">
+                  <Instagram className="w-8 h-8 text-primary" />
+                </div>
+                <div>
+                  <div className="text-sm text-gray-500 font-display uppercase tracking-[0.2em] mb-1">Instagram</div>
+                  <div className="font-sans text-xl text-white group-hover:text-primary transition-colors">@erk_ozkunt</div>
+                </div>
+              </a>
+
               <div className="flex items-start gap-6">
                 <div className="bg-[#111] p-4 border border-white/10">
                   <MapPin className="w-8 h-8 text-primary" />
