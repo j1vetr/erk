@@ -112,41 +112,40 @@ export function Hero() {
         initial={{ opacity: 0, x: 60 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-        className="absolute bottom-0 right-0 z-[6] hidden lg:flex items-end justify-end pointer-events-none"
-        style={{ width: "40%", height: "100%" }}
+        className="absolute bottom-0 z-[6] hidden lg:flex items-end justify-end pointer-events-none"
+        style={{ width: "44%", height: "100%", right: "4%" }}
       >
         {/* Glow behind figure */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-3/4 pointer-events-none"
           style={{
-            background: "radial-gradient(ellipse at bottom, rgba(245,197,24,0.22) 0%, rgba(245,197,24,0.06) 55%, transparent 80%)",
+            background: "radial-gradient(ellipse at bottom, rgba(245,197,24,0.18) 0%, rgba(245,197,24,0.04) 55%, transparent 80%)",
             filter: "blur(40px)",
           }}
         />
 
-        {/* Coach photo — ince kontur + dönen ışık orbu */}
-        <div className="relative w-full max-w-[500px]">
-          {/* Fotoğraf: ince statik altın kontur */}
+        {/* Coach photo */}
+        <div className="relative w-full max-w-[520px]">
           <img
             src={`${import.meta.env.BASE_URL}images/coach-hero.png`}
             alt="Erk Forge Koç"
             className="relative w-full h-auto object-contain object-bottom select-none block"
             style={{
               filter: [
-                "brightness(1.06)",
-                "contrast(1.08)",
+                "brightness(0.82)",
+                "contrast(1.1)",
                 "drop-shadow(0 0 1px #F5C518)",
-                "drop-shadow(0 0 3px rgba(245,197,24,0.55))",
+                "drop-shadow(0 0 4px rgba(245,197,24,0.45))",
               ].join(" "),
+              opacity: 0.88,
             }}
             draggable={false}
           />
-
         </div>
 
         {/* Ground glow */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-10 pointer-events-none"
           style={{
-            background: "radial-gradient(ellipse, rgba(245,197,24,0.35) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse, rgba(245,197,24,0.28) 0%, transparent 70%)",
             filter: "blur(14px)",
           }}
         />
