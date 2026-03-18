@@ -1,6 +1,8 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Check, ArrowRight } from "lucide-react"
+
+const CYCLE_MS = 4000
 
 const plans = [
   {
@@ -44,8 +46,38 @@ const features = [
 ]
 
 export function Programs() {
-  const [selected, setSelected] = useState(1)
+  const [selected, setSelected] = useState(0)
+  const [progress, setProgress] = useState(0)
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const startRef = useRef<number>(Date.now())
   const plan = plans[selected]
+
+  const resetCycle = (idx?: number) => {
+    if (timerRef.current) clearInterval(timerRef.current)
+    setProgress(0)
+    startRef.current = Date.now()
+    if (idx !== undefined) setSelected(idx)
+
+    timerRef.current = setInterval(() => {
+      const elapsed = Date.now() - startRef.current
+      const pct = Math.min((elapsed / CYCLE_MS) * 100, 100)
+      setProgress(pct)
+      if (elapsed >= CYCLE_MS) {
+        startRef.current = Date.now()
+        setProgress(0)
+        setSelected(prev => (prev + 1) % plans.length)
+      }
+    }, 30)
+  }
+
+  useEffect(() => {
+    resetCycle()
+    return () => { if (timerRef.current) clearInterval(timerRef.current) }
+  }, [])
+
+  const handleSelect = (idx: number) => {
+    resetCycle(idx)
+  }
 
   return (
     <section id="programs" className="bg-[#050505] border-t border-white/5 py-20 overflow-hidden">
@@ -67,11 +99,11 @@ export function Programs() {
         </div>
 
         {/* ── Tab seçici ── */}
-        <div className="grid grid-cols-3 gap-3 mb-10">
+        <div className="grid grid-cols-3 gap-3 mb-0">
           {plans.map((p, i) => (
             <button
               key={i}
-              onClick={() => setSelected(i)}
+              onClick={() => handleSelect(i)}
               className={`relative text-center py-6 px-4 border transition-all duration-300 group ${
                 selected === i
                   ? p.highlight
@@ -112,6 +144,20 @@ export function Programs() {
                 €{p.price}
               </div>
             </button>
+          ))}
+        </div>
+
+        {/* ── Progress bar — aktif tabın dolma animasyonu ── */}
+        <div className="grid grid-cols-3 gap-3 mb-10">
+          {plans.map((_, i) => (
+            <div key={i} className="h-[2px] bg-white/8 overflow-hidden">
+              {selected === i && (
+                <div
+                  className={`h-full transition-none ${plans[i].highlight ? "bg-primary" : "bg-white/50"}`}
+                  style={{ width: `${progress}%` }}
+                />
+              )}
+            </div>
           ))}
         </div>
 
