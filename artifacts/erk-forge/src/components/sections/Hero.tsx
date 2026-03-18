@@ -170,7 +170,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.1, ease: "easeOut" }}
-          className="font-display text-5xl sm:text-6xl md:text-7xl xl:text-8xl font-bold leading-[1.0] mb-6 drop-shadow-2xl max-w-2xl"
+          className="font-display text-6xl sm:text-7xl md:text-7xl xl:text-8xl font-bold leading-[1.0] mb-6 drop-shadow-2xl max-w-2xl"
         >
           DEMİRDEN <br />
           <span className="text-primary">YOĞRUL</span>
