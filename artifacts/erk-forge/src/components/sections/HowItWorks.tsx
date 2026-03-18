@@ -1,34 +1,34 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
-import { ClipboardList, MessageSquare, Dumbbell, TrendingUp, ArrowRight } from "lucide-react"
+import { ShoppingCart, ClipboardList, MessageSquare, TrendingUp, ArrowRight } from "lucide-react"
 
 const steps = [
   {
     num: "01",
-    icon: <ClipboardList className="w-6 h-6" />,
-    title: "Başvurunu Gönder",
-    desc: "Formu doldur. Mevcut durumunu, hedeflerini ve beklentilerini anlat. Yalnızca değişime gerçekten hazır olanlarla çalışıyorum.",
-    detail: "3 dakika sürer",
+    icon: <ShoppingCart className="w-6 h-6" />,
+    title: "Paket Siparişi Ver",
+    desc: "Sana uygun paketi seç ve sipariş ver. Kontenjan sınırlı olduğundan yerinizi erkenden ayırtmanızı tavsiye ederiz.",
+    detail: "2 dakika sürer",
   },
   {
     num: "02",
-    icon: <MessageSquare className="w-6 h-6" />,
-    title: "Strateji Görüşmesi",
-    desc: "WhatsApp üzerinden birebir görüşme yapıyoruz. Vücudunu, geçmişini ve yaşam tarzını anlıyorum — sana özel planın temeli burada atılıyor.",
-    detail: "20–30 dakika",
+    icon: <ClipboardList className="w-6 h-6" />,
+    title: "Sana Form İletiyoruz",
+    desc: "Siparişinin ardından kişisel bilgilerini, hedeflerini, sağlık geçmişini ve günlük rutinini anlaman için detaylı bir form gönderiyoruz.",
+    detail: "Hemen akabinde",
   },
   {
     num: "03",
-    icon: <Dumbbell className="w-6 h-6" />,
-    title: "Program Hazırlanır",
-    desc: "Antrenman protokolün, kalori ve makro planın, takviye rehberin 48 saat içinde hazır. Standart değil, sana özel.",
-    detail: "48 saat içinde",
+    icon: <MessageSquare className="w-6 h-6" />,
+    title: "Strateji Görüşmesi",
+    desc: "Formunu aldıktan sonra WhatsApp üzerinden birebir görüşme yapıyoruz. Vücudunu, geçmişini ve yaşam tarzını anlıyorum — planın temeli burada atılıyor.",
+    detail: "20–30 dakika",
   },
   {
     num: "04",
     icon: <TrendingUp className="w-6 h-6" />,
     title: "Dönüşüm Başlar",
-    desc: "Haftalık check-in, form analizi ve program revizyonuyla seni sürekli takip ediyorum. Platoya girdiğin an müdahale ediyorum.",
+    desc: "48 saat içinde antrenman ve beslenme programın hazır. Haftalık check-in ve anlık revizyonlarla seni süreç boyunca takip ediyorum.",
     detail: "Süreç boyunca",
   },
 ]
