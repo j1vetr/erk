@@ -127,6 +127,17 @@ export function Hero() {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-black">
+
+      {/* AI-generated background image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={`${import.meta.env.BASE_URL}images/hero-bg.png`}
+          alt=""
+          className="w-full h-full object-cover object-center"
+          aria-hidden="true"
+        />
+      </div>
+
       <ForgeBackground />
 
       {/* Overlays */}
@@ -134,9 +145,9 @@ export function Hero() {
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black to-transparent" />
         <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black to-transparent" />
-        {/* Right fade — blends photo edge into background */}
         <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent" />
-        <div className="absolute inset-0 bg-black/35" />
+        {/* Darken so text stays readable but background shows through */}
+        <div className="absolute inset-0 bg-black/55" />
       </div>
 
       {/* Layout: text left, photo right */}
