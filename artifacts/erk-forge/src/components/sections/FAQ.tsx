@@ -48,31 +48,34 @@ export function FAQ() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8 lg:gap-12 items-start">
 
           {/* Sol: başlık sabit */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="lg:sticky lg:top-32"
+            className="lg:sticky lg:top-32 text-center lg:text-left"
           >
-            <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
               <div className="w-8 h-px bg-primary" />
               <span className="font-display text-primary text-xs tracking-[0.45em] uppercase">SSS</span>
+              <div className="w-8 h-px bg-primary lg:hidden" />
             </div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold uppercase leading-tight mb-5">
+            <h2 className="font-display text-4xl md:text-5xl font-bold uppercase leading-tight mb-4">
               AKLINDA <br /><span className="text-primary">SORULAR</span><br />MI VAR?
             </h2>
-            <p className="text-white/40 font-sans text-sm leading-relaxed mb-8">
+            <p className="text-white/40 font-sans text-sm leading-relaxed mb-6 max-w-xs mx-auto lg:mx-0">
               En sık sorulan sorulara cevap veriyorum. Yanıtını bulamazsan doğrudan iletişime geç.
             </p>
-            <button
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="group flex items-center gap-2 text-primary font-display tracking-widest uppercase text-xs border-b border-primary/30 pb-1.5 hover:border-primary hover:gap-3 transition-all duration-300"
-            >
-              Bana Sor <ArrowRight className="w-3.5 h-3.5" />
-            </button>
+            <div className="flex justify-center lg:justify-start">
+              <button
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                className="group flex items-center gap-2 text-primary font-display tracking-widest uppercase text-xs border-b border-primary/30 pb-1.5 hover:border-primary hover:gap-3 transition-all duration-300"
+              >
+                Bana Sor <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </motion.div>
 
           {/* Sağ: accordion listesi */}
