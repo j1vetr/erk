@@ -1,76 +1,117 @@
-import { motion } from "framer-motion"
-import { Target, Flame, Shield } from "lucide-react"
+import { motion, useInView } from "framer-motion"
+import { Target, Flame, Shield, Award, ChevronRight } from "lucide-react"
+import { useRef } from "react"
 
 export function About() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
   const features = [
-    { icon: <Flame className="w-6 h-6 text-primary" />, title: "Relentless Intensity", desc: "Training protocols designed to push boundaries and force adaptation." },
-    { icon: <Target className="w-6 h-6 text-primary" />, title: "Precision Nutrition", desc: "Calculated fueling strategies that build muscle and torch fat." },
-    { icon: <Shield className="w-6 h-6 text-primary" />, title: "Bulletproof Mindset", desc: "Building mental resilience to match your physical strength." },
+    { title: "Kişiselleştirilmiş Yaklaşım", desc: "Senin metobolizmana ve yaşam tarzına özel stratejiler." },
+    { title: "Bilimsel Temel", desc: "Kanıta dayalı antrenman ve beslenme protokolleri." },
+    { title: "Sürekli Takip", desc: "Haftalık ve günlük form analizleri ile rotadan sapma yok." },
+    { title: "Mental Dönüşüm", desc: "Sadece kasları değil, iradeyi de çelik gibi güçlendiriyoruz." },
   ]
 
+  const StatBar = ({ label, percentage, delay }: { label: string, percentage: number, delay: number }) => (
+    <div className="mb-6">
+      <div className="flex justify-between font-display text-lg tracking-widest mb-2">
+        <span className="text-white">{label}</span>
+        <span className="text-primary">%{percentage}</span>
+      </div>
+      <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
+        <motion.div 
+          initial={{ width: 0 }}
+          animate={isInView ? { width: `${percentage}%` } : { width: 0 }}
+          transition={{ duration: 1.5, delay, ease: "easeOut" }}
+          className="h-full bg-primary forge-glow relative"
+        >
+          <div className="absolute top-0 right-0 bottom-0 w-10 bg-white/30 blur-sm animate-[shimmer_2s_infinite]"></div>
+        </motion.div>
+      </div>
+    </div>
+  )
+
   return (
-    <section id="about" className="py-24 bg-background relative border-t border-white/5">
+    <section id="about" className="py-32 bg-black relative border-t border-white/5" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           
           {/* Image Side */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-transparent blur-2xl z-0 rounded-full" />
-            <div className="relative z-10 border border-white/10 metal-panel p-2 rounded-sm transform -rotate-2 hover:rotate-0 transition-transform duration-500">
+            <div className="absolute -inset-4 bg-primary/10 blur-3xl z-0 rounded-full" />
+            <div className="relative z-10 border-2 border-white/5 bg-[#050505] p-2 transform -rotate-2 hover:rotate-0 transition-transform duration-500">
               <img 
                 src={`${import.meta.env.BASE_URL}images/coach-portrait.png`} 
-                alt="Coach Erk" 
-                className="w-full h-auto object-cover grayscale-[0.2] contrast-[1.2]"
+                alt="Koç Erk" 
+                className="w-full h-auto object-cover grayscale-[0.5] contrast-[1.2]"
               />
             </div>
             
             {/* Floating stats badge */}
-            <div className="absolute -bottom-6 -right-6 metal-panel p-4 z-20 border-l-4 border-l-primary flex items-center gap-4">
-              <div className="text-4xl font-display font-bold text-white">10<span className="text-primary">+</span></div>
-              <div className="text-xs font-display uppercase text-gray-400 tracking-wider">Years<br/>Forging<br/>Iron</div>
-            </div>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="absolute -bottom-8 -right-8 bg-black p-6 z-20 border-l-4 border-l-primary shadow-2xl border border-white/10"
+            >
+              <div className="flex items-center gap-4">
+                <Award className="w-12 h-12 text-primary" />
+                <div>
+                  <div className="text-xl font-display font-bold text-white tracking-widest">ISSA SERTİFİKALI</div>
+                  <div className="text-sm font-sans text-gray-400">Master Trainer</div>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Content Side */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-primary font-display uppercase tracking-widest mb-2 flex items-center gap-2">
-              <span className="w-8 h-[2px] bg-primary block"></span> The Master Smith
+            <h2 className="text-primary font-display uppercase tracking-[0.3em] mb-4 flex items-center gap-4 text-sm">
+              <span className="w-12 h-[2px] bg-primary block"></span> Demir Ustası
             </h2>
-            <h3 className="text-4xl md:text-5xl font-display font-bold mb-6 leading-tight">
-              I DON'T BUILD PROGRAMS. <br/>
-              I BUILD <span className="text-white">WEAPONS.</span>
+            <h3 className="text-5xl md:text-7xl font-display font-bold mb-8 leading-[0.9]">
+              PROGRAM YAZMIYORUM.<br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">SİLAH ÜRETİYORUM.</span>
             </h3>
             
-            <div className="space-y-6 text-gray-400 text-lg mb-10">
+            <div className="space-y-6 text-gray-300 text-lg mb-12 font-sans font-light leading-relaxed">
               <p>
-                Welcome to the forge. My name is Erk, and my philosophy is simple: weak metal breaks, strong iron endures. I take people who are tired of mediocrity and hammer them into their absolute peak physical and mental condition.
+                Demir ocağına hoş geldin. Benim adım Erk ve felsefem çok basit: Zayıf metal kırılır, güçlü demir dayanır. Sıradanlıktan sıkılmış, sınırlarını zorlamaya hazır bireyleri alıyor; onları fiziksel ve mental zirvelerine ulaştırıyorum.
               </p>
               <p>
-                This isn't a 30-day quick fix. This is a complete overhaul of how you train, eat, and think. If you're looking for comfortable, look elsewhere. If you're looking for results, you've found your coach.
+                Bu 30 günlük geçici bir çözüm değil. Bu; nasıl antrenman yaptığının, nasıl beslendiğinin ve nasıl düşündüğünün baştan aşağı yeniden inşa edilmesidir. Eğer rahatlık arıyorsan, yanlış yerdesin. Eğer sonuç arıyorsan, koçunu buldun.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {features.map((feature, idx) => (
-                <div key={idx} className="metal-panel p-5 border border-white/5 hover:border-primary/50 transition-colors group">
-                  <div className="bg-black/50 w-12 h-12 flex items-center justify-center rounded-sm mb-4 group-hover:scale-110 transition-transform">
-                    {feature.icon}
+            <div className="mb-12">
+              <StatBar label="BESLENME BİLİMİ" percentage={95} delay={0.2} />
+              <StatBar label="ANTRENMAN PROTOKOLÜ" percentage={98} delay={0.4} />
+              <StatBar label="MENTAL DİRENÇ" percentage={100} delay={0.6} />
+            </div>
+
+            <div className="bg-[#0A0A0A] border border-white/5 p-8 rounded-sm">
+              <h4 className="font-display text-2xl text-white mb-6 tracking-widest border-b border-white/10 pb-4">Neden Ben?</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {features.map((feature, idx) => (
+                  <div key={idx} className="flex gap-3">
+                    <ChevronRight className="w-6 h-6 text-primary shrink-0" />
+                    <div>
+                      <h5 className="text-white font-display tracking-wider text-lg">{feature.title}</h5>
+                      <p className="text-sm text-gray-500 mt-1">{feature.desc}</p>
+                    </div>
                   </div>
-                  <h4 className="font-display text-white uppercase tracking-wide mb-2">{feature.title}</h4>
-                  <p className="text-sm text-gray-500 leading-relaxed">{feature.desc}</p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
           </motion.div>

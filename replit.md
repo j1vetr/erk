@@ -1,3 +1,17 @@
+# Erk Forge Coaching — Fitness Koçluk Sitesi
+
+## Artifact: erk-forge (React + Vite, previewPath: /)
+Tamamen Türkçe, siyah-sarı tema. Sayfalar:
+- Ana sayfa (Hero, Hakkımda, Programlar, Referanslar, Blog, İletişim)
+- /araclar — Araçlar hub sayfası
+- /araclar/bmi — BMI Hesaplayıcı
+- /araclar/kalori — TDEE Kalori Hesaplayıcı
+- /araclar/1rm — 1RM Maksimum Ağırlık
+- /araclar/vucut-analizi — Vücut Yağ Oranı Analizi
+İletişim: info@erkforgecoaching.com
+
+---
+
 # Workspace
 
 ## Overview

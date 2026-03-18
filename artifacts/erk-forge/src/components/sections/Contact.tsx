@@ -1,139 +1,182 @@
 import { useState } from "react"
-import { motion } from "framer-motion"
-import { Mail, MapPin, Phone } from "lucide-react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { ForgeButton } from "@/components/ui/forge-button"
-import { useToast } from "@/hooks/use-toast"
-
-const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  message: z.string().min(10, "Message is too short, elaborate your goals"),
-})
-
-type ContactFormValues = z.infer<typeof contactSchema>
+import { motion, AnimatePresence } from "framer-motion"
+import { Mail, MapPin, Phone, Instagram, CheckCircle2 } from "lucide-react"
 
 export function Contact() {
-  const { toast } = useToast()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema)
-  })
-
-  const onSubmit = async (data: ContactFormValues) => {
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
     setIsSubmitting(true)
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    // Simüle edilmiş API isteği
+    await new Promise(resolve => setTimeout(resolve, 2000))
     setIsSubmitting(false)
+    setIsSuccess(true)
     
-    toast({
-      title: "Transmission Sent",
-      description: "Your message has entered the forge. We will reach out shortly.",
-      variant: "default",
-      className: "bg-black border-primary text-white font-display",
-    })
-    reset()
+    // 5 saniye sonra formu sıfırla
+    setTimeout(() => {
+      setIsSuccess(false)
+      ;(e.target as HTMLFormElement).reset()
+    }, 5000)
   }
 
-  const InputClass = "w-full bg-[#050505] border border-white/10 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-sans"
+  const InputClass = "w-full bg-[#111] border border-white/10 p-4 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-sans text-lg placeholder:text-gray-600"
+  const LabelClass = "block text-sm text-gray-400 mb-2 uppercase font-display tracking-widest"
 
   return (
-    <section id="contact" className="py-24 bg-background relative border-t border-white/5">
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
+    <section id="contact" className="py-32 bg-black relative border-t border-white/5">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
           
-          {/* Contact Info */}
+          {/* Sol: İletişim Bilgileri */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-primary font-display uppercase tracking-widest mb-2 flex items-center gap-2">
-              <span className="w-8 h-[2px] bg-primary block"></span> Take Action
+            <h2 className="text-primary font-display uppercase tracking-[0.3em] mb-4 flex items-center gap-4 text-sm">
+              <span className="w-12 h-[2px] bg-primary block"></span> İLETİŞİME GEÇ
             </h2>
-            <h3 className="text-4xl md:text-6xl font-display font-bold uppercase text-white mb-6">
-              Step Into <br/> The <span className="forge-text-gradient">Fire</span>
+            <h3 className="text-5xl md:text-7xl font-display font-bold uppercase text-white mb-8 leading-[0.9]">
+              ATEŞE ADIM <br/> <span className="text-primary forge-glow">ATMAYA HAZIR MISIN?</span>
             </h3>
-            <p className="text-gray-400 mb-10 text-lg">
-              Ready to stop making excuses? Fill out the form to apply for coaching. Spots are extremely limited as I only work with those dedicated to the iron.
+            <p className="text-gray-400 mb-12 text-lg font-sans leading-relaxed">
+              Bahane üretmeyi bırakıp harekete geçme vakti. Koçluk başvurusu için formu doldur. Sadece demire ve değişime adanmış kişilerle çalışıyorum. Kontenjanlar son derece sınırlıdır.
             </p>
 
-            <div className="space-y-6">
-              <div className="flex items-center gap-4 text-gray-300 hover:text-primary transition-colors cursor-pointer">
-                <div className="bg-white/5 p-3 rounded-sm border border-white/10">
-                  <Mail className="w-6 h-6" />
+            <div className="space-y-8">
+              <div className="flex items-start gap-6 group cursor-pointer">
+                <div className="bg-[#111] p-4 border border-white/10 group-hover:border-primary transition-colors">
+                  <Mail className="w-8 h-8 text-primary" />
                 </div>
                 <div>
-                  <div className="text-xs text-gray-500 font-display uppercase tracking-widest">Email</div>
-                  <div className="font-sans">info@erkforgecoaching.com</div>
+                  <div className="text-sm text-gray-500 font-display uppercase tracking-[0.2em] mb-1">E-Posta</div>
+                  <div className="font-sans text-xl text-white group-hover:text-primary transition-colors">info@erkforgecoaching.com</div>
                 </div>
               </div>
-              <div className="flex items-center gap-4 text-gray-300">
-                <div className="bg-white/5 p-3 rounded-sm border border-white/10">
-                  <MapPin className="w-6 h-6" />
+              
+              <div className="flex items-start gap-6 group cursor-pointer">
+                <div className="bg-[#111] p-4 border border-white/10 group-hover:border-primary transition-colors">
+                  <Phone className="w-8 h-8 text-primary" />
                 </div>
                 <div>
-                  <div className="text-xs text-gray-500 font-display uppercase tracking-widest">Location</div>
-                  <div className="font-sans">Global / Online Coaching</div>
+                  <div className="text-sm text-gray-500 font-display uppercase tracking-[0.2em] mb-1">Telefon / WhatsApp</div>
+                  <div className="font-sans text-xl text-white group-hover:text-primary transition-colors">+90 555 123 45 67</div>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-6">
+                <div className="bg-[#111] p-4 border border-white/10">
+                  <MapPin className="w-8 h-8 text-primary" />
+                </div>
+                <div>
+                  <div className="text-sm text-gray-500 font-display uppercase tracking-[0.2em] mb-1">Konum</div>
+                  <div className="font-sans text-xl text-white">İstanbul, Türkiye <span className="block text-gray-500 text-base mt-1">(Tüm Dünya İçin Online Koçluk)</span></div>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Sağ: İletişim Formu */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="metal-panel p-8 border border-white/10"
+            className="bg-[#050505] p-10 border border-white/10 relative overflow-hidden"
           >
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <div>
-                <label className="block text-sm text-gray-400 mb-2 uppercase font-display tracking-widest">Your Name</label>
-                <input 
-                  type="text" 
-                  {...register("name")} 
-                  className={InputClass} 
-                  placeholder="John Doe"
-                />
-                {errors.name && <span className="text-primary text-sm mt-1 block">{errors.name.message}</span>}
-              </div>
+            <AnimatePresence mode="wait">
+              {isSuccess ? (
+                <motion.div 
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute inset-0 bg-primary flex flex-col items-center justify-center text-black p-10 text-center z-20"
+                >
+                  <CheckCircle2 className="w-24 h-24 mb-6" />
+                  <h4 className="font-display text-5xl uppercase font-bold mb-4">Mesaj Alındı</h4>
+                  <p className="font-sans text-xl font-medium">Hedeflerin incelenecek ve sana en kısa sürede dönüş yapılacaktır. Demiri sıcak tut.</p>
+                </motion.div>
+              ) : (
+                <motion.form 
+                  key="form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onSubmit={onSubmit} 
+                  className="space-y-6 relative z-10"
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className={LabelClass}>Ad Soyad</label>
+                      <input type="text" required className={InputClass} placeholder="Adın ve Soyadın" />
+                    </div>
+                    <div>
+                      <label className={LabelClass}>Telefon Numarası</label>
+                      <input type="tel" required className={InputClass} placeholder="05XX XXX XX XX" />
+                    </div>
+                  </div>
 
-              <div>
-                <label className="block text-sm text-gray-400 mb-2 uppercase font-display tracking-widest">Email Address</label>
-                <input 
-                  type="email" 
-                  {...register("email")} 
-                  className={InputClass} 
-                  placeholder="john@example.com"
-                />
-                {errors.email && <span className="text-primary text-sm mt-1 block">{errors.email.message}</span>}
-              </div>
+                  <div>
+                    <label className={LabelClass}>E-Posta Adresi</label>
+                    <input type="email" required className={InputClass} placeholder="ornek@email.com" />
+                  </div>
 
-              <div>
-                <label className="block text-sm text-gray-400 mb-2 uppercase font-display tracking-widest">Current Goals / Message</label>
-                <textarea 
-                  {...register("message")} 
-                  rows={5}
-                  className={InputClass} 
-                  placeholder="Tell me where you are and where you want to be..."
-                />
-                {errors.message && <span className="text-primary text-sm mt-1 block">{errors.message.message}</span>}
-              </div>
+                  <div>
+                    <label className={LabelClass}>İlgilendiğin Program</label>
+                    <div className="relative">
+                      <select required className={`${InputClass} appearance-none`}>
+                        <option value="" disabled selected>Program Seçiniz</option>
+                        <option value="baslangic">Başlangıç Programı</option>
+                        <option value="pro">Pro Forge Programı</option>
+                        <option value="elit">Elit Demir Programı</option>
+                        <option value="diger">Diğer / Kararsızım</option>
+                      </select>
+                      <ChevronDownSelect />
+                    </div>
+                  </div>
 
-              <ForgeButton type="submit" className="w-full" isLoading={isSubmitting}>
-                Submit Application
-              </ForgeButton>
-            </form>
+                  <div>
+                    <label className={LabelClass}>Mevcut Durumun ve Hedeflerin</label>
+                    <textarea 
+                      required 
+                      rows={4}
+                      className={`${InputClass} resize-none`} 
+                      placeholder="Şu anki kilon, boyun, spor geçmişin ve ulaşmak istediğin hedef nedir?"
+                    />
+                  </div>
+
+                  <button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    className="w-full bg-primary text-black py-5 font-display text-2xl uppercase tracking-widest font-bold hover:bg-white transition-colors flex justify-center items-center gap-3 disabled:opacity-70"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-6 h-6 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+                        Gönderiliyor...
+                      </>
+                    ) : (
+                      "Başvuruyu Gönder"
+                    )}
+                  </button>
+                </motion.form>
+              )}
+            </AnimatePresence>
           </motion.div>
 
         </div>
       </div>
     </section>
+  )
+}
+
+function ChevronDownSelect() {
+  return (
+    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
   )
 }
