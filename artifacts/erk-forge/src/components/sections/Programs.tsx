@@ -1,16 +1,20 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Check, ArrowRight } from "lucide-react"
+import { Check, ArrowRight, X, ExternalLink, ShieldCheck } from "lucide-react"
 import { useLanguage } from "@/i18n/LanguageContext"
+
+// 👇 PayPal ödeme linkini buraya yapıştır
+const PAYPAL_LINK = "https://www.paypal.me/SENIN_PAYPAL_KULLANICI_ADIN"
 
 const CYCLE_MS = 4000
 
 export function Programs() {
   const [selected, setSelected] = useState(0)
   const [progress, setProgress] = useState(0)
+  const [showPaypalModal, setShowPaypalModal] = useState(false)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const startRef = useRef<number>(Date.now())
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
 
   const plans = t.programs.plans.map((p, i) => ({ ...p, highlight: i === 1 }))
   const plan = plans[selected]
@@ -145,7 +149,13 @@ export function Programs() {
                     <span className="text-gray-500 text-sm font-sans mb-2">{t.programs.perPayment}</span>
                   </div>
                   <button
-                    onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                    onClick={() => {
+                      if (plan.duration === "8") {
+                        setShowPaypalModal(true)
+                      } else {
+                        document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+                      }
+                    }}
                     className={`w-full flex items-center justify-center gap-2 py-4 font-display text-sm tracking-[0.2em] uppercase font-bold transition-all duration-200 group ${
                       plan.highlight
                         ? "bg-primary text-black hover:bg-white"
@@ -189,6 +199,91 @@ export function Programs() {
         </AnimatePresence>
 
       </div>
+
+      {/* PayPal Confirmation Modal */}
+      <AnimatePresence>
+        {showPaypalModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+            onClick={() => setShowPaypalModal(false)}
+          >
+            <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 20 }}
+              transition={{ duration: 0.25 }}
+              onClick={e => e.stopPropagation()}
+              className="relative bg-[#0D0D0D] border border-white/15 w-full max-w-md p-8"
+            >
+              {/* Close */}
+              <button
+                onClick={() => setShowPaypalModal(false)}
+                className="absolute top-4 right-4 text-white/30 hover:text-white transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* PayPal logo area */}
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 bg-[#003087] flex items-center justify-center">
+                  <span className="font-bold text-white text-sm italic">P</span>
+                </div>
+                <div>
+                  <div className="text-white/40 font-display text-[10px] tracking-[0.3em] uppercase">
+                    {lang === "en" ? "Secure Payment" : "Güvenli Ödeme"}
+                  </div>
+                  <div className="text-white font-display text-sm tracking-widest uppercase">PayPal</div>
+                </div>
+              </div>
+
+              {/* Package info */}
+              <div className="bg-white/4 border border-white/8 p-4 mb-6">
+                <div className="text-white/40 font-display text-[10px] tracking-widest uppercase mb-1">
+                  {lang === "en" ? "Selected Package" : "Seçilen Paket"}
+                </div>
+                <div className="text-white font-display text-lg uppercase tracking-wider">
+                  {lang === "en" ? "8-Week Program" : "8 Haftalık Program"}
+                </div>
+                <div className="text-primary font-display text-3xl font-bold mt-1">€135</div>
+              </div>
+
+              {/* Info text */}
+              <p className="text-white/55 font-sans text-sm leading-relaxed mb-2">
+                {lang === "en"
+                  ? "You will be redirected to PayPal to complete your payment securely. The coaching process begins once your payment is confirmed."
+                  : "Ödemeyi tamamlamak için PayPal sayfasına yönlendirileceksiniz. Ödemen onaylandıktan sonra koçluk süreci başlıyor."}
+              </p>
+              <div className="flex items-center gap-2 text-white/30 font-sans text-xs mb-8">
+                <ShieldCheck className="w-3.5 h-3.5 text-green-500/70 flex-shrink-0" />
+                {lang === "en" ? "256-bit SSL encrypted, processed by PayPal" : "256-bit SSL şifreli, PayPal güvencesiyle işleniyor"}
+              </div>
+
+              {/* Actions */}
+              <div className="flex flex-col gap-3">
+                <a
+                  href={PAYPAL_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-2 py-4 bg-[#0070BA] hover:bg-[#005ea6] text-white font-display text-sm tracking-[0.2em] uppercase transition-all duration-200"
+                >
+                  {lang === "en" ? "Pay with PayPal" : "PayPal ile Öde"}
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+                <button
+                  onClick={() => setShowPaypalModal(false)}
+                  className="w-full py-3 border border-white/15 text-white/40 font-display text-xs tracking-widest uppercase hover:border-white/30 hover:text-white/60 transition-all duration-200"
+                >
+                  {lang === "en" ? "Cancel" : "Vazgeç"}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
