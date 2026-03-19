@@ -102,6 +102,8 @@ export default function BlogPostPage() {
           src={post.image}
           alt={post.title}
           className="w-full h-full object-cover"
+          fetchPriority="high"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
@@ -195,7 +197,7 @@ export default function BlogPostPage() {
                   {relatedPosts.map((related) => (
                     <Link key={related.slug} href={`/blog/${related.slug}`}>
                       <div className="group flex gap-3 cursor-pointer">
-                        <img src={related.image} alt={related.title} className="w-16 h-14 object-cover flex-shrink-0 grayscale group-hover:grayscale-0 transition-all duration-500" />
+                        <img src={related.image} alt={related.title} className="w-16 h-14 object-cover flex-shrink-0 grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" decoding="async" />
                         <div className="flex-1">
                           <span className={`font-display text-[9px] tracking-widest px-2 py-0.5 ${related.categoryColor} mb-1.5 inline-block`}>
                             {related.category}

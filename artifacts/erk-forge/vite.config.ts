@@ -57,6 +57,20 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    target: "esnext",
+    minify: "esbuild",
+    cssMinify: true,
+    assetsInlineLimit: 4096,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "vendor-react": ["react", "react-dom"],
+          "vendor-motion": ["framer-motion"],
+          "vendor-ui": ["wouter", "lucide-react"],
+          "vendor-helmet": ["react-helmet-async"],
+        },
+      },
+    },
   },
   server: {
     port,
