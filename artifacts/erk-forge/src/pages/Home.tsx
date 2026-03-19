@@ -5,7 +5,6 @@ import { Programs } from "@/components/sections/Programs"
 import { HowItWorks } from "@/components/sections/HowItWorks"
 import { FAQ } from "@/components/sections/FAQ"
 import { Blog } from "@/components/sections/Blog"
-import { Contact } from "@/components/sections/Contact"
 import { Footer } from "@/components/layout/Footer"
 import { SEO } from "@/hooks/useSEO"
 
@@ -24,7 +23,6 @@ export default function Home() {
       <HowItWorks />
       <FAQ />
       <Blog />
-      <Contact />
       <Footer />
     </main>
   )
