@@ -6,6 +6,7 @@ import { useLanguage } from "@/i18n/LanguageContext"
 const PAYPAL_LINKS: Record<string, string> = {
   "8":  "https://www.paypal.com/ncp/payment/XF3Q8K787R6QY",
   "12": "https://www.paypal.com/ncp/payment/GGCTYFD6WREAQ",
+  "16": "https://www.paypal.com/ncp/payment/3LC3SPGFG6UUC",
 }
 
 const CYCLE_MS = 4000
