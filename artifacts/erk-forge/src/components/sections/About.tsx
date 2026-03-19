@@ -8,8 +8,6 @@ export function About() {
 
   const stats = [
     { value: "7+", label: "Yıl Deneyim" },
-    { value: "400+", label: "Dönüşüm" },
-    { value: "%92", label: "Başarı Oranı" },
   ]
 
   const pillars = [
@@ -112,11 +110,10 @@ export function About() {
             </div>
 
             {/* Stat sayaçları */}
-            <div className="grid grid-cols-3 gap-2 mb-10 border-t border-b border-white/10 py-7">
+            <div className="flex gap-8 mb-10 border-t border-b border-white/10 py-7">
               {stats.map((s, i) => (
                 <motion.div
                   key={i}
-                  className="text-center"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.35 + i * 0.12 }}
