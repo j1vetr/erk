@@ -108,12 +108,21 @@ export function Navbar() {
             </div>
 
             {/* Lang Toggle */}
-            <button
-              onClick={() => setLang(lang === "tr" ? "en" : "tr")}
-              className="flex items-center gap-1 font-display text-xs tracking-[0.2em] border border-white/20 px-3 py-1.5 text-white/70 hover:border-primary hover:text-primary transition-all duration-200"
-            >
-              {lang === "tr" ? "EN" : "TR"}
-            </button>
+            <div className="flex items-center border border-white/25 overflow-hidden">
+              <button
+                onClick={() => setLang("tr")}
+                className={`font-display text-[11px] tracking-[0.25em] px-3.5 py-2 transition-all duration-200 ${lang === "tr" ? "bg-primary text-black font-bold" : "text-white/50 hover:text-white hover:bg-white/5"}`}
+              >
+                TR
+              </button>
+              <div className="w-px h-4 bg-white/20" />
+              <button
+                onClick={() => setLang("en")}
+                className={`font-display text-[11px] tracking-[0.25em] px-3.5 py-2 transition-all duration-200 ${lang === "en" ? "bg-primary text-black font-bold" : "text-white/50 hover:text-white hover:bg-white/5"}`}
+              >
+                EN
+              </button>
+            </div>
 
             {/* CTA */}
             <button
@@ -127,12 +136,21 @@ export function Navbar() {
 
           {/* Mobile Toggle */}
           <div className="lg:hidden flex items-center gap-3">
-            <button
-              onClick={() => setLang(lang === "tr" ? "en" : "tr")}
-              className="font-display text-xs tracking-[0.2em] border border-white/20 px-2.5 py-1 text-white/70 hover:border-primary hover:text-primary transition-all duration-200"
-            >
-              {lang === "tr" ? "EN" : "TR"}
-            </button>
+            <div className="flex items-center border border-white/25 overflow-hidden">
+              <button
+                onClick={() => setLang("tr")}
+                className={`font-display text-[11px] tracking-[0.2em] px-3 py-1.5 transition-all duration-200 ${lang === "tr" ? "bg-primary text-black font-bold" : "text-white/50"}`}
+              >
+                TR
+              </button>
+              <div className="w-px h-3.5 bg-white/20" />
+              <button
+                onClick={() => setLang("en")}
+                className={`font-display text-[11px] tracking-[0.2em] px-3 py-1.5 transition-all duration-200 ${lang === "en" ? "bg-primary text-black font-bold" : "text-white/50"}`}
+              >
+                EN
+              </button>
+            </div>
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-primary p-2">
               {mobileMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
             </button>
