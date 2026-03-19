@@ -4,7 +4,7 @@ import { Check, ArrowRight, X, ExternalLink, ShieldCheck } from "lucide-react"
 import { useLanguage } from "@/i18n/LanguageContext"
 
 // 👇 PayPal ödeme linkini buraya yapıştır
-const PAYPAL_LINK = "https://www.paypal.me/SENIN_PAYPAL_KULLANICI_ADIN"
+const PAYPAL_LINK = "https://www.paypal.com/ncp/payment/XF3Q8K787R6QY"
 
 const CYCLE_MS = 4000
 
