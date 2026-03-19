@@ -20,6 +20,7 @@ import HeartRatePage from "@/pages/HeartRatePage"
 
 import BlogListPage from "@/pages/BlogListPage"
 import BlogPostPage from "@/pages/BlogPostPage"
+import PaymentSuccessPage from "@/pages/PaymentSuccessPage"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,6 +56,8 @@ function Router() {
         <Route path="/araclar/nabiz-bolgesi" component={HeartRatePage} />
         <Route path="/blog" component={BlogListPage} />
         <Route path="/blog/:slug" component={BlogPostPage} />
+        <Route path="/odeme-basarili" component={PaymentSuccessPage} />
+        <Route path="/payment-success" component={PaymentSuccessPage} />
         <Route component={NotFound} />
       </Switch>
     </>
