@@ -271,6 +271,7 @@ export function Programs() {
                   href={PAYPAL_LINKS[plan.duration]}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => sessionStorage.setItem("erk_plan", plan.duration)}
                   className="w-full flex items-center justify-center gap-2 py-4 bg-[#0070BA] hover:bg-[#005ea6] text-white font-display text-sm tracking-[0.2em] uppercase transition-all duration-200"
                 >
                   {lang === "en" ? "Pay with PayPal" : "PayPal ile Öde"}

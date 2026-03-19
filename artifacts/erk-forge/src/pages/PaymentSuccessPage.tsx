@@ -6,36 +6,81 @@ import { Link } from "wouter"
 
 const WHATSAPP_NUMBER = "905488441999"
 
+const PLANS: Record<string, {
+  labelTR: string; labelEN: string;
+  price: string; weeks: string;
+  tagTR: string; tagEN: string;
+  descTR: string; descEN: string;
+}> = {
+  "8": {
+    labelTR: "8 Haftalık Koçluk Programı",
+    labelEN: "8-Week Coaching Program",
+    price: "135", weeks: "8",
+    tagTR: "Başlangıç", tagEN: "Starter",
+    descTR: "Temeli sağlam atmak için güçlü bir başlangıç. 8 hafta boyunca antrenman ve beslenme programınla tam destek alıyorsun.",
+    descEN: "A powerful start to build solid foundations. Full training and nutrition support throughout 8 weeks.",
+  },
+  "12": {
+    labelTR: "12 Haftalık Koçluk Programı",
+    labelEN: "12-Week Coaching Program",
+    price: "170", weeks: "12",
+    tagTR: "En Popüler", tagEN: "Most Popular",
+    descTR: "Kalıcı dönüşüm için en çok tercih edilen program. 12 hafta boyunca derinlemesine takip ve revizyonlarla maksimum sonuç.",
+    descEN: "The most preferred program for lasting transformation. Maximum results with in-depth tracking and revisions over 12 weeks.",
+  },
+  "16": {
+    labelTR: "16 Haftalık Koçluk Programı",
+    labelEN: "16-Week Coaching Program",
+    price: "200", weeks: "16",
+    tagTR: "Elite", tagEN: "Elite",
+    descTR: "Fiziğinin sınırlarını zorlamak isteyenler için. 16 hafta boyunca ileri düzey optimizasyon ve uzun vadeli alışkanlık inşası.",
+    descEN: "For those who want to push the limits of their physique. Advanced optimization and long-term habit building over 16 weeks.",
+  },
+}
+
 export default function PaymentSuccessPage() {
   const { lang } = useLanguage()
   const [txId, setTxId] = useState<string | null>(null)
+  const [planKey, setPlanKey] = useState<string>("8")
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const tx = params.get("tx")
     if (tx) setTxId(tx)
-    document.title = lang === "en" ? "Payment Received — Erk Forge Coaching" : "Ödeme Alındı — Erk Forge Coaching"
+
+    // URL param öncelikli, yoksa sessionStorage'dan oku
+    const urlPlan = params.get("plan")
+    const storedPlan = sessionStorage.getItem("erk_plan")
+    const detected = urlPlan ?? storedPlan ?? "8"
+    if (PLANS[detected]) setPlanKey(detected)
+
+    document.title = lang === "en"
+      ? "Payment Received — Erk Forge Coaching"
+      : "Ödeme Alındı — Erk Forge Coaching"
   }, [lang])
 
   const tr = lang !== "en"
+  const plan = PLANS[planKey]
 
   const steps = tr
     ? [
-        { icon: "01", title: "Program Hazırlanıyor", desc: "8 haftalık antrenman ve beslenme programın 48 saat içinde hazır olacak." },
+        { icon: "01", title: "Program Hazırlanıyor", desc: `${plan.weeks} haftalık antrenman ve beslenme programın 48 saat içinde hazır olacak.` },
         { icon: "02", title: "WhatsApp İletişimi", desc: "Kayıtlı numaran üzerinden kısa sürede seninle iletişime geçeceğim." },
         { icon: "03", title: "Başlangıç Anketi", desc: "Hedeflerini, yaşam tarzını ve geçmişini daha iyi anlamak için kısa bir anket dolduracaksın." },
-        { icon: "04", title: "Dönüşüm Başlar", desc: "Programın elinizde, süreç başlıyor. Haftalık check-in'lerle takip devam eder." },
+        { icon: "04", title: "Dönüşüm Başlar", desc: `Programın elinde, süreç başlıyor. ${plan.weeks} hafta boyunca haftalık check-in'lerle takip devam eder.` },
       ]
     : [
-        { icon: "01", title: "Program Being Prepared", desc: "Your 8-week training and nutrition program will be ready within 48 hours." },
+        { icon: "01", title: "Program Being Prepared", desc: `Your ${plan.weeks}-week training and nutrition program will be ready within 48 hours.` },
         { icon: "02", title: "WhatsApp Contact", desc: "I'll reach out to you shortly via your registered number." },
         { icon: "03", title: "Intake Questionnaire", desc: "You'll fill out a short form so I can understand your goals, lifestyle and background." },
-        { icon: "04", title: "Transformation Begins", desc: "Program in hand, the process starts. Weekly check-ins keep your progress on track." },
+        { icon: "04", title: "Transformation Begins", desc: `Program in hand, the process starts. Weekly check-ins keep you on track for all ${plan.weeks} weeks.` },
       ]
 
+  const planLabel = tr ? plan.labelTR : plan.labelEN
+
   const whatsappMsg = tr
-    ? `Merhaba, 8 haftalık koçluk programı için ödeme yaptım. İşlem ID: ${txId ?? "—"}`
-    : `Hi, I've completed payment for the 8-week coaching program. Transaction ID: ${txId ?? "—"}`
+    ? `Merhaba, ${planLabel} için ödeme yaptım.${txId ? ` İşlem ID: ${txId}` : ""}`
+    : `Hi, I've completed payment for the ${planLabel}.${txId ? ` Transaction ID: ${txId}` : ""}`
 
   return (
     <div className="min-h-screen bg-[#050505] text-white flex flex-col">
@@ -82,16 +127,14 @@ export default function PaymentSuccessPage() {
               <div className="w-8 h-px bg-primary/60" />
             </div>
             <h1 className="font-display text-4xl md:text-5xl font-bold uppercase leading-tight mb-4">
-              {tr ? (
-                <><span className="text-white">Ödemeniz</span> <span className="text-primary">Alındı!</span></>
-              ) : (
-                <><span className="text-white">Payment</span> <span className="text-primary">Received!</span></>
-              )}
+              {tr
+                ? <><span className="text-white">Ödemeniz</span> <span className="text-primary">Alındı!</span></>
+                : <><span className="text-white">Payment</span> <span className="text-primary">Received!</span></>}
             </h1>
             <p className="text-gray-400 font-sans text-base leading-relaxed max-w-lg mx-auto">
               {tr
-                ? "Teşekkürler! 8 haftalık koçluk programın için ödemen başarıyla tamamlandı. Kısa süre içinde WhatsApp üzerinden seninle iletişime geçeceğim."
-                : "Thank you! Your payment for the 8-week coaching program has been successfully completed. I'll reach out to you shortly via WhatsApp."}
+                ? `Teşekkürler! ${planLabel} için ödemen başarıyla tamamlandı. Kısa süre içinde WhatsApp üzerinden seninle iletişime geçeceğim.`
+                : `Thank you! Your payment for the ${planLabel} has been successfully completed. I'll reach out to you shortly via WhatsApp.`}
             </p>
           </motion.div>
 
@@ -100,30 +143,57 @@ export default function PaymentSuccessPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-primary/5 border border-primary/20 p-5 mb-8"
+            className="border border-primary/25 bg-primary/5 p-5 mb-2"
           >
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-white/40 font-display text-[10px] tracking-widest uppercase mb-1">
-                  {tr ? "Seçilen Paket" : "Selected Package"}
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-white/40 font-display text-[10px] tracking-widest uppercase">
+                    {tr ? "Seçilen Paket" : "Selected Package"}
+                  </div>
+                  <div className="bg-primary text-black font-display text-[9px] tracking-widest uppercase px-2 py-0.5 font-bold">
+                    {tr ? plan.tagTR : plan.tagEN}
+                  </div>
                 </div>
-                <div className="text-white font-display text-lg uppercase tracking-wider">
-                  {tr ? "8 Haftalık Koçluk Programı" : "8-Week Coaching Program"}
+                <div className="text-white font-display text-xl uppercase tracking-wider mb-1">
+                  {planLabel}
+                </div>
+                <div className="text-white/40 font-sans text-xs leading-relaxed">
+                  {tr ? plan.descTR : plan.descEN}
                 </div>
                 {txId && (
-                  <div className="text-white/30 font-sans text-xs mt-1">
-                    {tr ? "İşlem No:" : "Transaction ID:"} <span className="font-mono text-white/50">{txId}</span>
+                  <div className="text-white/25 font-sans text-xs mt-2">
+                    {tr ? "İşlem No:" : "Transaction ID:"}{" "}
+                    <span className="font-mono text-white/40">{txId}</span>
                   </div>
                 )}
               </div>
-              <div className="text-right">
-                <div className="text-primary font-display text-3xl font-bold">€135</div>
-                <div className="flex items-center gap-1 text-green-500/70 text-xs font-sans mt-1">
+              <div className="text-right shrink-0">
+                <div className="text-primary font-display text-4xl font-bold leading-none">€{plan.price}</div>
+                <div className="flex items-center justify-end gap-1 text-green-500/70 text-xs font-sans mt-2">
                   <Shield className="w-3 h-3" />
                   {tr ? "Ödendi" : "Paid"}
                 </div>
+                <div className="font-display text-white/20 text-[10px] tracking-widest uppercase mt-1">
+                  {plan.weeks} {tr ? "HAFTA" : "WEEKS"}
+                </div>
               </div>
             </div>
+          </motion.div>
+
+          {/* Duration bar */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.35 }}
+            className="flex mb-8"
+          >
+            {["8", "12", "16"].map((w) => (
+              <div
+                key={w}
+                className={`flex-1 h-1 transition-colors ${w === planKey ? "bg-primary" : "bg-white/8"}`}
+              />
+            ))}
           </motion.div>
 
           {/* What happens next */}
