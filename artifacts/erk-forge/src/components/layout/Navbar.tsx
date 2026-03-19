@@ -47,7 +47,11 @@ export function Navbar() {
         <div className="flex justify-between items-center">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center cursor-pointer group">
+          <Link
+            href="/"
+            onClick={() => location === "/" && window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="flex items-center cursor-pointer group"
+          >
             <img
               src={`${import.meta.env.BASE_URL}images/logo.png`}
               alt="Erk Forge Coaching"
@@ -57,6 +61,13 @@ export function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-9">
+            <Link
+              href="/"
+              onClick={() => location === "/" && window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="text-[15px] font-display tracking-[0.18em] text-white/80 hover:text-primary transition-colors uppercase"
+            >
+              {t.nav.home}
+            </Link>
             {navLinks.map((link) => (
               <button
                 key={link.id}
@@ -168,6 +179,13 @@ export function Navbar() {
             className="lg:hidden absolute top-full left-0 w-full bg-black/95 backdrop-blur-xl border-t border-white/10 overflow-y-auto"
           >
             <div className="flex flex-col px-6 py-8 gap-6">
+              <Link
+                href="/"
+                onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }) }}
+                className="text-left font-display text-3xl text-white/80 hover:text-primary border-b border-white/5 pb-4 uppercase tracking-widest"
+              >
+                {t.nav.home}
+              </Link>
               {navLinks.map((link) => (
                 <button
                   key={link.id}

@@ -3,6 +3,7 @@ export type Lang = "tr" | "en"
 const tr = {
   lang: "tr",
   nav: {
+    home: "Ana Sayfa",
     about: "Hakkımda",
     programs: "Programlar",
     blog: "Blog",
@@ -382,6 +383,7 @@ const tr = {
 const en = {
   lang: "en",
   nav: {
+    home: "Home",
     about: "About",
     programs: "Programs",
     blog: "Blog",
