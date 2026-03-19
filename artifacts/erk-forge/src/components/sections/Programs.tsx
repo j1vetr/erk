@@ -3,8 +3,10 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Check, ArrowRight, X, ExternalLink, ShieldCheck } from "lucide-react"
 import { useLanguage } from "@/i18n/LanguageContext"
 
-// 👇 PayPal ödeme linkini buraya yapıştır
-const PAYPAL_LINK = "https://www.paypal.com/ncp/payment/XF3Q8K787R6QY"
+const PAYPAL_LINKS: Record<string, string> = {
+  "8":  "https://www.paypal.com/ncp/payment/XF3Q8K787R6QY",
+  "12": "https://www.paypal.com/ncp/payment/GGCTYFD6WREAQ",
+}
 
 const CYCLE_MS = 4000
 
@@ -150,7 +152,7 @@ export function Programs() {
                   </div>
                   <button
                     onClick={() => {
-                      if (plan.duration === "8") {
+                      if (PAYPAL_LINKS[plan.duration]) {
                         setShowPaypalModal(true)
                       } else {
                         document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
@@ -246,9 +248,9 @@ export function Programs() {
                   {lang === "en" ? "Selected Package" : "Seçilen Paket"}
                 </div>
                 <div className="text-white font-display text-lg uppercase tracking-wider">
-                  {lang === "en" ? "8-Week Program" : "8 Haftalık Program"}
+                  {plan.label}
                 </div>
-                <div className="text-primary font-display text-3xl font-bold mt-1">€135</div>
+                <div className="text-primary font-display text-3xl font-bold mt-1">€{plan.price}</div>
               </div>
 
               {/* Info text */}
@@ -265,7 +267,7 @@ export function Programs() {
               {/* Actions */}
               <div className="flex flex-col gap-3">
                 <a
-                  href={PAYPAL_LINK}
+                  href={PAYPAL_LINKS[plan.duration]}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 py-4 bg-[#0070BA] hover:bg-[#005ea6] text-white font-display text-sm tracking-[0.2em] uppercase transition-all duration-200"
