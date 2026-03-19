@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
-import { ChevronDown, Users, Target, Trophy } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 import { useLanguage } from "@/i18n/LanguageContext"
 
 function EmberOverlay() {
@@ -72,27 +72,6 @@ export function Hero() {
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
-  }
-
-  const Counter = ({ end, duration, label }: { end: number; duration: number; label: string }) => {
-    const [count, setCount] = useState(0)
-    useEffect(() => {
-      let startTime: number; let af: number
-      const step = (ts: number) => {
-        if (!startTime) startTime = ts
-        const p = Math.min((ts - startTime) / duration, 1)
-        setCount(Math.floor((1 - Math.pow(1 - p, 4)) * end))
-        if (p < 1) af = requestAnimationFrame(step)
-      }
-      af = requestAnimationFrame(step)
-      return () => cancelAnimationFrame(af)
-    }, [end, duration])
-    return (
-      <div className="flex flex-col items-center">
-        <span className="font-display text-2xl md:text-3xl text-white font-bold">{count}+</span>
-        <span className="text-primary font-display tracking-widest text-[10px] uppercase mt-1">{label}</span>
-      </div>
-    )
   }
 
   return (
@@ -183,26 +162,6 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="grid grid-cols-3 gap-6 md:gap-10 w-full max-w-sm border-t border-white/10 pt-6"
-        >
-          <div className="flex flex-col items-center gap-1">
-            <Users className="w-5 h-5 text-primary/60 mb-1" />
-            <Counter end={500} duration={2000} label={t.hero.statClients} />
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <Trophy className="w-5 h-5 text-primary/60 mb-1" />
-            <Counter end={8} duration={2000} label={t.hero.statExp} />
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <Target className="w-5 h-5 text-primary/60 mb-1" />
-            <Counter end={97} duration={2000} label={t.hero.statSuccess} />
-          </div>
-        </motion.div>
       </div>
 
       {/* Scroll indicator */}
