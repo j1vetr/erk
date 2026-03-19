@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { ChevronDown, Users, Target, Trophy } from "lucide-react"
+import { useLanguage } from "@/i18n/LanguageContext"
 
 function EmberOverlay() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -39,10 +40,8 @@ function EmberOverlay() {
     const draw = () => {
       frame++
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-
       if (frame % 4 === 0) spawn()
       if (frame % 9 === 0) spawn()
-
       for (let i = embers.length - 1; i >= 0; i--) {
         const e = embers[i]
         e.x += e.vx + Math.sin(e.life * 0.05) * 0.25
@@ -69,6 +68,8 @@ function EmberOverlay() {
 }
 
 export function Hero() {
+  const { t } = useLanguage()
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
   }
@@ -97,17 +98,14 @@ export function Hero() {
   return (
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-black">
 
-      {/* ── Background Video ── */}
+      {/* Background Video */}
       <div className="absolute inset-0 z-0">
-        <video
-          autoPlay muted loop playsInline
-          className="w-full h-full object-cover object-center"
-        >
+        <video autoPlay muted loop playsInline className="w-full h-full object-cover object-center">
           <source src={`${import.meta.env.BASE_URL}videos/hero-bg.mp4`} type="video/mp4" />
         </video>
       </div>
 
-      {/* ── Coach Photo — above overlays, pinned to bottom-right ── */}
+      {/* Coach Photo */}
       <motion.div
         initial={{ opacity: 0, x: 60 }}
         animate={{ opacity: 1, x: 0 }}
@@ -115,46 +113,26 @@ export function Hero() {
         className="absolute bottom-0 z-[6] hidden lg:flex items-end justify-end pointer-events-none"
         style={{ width: "33%", height: "100%", right: "12%" }}
       >
-        {/* Glow behind figure */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-3/4 pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse at bottom, rgba(245,197,24,0.18) 0%, rgba(245,197,24,0.04) 55%, transparent 80%)",
-            filter: "blur(40px)",
-          }}
+          style={{ background: "radial-gradient(ellipse at bottom, rgba(245,197,24,0.18) 0%, rgba(245,197,24,0.04) 55%, transparent 80%)", filter: "blur(40px)" }}
         />
-
-        {/* Coach photo */}
         <div className="relative w-full max-w-[460px]">
           <img
             src={`${import.meta.env.BASE_URL}images/coach-hero.webp`}
-            alt="Erk Forge Koç"
+            alt="Erk Forge Coach"
             className="relative w-full h-auto object-contain object-bottom select-none block"
-            style={{
-              filter: [
-                "brightness(0.82)",
-                "contrast(1.1)",
-                "drop-shadow(0 0 1px #F5C518)",
-                "drop-shadow(0 0 4px rgba(245,197,24,0.45))",
-              ].join(" "),
-              opacity: 0.70,
-            }}
+            style={{ filter: ["brightness(0.82)", "contrast(1.1)", "drop-shadow(0 0 1px #F5C518)", "drop-shadow(0 0 4px rgba(245,197,24,0.45))"].join(" "), opacity: 0.70 }}
             draggable={false}
           />
         </div>
-
-        {/* Ground glow */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-10 pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse, rgba(245,197,24,0.28) 0%, transparent 70%)",
-            filter: "blur(14px)",
-          }}
+          style={{ background: "radial-gradient(ellipse, rgba(245,197,24,0.28) 0%, transparent 70%)", filter: "blur(14px)" }}
         />
       </motion.div>
 
-      {/* ── Ember particle overlay ── */}
       <EmberOverlay />
 
-      {/* ── Dark overlays ── */}
+      {/* Dark overlays */}
       <div className="absolute inset-0 z-[4] pointer-events-none">
         <div className="absolute inset-0 bg-black/60" />
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black to-transparent" />
@@ -163,7 +141,7 @@ export function Hero() {
         <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black/40 to-transparent" />
       </div>
 
-      {/* ── Content ── */}
+      {/* Content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 min-h-screen flex flex-col items-center lg:items-start justify-center lg:justify-end lg:pb-24 text-center lg:text-left">
 
         <motion.h1
@@ -172,8 +150,8 @@ export function Hero() {
           transition={{ duration: 0.9, delay: 0.1, ease: "easeOut" }}
           className="font-display text-6xl sm:text-7xl md:text-7xl xl:text-8xl font-bold leading-[1.0] mb-6 drop-shadow-2xl max-w-2xl"
         >
-          DEMİRDEN <br />
-          <span className="text-primary">YOĞRUL</span>
+          {t.hero.line1} <br />
+          <span className="text-primary">{t.hero.line2}</span>
         </motion.h1>
 
         <motion.p
@@ -182,8 +160,7 @@ export function Hero() {
           transition={{ duration: 0.9, delay: 0.3 }}
           className="max-w-md text-sm md:text-base text-gray-300 mb-8 font-sans font-light leading-relaxed"
         >
-          Mazeret yok, kestirme yok. Ağır demir, saf irade ve profesyonel rehberlik.
-          Bedenini sıfırdan yeniden inşa etmek için ilk adımı at.
+          {t.hero.sub}
         </motion.p>
 
         <motion.div
@@ -196,13 +173,13 @@ export function Hero() {
             onClick={() => scrollTo("contact")}
             className="px-8 py-3.5 bg-primary text-black font-display text-sm tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_20px_rgba(245,197,24,0.4)]"
           >
-            Hemen Başla
+            {t.hero.ctaStart}
           </button>
           <button
             onClick={() => scrollTo("programs")}
             className="px-8 py-3.5 bg-black/50 border border-white/20 text-white font-display text-sm tracking-widest uppercase hover:border-primary hover:text-primary backdrop-blur-sm transition-all duration-300"
           >
-            Programları İncele
+            {t.hero.ctaPrograms}
           </button>
         </motion.div>
 
@@ -215,15 +192,15 @@ export function Hero() {
         >
           <div className="flex flex-col items-center gap-1">
             <Users className="w-5 h-5 text-primary/60 mb-1" />
-            <Counter end={500} duration={2000} label="Mutlu Müşteri" />
+            <Counter end={500} duration={2000} label={t.hero.statClients} />
           </div>
           <div className="flex flex-col items-center gap-1">
             <Trophy className="w-5 h-5 text-primary/60 mb-1" />
-            <Counter end={8} duration={2000} label="Yıl Deneyim" />
+            <Counter end={8} duration={2000} label={t.hero.statExp} />
           </div>
           <div className="flex flex-col items-center gap-1">
             <Target className="w-5 h-5 text-primary/60 mb-1" />
-            <Counter end={97} duration={2000} label="% Başarı Oranı" />
+            <Counter end={97} duration={2000} label={t.hero.statSuccess} />
           </div>
         </motion.div>
       </div>
@@ -236,7 +213,7 @@ export function Hero() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-primary flex flex-col items-center gap-2 cursor-pointer z-10"
         onClick={() => scrollTo("about")}
       >
-        <span className="font-display uppercase text-xs tracking-[0.3em] hidden sm:block">AŞAĞI İN</span>
+        <span className="font-display uppercase text-xs tracking-[0.3em] hidden sm:block">{t.hero.scrollDown}</span>
         <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}>
           <ChevronDown className="w-6 h-6" />
         </motion.div>

@@ -1,14 +1,18 @@
 export interface BlogPost {
   slug: string
   title: string
+  titleEn?: string
   category: string
+  categoryEn?: string
   categoryColor: string
   excerpt: string
+  excerptEn?: string
   date: string
   readTime: string
   image: string
   content: BlogSection[]
   tags: string[]
+  tagsEn?: string[]
 }
 
 export interface BlogSection {
@@ -21,14 +25,18 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "kas-hipertrofisi-icin-gercek-antrenman-sikligi",
     title: "Kas Hipertrofisi İçin Gerçek Antrenman Sıklığı",
+    titleEn: "The Real Training Frequency for Muscle Hypertrophy",
     category: "ANTRENMAN",
+    categoryEn: "TRAINING",
     categoryColor: "bg-primary text-black",
     excerpt:
       "Haftada 5 mi, 4 mü, 3 mü? Antrenman sıklığı sorusunun bilimsel cevabı — ve neden çoğu insanın yaptığı yanlış.",
+    excerptEn: "5 days a week, 4, or 3? The scientific answer to training frequency — and why most people are doing it wrong.",
     date: "14 Mart 2026",
     readTime: "7 dk okuma",
     image: "/images/blog-antrenman-sikligi.webp",
     tags: ["Hipertrofi", "Antrenman Planı", "Bilim"],
+    tagsEn: ["Hypertrophy", "Training Plan", "Science"],
     content: [
       {
         type: "paragraph",
@@ -92,14 +100,18 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "definasyon-doneminde-kas-kaybini-onlemenin-5-yolu",
     title: "Definasyon Döneminde Kas Kaybını Önlemenin 5 Yolu",
+    titleEn: "5 Ways to Prevent Muscle Loss During a Cut",
     category: "BESLENME",
+    categoryEn: "NUTRITION",
     categoryColor: "bg-blue-500 text-white",
     excerpt:
       "Kalori açığındayken kas kütleni nasıl korursun? Bilimsel temelli 5 strateji ile definasyon sürecini daha akıllıca yönet.",
+    excerptEn: "How do you preserve muscle while in a calorie deficit? Manage your cut smarter with 5 science-based strategies.",
     date: "28 Şubat 2026",
     readTime: "8 dk okuma",
     image: "/images/blog-definasyon.webp",
     tags: ["Definasyon", "Beslenme", "Kas Koruma"],
+    tagsEn: ["Cut", "Nutrition", "Muscle Preservation"],
     content: [
       {
         type: "paragraph",
@@ -167,14 +179,18 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "sabah-kardiyo-gercekten-yag-yakar-mi",
     title: "Sabah Kardiyo Efsanesi: Gerçekten Yağ Yakar mı?",
+    titleEn: "The Morning Cardio Myth: Does It Really Burn More Fat?",
     category: "ANTRENMAN",
+    categoryEn: "TRAINING",
     categoryColor: "bg-primary text-black",
     excerpt:
       "\"Aç karnına sabah koşusu daha fazla yağ yakar\" tezi yıllardır fitness dünyasında dolaşıyor. Bilim ne diyor?",
+    excerptEn: "The claim that \"fasted morning cardio burns more fat\" has circulated in fitness for years. What does science say?",
     date: "10 Şubat 2026",
     readTime: "6 dk okuma",
     image: "/images/blog-sabah-kardiyo.webp",
     tags: ["Kardiyo", "Yağ Yakımı", "Bilim"],
+    tagsEn: ["Cardio", "Fat Loss", "Science"],
     content: [
       {
         type: "paragraph",
@@ -234,14 +250,18 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "protein-zamanlamasi-ne-zaman-yersen-onemli-mi",
     title: "Protein Zamanlaması: Ne Zaman Yersen O Kadar Önemli mi?",
+    titleEn: "Protein Timing: Does It Really Matter When You Eat It?",
     category: "BESLENME",
+    categoryEn: "NUTRITION",
     categoryColor: "bg-blue-500 text-white",
     excerpt:
       "Antrenman sonrası 30 dakika içinde protein yemezsen kas kaybeder misin? Anabolik pencere efsanesinin gerçeği.",
+    excerptEn: "Will you lose muscle if you don't eat protein within 30 minutes post-workout? The truth about the anabolic window myth.",
     date: "25 Ocak 2026",
     readTime: "7 dk okuma",
     image: "/images/blog-protein.webp",
     tags: ["Protein", "Beslenme", "Anabolik Pencere"],
+    tagsEn: ["Protein", "Nutrition", "Anabolic Window"],
     content: [
       {
         type: "paragraph",
@@ -301,14 +321,18 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "zihin-kasini-gelistir-mental-guc-insaa-etmek",
     title: "Zihin Kasını Geliştir: Mental Güç İnşa Etmek",
+    titleEn: "Train Your Mind Muscle: Building Mental Strength",
     category: "MENTAL",
+    categoryEn: "MENTAL",
     categoryColor: "bg-red-600 text-white",
     excerpt:
       "Zor setin ortasında aklın seni durdurmaya çalışır. Beden hazır olsa bile beyin dur der. İşte bu sinyalin nasıl aşıldığı.",
+    excerptEn: "In the middle of a hard set, your mind tries to stop you. Even when the body is ready, the brain says stop. Here's how to override that signal.",
     date: "8 Ocak 2026",
     readTime: "6 dk okuma",
     image: "/images/blog-mental.webp",
     tags: ["Mental Güç", "Disiplin", "Psikoloji"],
+    tagsEn: ["Mental Strength", "Discipline", "Psychology"],
     content: [
       {
         type: "paragraph",

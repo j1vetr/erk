@@ -2,55 +2,21 @@ import { useState } from "react"
 import { motion, AnimatePresence, useInView } from "framer-motion"
 import { useRef } from "react"
 import { Plus, Minus, ArrowRight } from "lucide-react"
-
-const faqs = [
-  {
-    q: "Online koçluk yüz yüze kadar etkili mi?",
-    a: "Büyük çoğunluk için evet — hatta daha etkili. Yüz yüze eğitimde sporcunun koçuna erişimi haftada birkaç saatken, online koçlukta WhatsApp üzerinden her gün iletişim halindeyiz. Form videolarını izliyor, haftalık ölçümlerini analiz ediyor ve programı anlık olarak revize ediyorum. Yüz yüze olduğunda kaçırdığım şeyleri online'da yakalıyorum.",
-  },
-  {
-    q: "Hangi programı seçmeliyim?",
-    a: "8 hafta doğru alışkanlıkları kurmak için idealdir. Kalıcı bir dönüşüm hedefliyorsan ve disiplinini kanıtlamışsan 12 hafta en mantıklı seçenek — danışanlarımın büyük çoğunluğu bu paketi tercih ediyor. 16 hafta ise rekabetçi bir hedefe ya da dramatik bir dönüşüme ihtiyaç duyanlar için. Emin değilsen başvuru formunu doldur; görüşmede birlikte kararlaştıralım.",
-  },
-  {
-    q: "Programa başlamak için ne kadar spor geçmişine ihtiyacım var?",
-    a: "Sıfır. Geçmişin ne olursa olsun programa entegre ediliyor. Tamamen başlangıç seviyesindeki danışanlar için sistem kurulumu daha önce gelir — hızlı sonuç değil, sürdürülebilir alışkanlık. Geçmişin varsa da sıfırdan başlatıyorum; çünkü kötü alışkanlıkları silmek yenisini öğretmekten bazen daha önemli.",
-  },
-  {
-    q: "Ödeme nasıl yapılır?",
-    a: "Görüşme sonrasında sana ödeme bilgileri iletilir. Havale veya EFT ile tek seferlik ödeme yapılır. Program başlamadan önce ödeme tamamlanmış olmalıdır. Taksit veya kısmi ödeme şu an için mevcut değil.",
-  },
-  {
-    q: "Programda beslenme planı da var mı?",
-    a: "Evet — her paketin içinde kişiselleştirilmiş kalori ve makro hesabı, sürdürülebilir beslenme planı ve takviye rehberi yer alıyor. Diyet listeleri değil, mantığını anlayacağın bir beslenme çerçevesi sunuyorum. Böylece program bittikten sonra da bağımsız hareket edebiliyorsun.",
-  },
-  {
-    q: "Haftalık check-in nasıl işliyor?",
-    a: "Her hafta aynı gün tartı, ölçü ve fotoğraflarını WhatsApp üzerinden paylaşıyorsun. Ben bunları analiz edip yazılı geri bildirim veriyorum, gerekli durumlarda programı revize ediyorum. İlerleme duruyorsa ya da gidişat beklediğimizin dışındaysa müdahale anında oluyor.",
-  },
-  {
-    q: "Seyahat etsem veya yoğun bir dönemim olsa ne olur?",
-    a: "Program sana ayarlanır, sen programa değil. İş seyahati, tatil ya da yoğun dönemler için 'minimum hasar' protokolleri hazırlıyorum. Sıfır egzersiz ve serbest beslenme yerine, mevcut koşulda yapılabilecek en iyi planı sunuyorum.",
-  },
-  {
-    q: "Kontenjan gerçekten sınırlı mı?",
-    a: "Evet. Aynı anda aldığım danışan sayısını bilerek az tutuyorum çünkü her birine verdiğim dikkat ve hız benim için öncelik. Kontenjan dolunca yeni başvuruları bekleme listesine alıyorum. Bu yüzden ilgini şimdi belirtmeni tavsiye ederim.",
-  },
-]
+import { useLanguage } from "@/i18n/LanguageContext"
 
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(null)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-80px" })
+  const { t } = useLanguage()
 
   return (
     <section id="faq" className="bg-black border-t border-white/5 py-20" ref={ref}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8 lg:gap-12 items-start">
 
-          {/* Sol: başlık sabit */}
+          {/* Left: sticky header */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -59,33 +25,33 @@ export function FAQ() {
           >
             <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
               <div className="w-8 h-px bg-primary" />
-              <span className="font-display text-primary text-xs tracking-[0.45em] uppercase">SSS</span>
+              <span className="font-display text-primary text-xs tracking-[0.45em] uppercase">{t.faq.label}</span>
               <div className="w-8 h-px bg-primary lg:hidden" />
             </div>
             <h2 className="font-display text-4xl md:text-5xl font-bold uppercase leading-tight mb-4">
-              AKLINDA <br /><span className="text-primary">SORULAR</span><br />MI VAR?
+              {t.faq.heading1} <br /><span className="text-primary">{t.faq.heading2}</span><br />{t.faq.heading3}
             </h2>
             <p className="text-white/40 font-sans text-sm leading-relaxed mb-6 max-w-xs mx-auto lg:mx-0">
-              En sık sorulan sorulara cevap veriyorum. Yanıtını bulamazsan doğrudan iletişime geç.
+              {t.faq.sub}
             </p>
             <div className="flex justify-center lg:justify-start">
               <button
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                 className="group flex items-center gap-2 text-primary font-display tracking-widest uppercase text-xs border-b border-primary/30 pb-1.5 hover:border-primary hover:gap-3 transition-all duration-300"
               >
-                Bana Sor <ArrowRight className="w-3.5 h-3.5" />
+                {t.faq.askMe} <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </motion.div>
 
-          {/* Sağ: accordion listesi */}
+          {/* Right: accordion list */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="space-y-2"
           >
-            {faqs.map((faq, idx) => {
+            {t.faq.items.map((faq, idx) => {
               const isOpen = open === idx
               return (
                 <div
@@ -106,10 +72,7 @@ export function FAQ() {
                     <div className={`shrink-0 w-7 h-7 border flex items-center justify-center transition-all duration-300 ${
                       isOpen ? "border-primary bg-primary text-black" : "border-white/20 text-white/50"
                     }`}>
-                      {isOpen
-                        ? <Minus className="w-3.5 h-3.5" />
-                        : <Plus className="w-3.5 h-3.5" />
-                      }
+                      {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
                     </div>
                   </button>
 
@@ -124,9 +87,7 @@ export function FAQ() {
                         className="overflow-hidden"
                       >
                         <div className="px-6 pb-5 border-t border-primary/15 pt-4">
-                          <p className="text-white/55 font-sans text-sm leading-relaxed">
-                            {faq.a}
-                          </p>
+                          <p className="text-white/55 font-sans text-sm leading-relaxed">{faq.a}</p>
                         </div>
                       </motion.div>
                     )}

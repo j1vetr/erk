@@ -1,55 +1,18 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Check, ArrowRight } from "lucide-react"
+import { useLanguage } from "@/i18n/LanguageContext"
 
 const CYCLE_MS = 4000
-
-const plans = [
-  {
-    duration: "8",
-    label: "8 Haftalık Program",
-    tag: "Başlangıç",
-    price: "135",
-    desc: "Temeli sağlam atmak isteyenler için güçlü bir başlangıç. Doğru alışkanlıkları kazanacak, vücudunu tanıyacak ve ilk gerçek dönüşümünü yaşayacaksın.",
-    highlight: false,
-  },
-  {
-    duration: "12",
-    label: "12 Haftalık Program",
-    tag: "En Popüler",
-    price: "170",
-    desc: "Kalıcı dönüşüm için en çok tercih edilen program. Yeterli süre, yeterli baskı, maksimum sonuç. Çoğu danışan bu paketle hedefine ulaşır.",
-    highlight: true,
-  },
-  {
-    duration: "16",
-    label: "16 Haftalık Program",
-    tag: "Elite",
-    price: "200",
-    desc: "Fiziğinin sınırlarını zorlamak isteyen kararlı sporcular için. Derinlemesine program revizyonu, ileri düzey optimizasyon ve uzun vadeli alışkanlık inşası.",
-    highlight: false,
-  },
-]
-
-const features = [
-  "Hedefe ve yaşam tarzına özel antrenman planı",
-  "Kişiye özel makro ve kalori hesaplaması",
-  "Sürdürülebilir beslenme planı",
-  "Haftalık check-in (ölçü, kilo, fotoğraf değerlendirmesi)",
-  "İlerlemeye göre program revizyonu",
-  "WhatsApp üzerinden destek ve günlük mesajlaşma",
-  "Doğru form ve teknik rehberliği",
-  "Gerekirse birebir video analiz",
-  "Kısa ve uzun vadeli hedef belirleme",
-  "Disiplin ve alışkanlık kazandırma",
-  "Takviye (supplement) rehberliği",
-]
 
 export function Programs() {
   const [selected, setSelected] = useState(0)
   const [progress, setProgress] = useState(0)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const startRef = useRef<number>(Date.now())
+  const { t } = useLanguage()
+
+  const plans = t.programs.plans.map((p, i) => ({ ...p, highlight: i === 1 }))
   const plan = plans[selected]
 
   const resetCycle = (idx?: number) => {
@@ -75,82 +38,59 @@ export function Programs() {
     return () => { if (timerRef.current) clearInterval(timerRef.current) }
   }, [])
 
-  const handleSelect = (idx: number) => {
-    resetCycle(idx)
-  }
-
   return (
     <section id="programs" className="bg-[#050505] border-t border-white/5 py-20 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* ── Başlık ── */}
+        {/* Header */}
         <div className="text-center mb-14">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-8 h-px bg-primary" />
-            <span className="font-display text-primary text-xs tracking-[0.45em] uppercase">Koçluk Paketleri</span>
+            <span className="font-display text-primary text-xs tracking-[0.45em] uppercase">{t.programs.label}</span>
             <div className="w-8 h-px bg-primary" />
           </div>
           <h2 className="font-display text-4xl md:text-6xl font-bold uppercase leading-none mb-4">
-            KAÇ HAFTA <span className="text-primary">ÇALIŞIYORUZ?</span>
+            {t.programs.heading1} <span className="text-primary">{t.programs.heading2}</span>
           </h2>
-          <p className="text-gray-500 text-sm font-sans max-w-lg mx-auto">
-            Her pakette aynı koçluk kalitesi, aynı 11 özellik sunulur. Yalnızca süre değişir — süre arttıkça dönüşüm derinleşir.
-          </p>
+          <p className="text-gray-500 text-sm font-sans max-w-lg mx-auto">{t.programs.sub}</p>
         </div>
 
-        {/* ── Tab seçici ── */}
+        {/* Tab selector */}
         <div className="grid grid-cols-3 gap-3 mb-0">
           {plans.map((p, i) => (
             <button
               key={i}
-              onClick={() => handleSelect(i)}
+              onClick={() => resetCycle(i)}
               className={`relative text-center py-6 px-4 border transition-all duration-300 group ${
                 selected === i
-                  ? p.highlight
-                    ? "bg-primary border-primary shadow-[0_0_40px_rgba(245,197,24,0.3)]"
-                    : "bg-white/8 border-primary/60"
-                  : p.highlight
-                    ? "bg-primary/5 border-primary/30 hover:bg-primary/10 hover:border-primary/60"
-                    : "bg-[#0D0D0D] border-white/15 hover:border-white/35 hover:bg-white/5"
+                  ? p.highlight ? "bg-primary border-primary shadow-[0_0_40px_rgba(245,197,24,0.3)]" : "bg-white/8 border-primary/60"
+                  : p.highlight ? "bg-primary/5 border-primary/30 hover:bg-primary/10 hover:border-primary/60"
+                  : "bg-[#0D0D0D] border-white/15 hover:border-white/35 hover:bg-white/5"
               }`}
             >
-              {/* Tag badge — her zaman görünür */}
               <div className={`absolute -top-3 left-1/2 -translate-x-1/2 font-display text-[9px] tracking-[0.25em] uppercase px-3 py-0.5 font-bold transition-all duration-300 ${
-                selected === i && p.highlight
-                  ? "bg-black text-primary border border-primary"
-                  : p.highlight
-                    ? "bg-primary text-black"
-                    : selected === i
-                      ? "bg-primary/20 text-primary border border-primary/50"
-                      : "bg-white/8 text-white/50 border border-white/15"
+                selected === i && p.highlight ? "bg-black text-primary border border-primary"
+                : p.highlight ? "bg-primary text-black"
+                : selected === i ? "bg-primary/20 text-primary border border-primary/50"
+                : "bg-white/8 text-white/50 border border-white/15"
               }`}>
                 {p.tag}
               </div>
-
               <div className={`font-display text-5xl md:text-7xl font-bold leading-none mb-1 transition-colors ${
-                selected === i
-                  ? p.highlight ? "text-black" : "text-primary"
-                  : p.highlight
-                    ? "text-primary/70 group-hover:text-primary"
-                    : "text-white/55 group-hover:text-white/80"
+                selected === i ? p.highlight ? "text-black" : "text-primary"
+                : p.highlight ? "text-primary/70 group-hover:text-primary" : "text-white/55 group-hover:text-white/80"
               }`}>
                 {p.duration}
               </div>
               <div className={`font-display text-sm tracking-[0.3em] uppercase mb-3 transition-colors ${
-                selected === i
-                  ? p.highlight ? "text-black/70" : "text-white"
-                  : p.highlight
-                    ? "text-primary/50 group-hover:text-primary/80"
-                    : "text-white/45 group-hover:text-white/70"
+                selected === i ? p.highlight ? "text-black/70" : "text-white"
+                : p.highlight ? "text-primary/50 group-hover:text-primary/80" : "text-white/45 group-hover:text-white/70"
               }`}>
-                HAFTA
+                {t.programs.week}
               </div>
               <div className={`font-display text-xl font-bold transition-colors ${
-                selected === i
-                  ? p.highlight ? "text-black" : "text-primary"
-                  : p.highlight
-                    ? "text-primary/65 group-hover:text-primary"
-                    : "text-white/55 group-hover:text-white/80"
+                selected === i ? p.highlight ? "text-black" : "text-primary"
+                : p.highlight ? "text-primary/65 group-hover:text-primary" : "text-white/55 group-hover:text-white/80"
               }`}>
                 €{p.price}
               </div>
@@ -158,7 +98,7 @@ export function Programs() {
           ))}
         </div>
 
-        {/* ── Progress bar — aktif tabın dolma animasyonu ── */}
+        {/* Progress bar */}
         <div className="grid grid-cols-3 gap-3 mb-10">
           {plans.map((_, i) => (
             <div key={i} className="h-[2px] bg-white/8 overflow-hidden">
@@ -172,7 +112,7 @@ export function Programs() {
           ))}
         </div>
 
-        {/* ── Detay paneli ── */}
+        {/* Detail panel */}
         <AnimatePresence mode="wait">
           <motion.div
             key={selected}
@@ -184,7 +124,7 @@ export function Programs() {
           >
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
 
-              {/* Sol: paket özeti */}
+              {/* Left: package summary */}
               <div className={`lg:col-span-2 p-8 flex flex-col justify-between ${plan.highlight ? "border-b lg:border-b-0 lg:border-r border-primary/20" : "border-b lg:border-b-0 lg:border-r border-white/8"}`}>
                 <div>
                   <div className={`inline-block font-display text-[10px] tracking-[0.35em] uppercase px-3 py-1 mb-4 ${
@@ -195,18 +135,14 @@ export function Programs() {
                   <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase mb-3 leading-tight">
                     {plan.label}
                   </h3>
-                  <p className="text-gray-400 text-sm font-sans leading-relaxed mb-8">
-                    {plan.desc}
-                  </p>
+                  <p className="text-gray-400 text-sm font-sans leading-relaxed mb-8">{plan.desc}</p>
                 </div>
 
                 <div>
                   <div className="flex items-end gap-2 mb-6 pb-6 border-b border-white/8">
                     <span className="text-gray-400 text-lg mb-1 font-sans">€</span>
-                    <span className="font-display text-6xl font-bold text-white leading-none">
-                      {plan.price}
-                    </span>
-                    <span className="text-gray-500 text-sm font-sans mb-2">/ tek seferlik</span>
+                    <span className="font-display text-6xl font-bold text-white leading-none">{plan.price}</span>
+                    <span className="text-gray-500 text-sm font-sans mb-2">{t.programs.perPayment}</span>
                   </div>
                   <button
                     onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
@@ -216,19 +152,19 @@ export function Programs() {
                         : "bg-white/8 border border-white/20 text-white hover:bg-white hover:text-black"
                     }`}
                   >
-                    Bu Paketi Seç
+                    {t.programs.selectPlan}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
               </div>
 
-              {/* Sağ: özellik listesi */}
+              {/* Right: feature list */}
               <div className="lg:col-span-3 p-8">
                 <div className="font-display text-xs text-gray-500 tracking-[0.35em] uppercase mb-6">
-                  Bu pakette neler var?
+                  {t.programs.whatsIncluded}
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {features.map((feat, i) => (
+                  {t.programs.features.map((feat, i) => (
                     <motion.div
                       key={i}
                       className="flex items-start gap-3"
@@ -236,9 +172,7 @@ export function Programs() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.04 }}
                     >
-                      <div className={`w-4 h-4 flex items-center justify-center shrink-0 mt-0.5 ${
-                        plan.highlight ? "text-primary" : "text-white/40"
-                      }`}>
+                      <div className={`w-4 h-4 flex items-center justify-center shrink-0 mt-0.5 ${plan.highlight ? "text-primary" : "text-white/40"}`}>
                         <Check className="w-3.5 h-3.5" />
                       </div>
                       <span className="text-gray-300 text-xs font-sans leading-relaxed">{feat}</span>
@@ -246,7 +180,7 @@ export function Programs() {
                   ))}
                 </div>
                 <p className="text-gray-600 text-xs font-sans mt-6 pt-5 border-t border-white/5">
-                  Tüm paketler aynı özellikleri içerir. Süre farkı; dönüşümün derinliğini ve program revizyonu sayısını belirler.
+                  {t.programs.disclaimer}
                 </p>
               </div>
 

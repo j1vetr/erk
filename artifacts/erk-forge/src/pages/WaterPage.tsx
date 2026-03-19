@@ -5,27 +5,38 @@ import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
 import { Droplets, ChevronRight, ArrowRight, Info, CheckCircle2, Thermometer, Sun } from "lucide-react"
 import { Link } from "wouter"
-
-const otherTools = [
-  { name: "Kalori & TDEE", desc: "Günlük kalori ihtiyacın", href: "/araclar/kalori", icon: "🔥" },
-  { name: "Makro Hesaplayıcı", desc: "Protein / Karb / Yağ dağılımın", href: "/araclar/makro", icon: "🥩" },
-  { name: "BMI Hesaplayıcı", desc: "Boy-kilo oranını öğren", href: "/araclar/bmi", icon: "📏" },
-]
-
-const activityLevels = [
-  { id: "sedanter", label: "Hareketsiz", desc: "Masa başı, egzersiz yok", icon: "🪑", mul: 1.0 },
-  { id: "hafif", label: "Hafif Aktif", desc: "Haftada 1–3 gün egzersiz", icon: "🚶", mul: 1.15 },
-  { id: "orta", label: "Orta Aktif", desc: "Haftada 3–5 gün egzersiz", icon: "🏃", mul: 1.3 },
-  { id: "cok", label: "Çok Aktif", desc: "Haftada 6–7 gün yoğun antrenman", icon: "⚡", mul: 1.5 },
-]
-
-const climates = [
-  { id: "serin", label: "Serin / İç Ortam", icon: "❄️", add: 0 },
-  { id: "ilimli", label: "Ilıman", icon: "🌤️", add: 0.3 },
-  { id: "sicak", label: "Sıcak / Nemli", icon: "☀️", add: 0.7 },
-]
+import { useLanguage } from "@/i18n/LanguageContext"
 
 export default function WaterPage() {
+  const { t, lang } = useLanguage()
+
+  const otherTools = [
+    { name: t.toolsHub.tools[1].title, desc: t.toolsHub.tools[1].desc, href: "/araclar/kalori", icon: "🔥" },
+    { name: t.toolsHub.tools[2].title, desc: t.toolsHub.tools[2].desc, href: "/araclar/makro", icon: "🥩" },
+    { name: t.toolsHub.tools[0].title, desc: t.toolsHub.tools[0].desc, href: "/araclar/bmi", icon: "📏" },
+  ]
+
+  const activityLevels = lang === "en" ? [
+    { id: "sedanter", label: "Sedentary", desc: "Desk job, no exercise", icon: "🪑", mul: 1.0 },
+    { id: "hafif", label: "Lightly Active", desc: "Exercise 1–3 days/week", icon: "🚶", mul: 1.15 },
+    { id: "orta", label: "Moderately Active", desc: "Exercise 3–5 days/week", icon: "🏃", mul: 1.3 },
+    { id: "cok", label: "Very Active", desc: "Intense training 6–7 days/week", icon: "⚡", mul: 1.5 },
+  ] : [
+    { id: "sedanter", label: "Hareketsiz", desc: "Masa başı, egzersiz yok", icon: "🪑", mul: 1.0 },
+    { id: "hafif", label: "Hafif Aktif", desc: "Haftada 1–3 gün egzersiz", icon: "🚶", mul: 1.15 },
+    { id: "orta", label: "Orta Aktif", desc: "Haftada 3–5 gün egzersiz", icon: "🏃", mul: 1.3 },
+    { id: "cok", label: "Çok Aktif", desc: "Haftada 6–7 gün yoğun antrenman", icon: "⚡", mul: 1.5 },
+  ]
+
+  const climates = lang === "en" ? [
+    { id: "serin", label: "Cool / Indoors", icon: "❄️", add: 0 },
+    { id: "ilimli", label: "Temperate", icon: "🌤️", add: 0.3 },
+    { id: "sicak", label: "Hot / Humid", icon: "☀️", add: 0.7 },
+  ] : [
+    { id: "serin", label: "Serin / İç Ortam", icon: "❄️", add: 0 },
+    { id: "ilimli", label: "Ilıman", icon: "🌤️", add: 0.3 },
+    { id: "sicak", label: "Sıcak / Nemli", icon: "☀️", add: 0.7 },
+  ]
   const [weight, setWeight] = useState("")
   const [activity, setActivity] = useState("")
   const [climate, setClimate] = useState("ilimli")

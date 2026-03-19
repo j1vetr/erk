@@ -5,20 +5,26 @@ import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
 import { PieChart, ChevronRight, ArrowRight, Info, CheckCircle2, Beef, Wheat, Droplets } from "lucide-react"
 import { Link } from "wouter"
-
-const otherTools = [
-  { name: "Kalori & TDEE", desc: "Günlük kalori ihtiyacın", href: "/araclar/kalori", icon: "🔥" },
-  { name: "İdeal Kilo", desc: "Hedef kilonu hesapla", href: "/araclar/ideal-kilo", icon: "⚖️" },
-  { name: "Su İhtiyacı", desc: "Günlük su miktarın", href: "/araclar/su-ihtiyaci", icon: "💧" },
-]
-
-const goals = [
-  { id: "cut", label: "Yağ Yak", desc: "Definasyon — kalori açığı ile yağı eritirken kas koru", icon: "🔥", protein: 2.4, fat: 0.8, color: "border-red-500/50 bg-red-500/5" },
-  { id: "maintain", label: "Formu Koru", desc: "Idame — mevcut vücudu koruyarak sağlıklı beslen", icon: "⚖️", protein: 2.0, fat: 1.0, color: "border-primary/50 bg-primary/5" },
-  { id: "bulk", label: "Kas Kazan", desc: "Bulk — kalori fazlası ile maksimum kas büyümesi", icon: "💪", protein: 1.8, fat: 1.0, color: "border-green-500/50 bg-green-500/5" },
-]
+import { useLanguage } from "@/i18n/LanguageContext"
 
 export default function MacroPage() {
+  const { t, lang } = useLanguage()
+
+  const otherTools = [
+    { name: t.toolsHub.tools[1].title, desc: t.toolsHub.tools[1].desc, href: "/araclar/kalori", icon: "🔥" },
+    { name: t.toolsHub.tools[5].title, desc: t.toolsHub.tools[5].desc, href: "/araclar/ideal-kilo", icon: "⚖️" },
+    { name: t.toolsHub.tools[6].title, desc: t.toolsHub.tools[6].desc, href: "/araclar/su-ihtiyaci", icon: "💧" },
+  ]
+
+  const goals = lang === "en" ? [
+    { id: "cut", label: "Burn Fat", desc: "Definition — burn fat on a calorie deficit while preserving muscle", icon: "🔥", protein: 2.4, fat: 0.8, color: "border-red-500/50 bg-red-500/5" },
+    { id: "maintain", label: "Maintain", desc: "Maintenance — eat healthy while preserving your current physique", icon: "⚖️", protein: 2.0, fat: 1.0, color: "border-primary/50 bg-primary/5" },
+    { id: "bulk", label: "Build Muscle", desc: "Bulk — maximize muscle growth with a calorie surplus", icon: "💪", protein: 1.8, fat: 1.0, color: "border-green-500/50 bg-green-500/5" },
+  ] : [
+    { id: "cut", label: "Yağ Yak", desc: "Definasyon — kalori açığı ile yağı eritirken kas koru", icon: "🔥", protein: 2.4, fat: 0.8, color: "border-red-500/50 bg-red-500/5" },
+    { id: "maintain", label: "Formu Koru", desc: "Idame — mevcut vücudu koruyarak sağlıklı beslen", icon: "⚖️", protein: 2.0, fat: 1.0, color: "border-primary/50 bg-primary/5" },
+    { id: "bulk", label: "Kas Kazan", desc: "Bulk — kalori fazlası ile maksimum kas büyümesi", icon: "💪", protein: 1.8, fat: 1.0, color: "border-green-500/50 bg-green-500/5" },
+  ]
   const [calories, setCalories] = useState("")
   const [weight, setWeight] = useState("")
   const [goal, setGoal] = useState("")

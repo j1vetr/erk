@@ -6,6 +6,7 @@ import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { blogPosts, getBlogPost, type BlogSection } from "@/data/blogPosts"
 import { SEO } from "@/hooks/useSEO"
+import { useLanguage } from "@/i18n/LanguageContext"
 
 function RenderSection({ section }: { section: BlogSection }) {
   switch (section.type) {
@@ -60,6 +61,7 @@ function RenderSection({ section }: { section: BlogSection }) {
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>()
+  const { t, lang } = useLanguage()
   const post = getBlogPost(slug || "")
 
   useEffect(() => {
@@ -72,10 +74,12 @@ export default function BlogPostPage() {
         <Navbar />
         <div className="flex-1 flex items-center justify-center flex-col gap-5 pt-28">
           <BookOpen className="w-16 h-16 text-white/15" />
-          <h1 className="font-display text-3xl uppercase text-white">Yazı Bulunamadı</h1>
+          <h1 className="font-display text-3xl uppercase text-white">
+            {lang === "en" ? "Post Not Found" : "Yazı Bulunamadı"}
+          </h1>
           <Link href="/blog">
             <button className="bg-primary text-black font-display uppercase tracking-widest px-6 py-3 hover:bg-white transition-all">
-              Tüm Yazılara Dön
+              {lang === "en" ? "Back to All Posts" : "Tüm Yazılara Dön"}
             </button>
           </Link>
         </div>
@@ -84,23 +88,27 @@ export default function BlogPostPage() {
     )
   }
 
+  const title = lang === "en" ? (post.titleEn || post.title) : post.title
+  const excerpt = lang === "en" ? (post.excerptEn || post.excerpt) : post.excerpt
+  const category = lang === "en" ? (post.categoryEn || post.category) : post.category
+  const tags = lang === "en" ? (post.tagsEn || post.tags) : post.tags
+
   const relatedPosts = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 3)
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
       <SEO
-        title={`${post.title} | Erk Forge Blog`}
-        description={post.excerpt}
+        title={`${title} | Erk Forge Blog`}
+        description={excerpt}
         canonical={`/blog/${post.slug}`}
         ogImage={post.image}
       />
       <Navbar />
 
-      {/* ── Hero Image ── */}
       <div className="relative h-[55vh] min-h-[400px] overflow-hidden mt-24">
         <img
           src={post.image}
-          alt={post.title}
+          alt={title}
           className="w-full h-full object-cover"
           fetchPriority="high"
           decoding="async"
@@ -110,11 +118,11 @@ export default function BlogPostPage() {
 
         <div className="absolute bottom-0 left-0 right-0 p-8 max-w-4xl mx-auto">
           <Link href="/blog" className="inline-flex items-center gap-2 text-white/50 hover:text-primary font-sans text-sm mb-6 transition-colors">
-            <ArrowLeft className="w-4 h-4" /> Tüm Yazılar
+            <ArrowLeft className="w-4 h-4" /> {t.blog.backToAll}
           </Link>
           <div className="flex items-center gap-3 mb-4">
             <span className={`font-display tracking-widest text-xs px-3 py-1.5 ${post.categoryColor}`}>
-              {post.category}
+              {category}
             </span>
             <div className="flex items-center gap-3 text-white/40 font-sans text-xs">
               <span>{post.date}</span>
@@ -123,87 +131,96 @@ export default function BlogPostPage() {
             </div>
           </div>
           <h1 className="font-display text-3xl md:text-5xl text-white uppercase leading-tight">
-            {post.title}
+            {title}
           </h1>
         </div>
       </div>
 
-      {/* ── Content ── */}
       <div className="flex-1 py-14 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-[1fr_300px] gap-12 items-start">
 
-            {/* Article */}
             <motion.article
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              {/* Excerpt / lead */}
               <p className="text-white/55 font-sans text-lg leading-relaxed mb-8 pb-8 border-b border-white/8 italic">
-                {post.excerpt}
+                {excerpt}
               </p>
 
-              {/* Sections */}
               <div>
                 {post.content.map((section, idx) => (
                   <RenderSection key={idx} section={section} />
                 ))}
               </div>
 
-              {/* Tags */}
               <div className="mt-10 pt-8 border-t border-white/8 flex flex-wrap gap-2 items-center">
                 <Tag className="w-4 h-4 text-white/30" />
-                {post.tags.map((tag) => (
+                {tags.map((tag) => (
                   <span key={tag} className="font-display text-xs uppercase tracking-widest bg-white/6 border border-white/10 px-3 py-1.5 text-white/50">
                     {tag}
                   </span>
                 ))}
               </div>
 
-              {/* Post CTA */}
               <div className="mt-10 bg-gradient-to-r from-primary/15 via-primary/8 to-transparent border border-primary/30 p-7 flex flex-col sm:flex-row items-center justify-between gap-5">
                 <div>
-                  <div className="text-primary font-display uppercase tracking-widest text-xs mb-2">Kişisel Program</div>
-                  <h3 className="font-display text-xl text-white uppercase mb-1">Okuduklarını Sahaya Taşı</h3>
-                  <p className="text-white/45 font-sans text-sm">Sana özel bir antrenman ve beslenme planı oluşturalım.</p>
+                  <div className="text-primary font-display uppercase tracking-widest text-xs mb-2">
+                    {lang === "en" ? "Personal Program" : "Kişisel Program"}
+                  </div>
+                  <h3 className="font-display text-xl text-white uppercase mb-1">
+                    {lang === "en" ? "Put It Into Practice" : "Okuduklarını Sahaya Taşı"}
+                  </h3>
+                  <p className="text-white/45 font-sans text-sm">
+                    {lang === "en"
+                      ? "Let's build a custom training and nutrition plan for you."
+                      : "Sana özel bir antrenman ve beslenme planı oluşturalım."}
+                  </p>
                 </div>
                 <Link href="/#contact">
                   <button className="flex-shrink-0 bg-primary text-black font-display uppercase tracking-widest px-6 py-3 hover:bg-white transition-all text-sm flex items-center gap-2 whitespace-nowrap">
-                    Ücretsiz Danışma <ArrowRight className="w-4 h-4" />
+                    {lang === "en" ? "Free Consultation" : "Ücretsiz Danışma"} <ArrowRight className="w-4 h-4" />
                   </button>
                 </Link>
               </div>
             </motion.article>
 
-            {/* Sidebar */}
             <aside className="sticky top-28 space-y-6">
-              {/* Tools promo */}
               <div className="bg-[#0D0D0D] border border-white/10 p-6">
-                <div className="text-primary font-display text-xs uppercase tracking-widest mb-3">Fitness Araçları</div>
+                <div className="text-primary font-display text-xs uppercase tracking-widest mb-3">
+                  {lang === "en" ? "Fitness Tools" : "Fitness Araçları"}
+                </div>
                 <p className="text-white/50 font-sans text-sm mb-4 leading-relaxed">
-                  BMI, kalori, 1RM hesaplama ve vücut yağ analizi için ücretsiz araçlarımızı dene.
+                  {lang === "en"
+                    ? "Try our free tools for BMI, calorie, 1RM and body fat analysis."
+                    : "BMI, kalori, 1RM hesaplama ve vücut yağ analizi için ücretsiz araçlarımızı dene."}
                 </p>
                 <Link href="/araclar">
                   <button className="w-full bg-white/6 border border-white/15 hover:border-primary/50 text-white font-display text-xs uppercase tracking-widest py-3 transition-all flex items-center justify-center gap-2">
-                    Araçlara Git <ArrowRight className="w-3.5 h-3.5" />
+                    {lang === "en" ? "Go to Tools" : "Araçlara Git"} <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </Link>
               </div>
 
-              {/* Related posts */}
               <div className="bg-[#0D0D0D] border border-white/10 p-6">
-                <div className="text-white/40 font-display text-xs uppercase tracking-widest mb-5">Diğer Yazılar</div>
+                <div className="text-white/40 font-display text-xs uppercase tracking-widest mb-5">{t.blog.relatedPosts}</div>
                 <div className="space-y-4">
                   {relatedPosts.map((related) => (
                     <Link key={related.slug} href={`/blog/${related.slug}`}>
                       <div className="group flex gap-3 cursor-pointer">
-                        <img src={related.image} alt={related.title} className="w-16 h-14 object-cover flex-shrink-0 grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" decoding="async" />
+                        <img
+                          src={related.image}
+                          alt={lang === "en" ? (related.titleEn || related.title) : related.title}
+                          className="w-16 h-14 object-cover flex-shrink-0 grayscale group-hover:grayscale-0 transition-all duration-500"
+                          loading="lazy"
+                          decoding="async"
+                        />
                         <div className="flex-1">
                           <span className={`font-display text-[9px] tracking-widest px-2 py-0.5 ${related.categoryColor} mb-1.5 inline-block`}>
-                            {related.category}
+                            {lang === "en" ? (related.categoryEn || related.category) : related.category}
                           </span>
                           <h4 className="font-display text-xs text-white/70 uppercase leading-tight group-hover:text-primary transition-colors line-clamp-2">
-                            {related.title}
+                            {lang === "en" ? (related.titleEn || related.title) : related.title}
                           </h4>
                         </div>
                       </div>

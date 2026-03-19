@@ -5,22 +5,19 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Flame, ChevronRight, ArrowRight, Info, CheckCircle2, TrendingDown, TrendingUp, Minus } from "lucide-react"
 import { SEO } from "@/hooks/useSEO"
 import { Link } from "wouter"
+import { useLanguage } from "@/i18n/LanguageContext"
 
-const otherTools = [
-  { name: "BMI Hesaplayıcı", desc: "Boy-kilo oranını öğren", href: "/araclar/bmi", icon: "📏" },
-  { name: "1RM Hesaplayıcı", desc: "Maksimum kaldırma gücün", href: "/araclar/1rm", icon: "🏋️" },
-  { name: "Vücut Yağ Oranı", desc: "Yağ & kas kütleni öğren", href: "/araclar/vucut-analizi", icon: "📊" },
-]
-
-const activityLevels = [
-  { val: "1.2", label: "Hareketsiz", desc: "Masa başı iş, egzersiz yok", icon: "🪑" },
-  { val: "1.375", label: "Hafif Aktif", desc: "Haftada 1–3 gün spor", icon: "🚶" },
-  { val: "1.55", label: "Orta Aktif", desc: "Haftada 3–5 gün spor", icon: "🏃" },
-  { val: "1.725", label: "Çok Aktif", desc: "Haftada 6–7 gün spor", icon: "⚡" },
-  { val: "1.9", label: "Aşırı Aktif", desc: "Ağır fiziksel iş + yoğun spor", icon: "🔥" },
-]
+const activityValues = ["1.2", "1.375", "1.55", "1.725", "1.9"]
+const activityIcons = ["🪑", "🚶", "🏃", "⚡", "🔥"]
 
 export default function CaloriePage() {
+  const { t, lang } = useLanguage()
+
+  const otherTools = [
+    { name: t.toolsHub.tools[0].title, desc: t.toolsHub.tools[0].desc, href: "/araclar/bmi", icon: "📏" },
+    { name: t.toolsHub.tools[2].title, desc: t.toolsHub.tools[2].desc, href: "/araclar/1rm", icon: "🏋️" },
+    { name: t.toolsHub.tools[3].title, desc: t.toolsHub.tools[3].desc, href: "/araclar/vucut-analizi", icon: "📊" },
+  ]
   const [step, setStep] = useState(1)
   const [age, setAge] = useState("")
   const [weight, setWeight] = useState("")
@@ -29,6 +26,13 @@ export default function CaloriePage() {
   const [activity, setActivity] = useState("")
   const [result, setResult] = useState<{ tdee: number; bmr: number; cut: number; bulk: number } | null>(null)
   const resultRef = useRef<HTMLDivElement>(null)
+
+  const activityLevels = t.calorie.activityLevels.map((lvl, i) => ({
+    val: activityValues[i],
+    icon: activityIcons[i],
+    label: lvl.label,
+    desc: lvl.desc,
+  }))
 
   const calculate = () => {
     const w = parseFloat(weight), h = parseFloat(height), a = parseFloat(age)
@@ -52,8 +56,10 @@ export default function CaloriePage() {
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
       <SEO
-        title="Günlük Kalori & TDEE Hesaplayıcı | Erk Forge"
-        description="Yaşına, boyuna, kilona ve aktivite seviyene göre günlük kalori ihtiyacını (TDEE) hesapla. Cut, bulk ve idame için özel kalori hedefleri."
+        title={lang === "en" ? "Daily Calorie & TDEE Calculator | Erk Forge" : "Günlük Kalori & TDEE Hesaplayıcı | Erk Forge"}
+        description={lang === "en"
+          ? "Calculate your daily calorie needs (TDEE) based on age, height, weight and activity level. Custom calorie targets for cut, bulk and maintenance."
+          : "Yaşına, boyuna, kilona ve aktivite seviyene göre günlük kalori ihtiyacını (TDEE) hesapla. Cut, bulk ve idame için özel kalori hedefleri."}
         canonical="/araclar/kalori"
       />
       <Navbar />
@@ -64,7 +70,9 @@ export default function CaloriePage() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex items-center gap-2 text-white/40 font-sans text-sm mb-6">
-            <Link href="/araclar" className="hover:text-primary transition-colors">Araçlar</Link>
+            <Link href="/araclar" className="hover:text-primary transition-colors">
+              {lang === "en" ? "Tools" : "Araçlar"}
+            </Link>
             <ChevronRight className="w-4 h-4" />
             <span className="text-white/70">Kalori & TDEE</span>
           </div>
@@ -74,18 +82,20 @@ export default function CaloriePage() {
             </div>
             <div>
               <h1 className="text-4xl md:text-5xl font-display font-bold uppercase text-white leading-none mb-3">
-                Kalori & <span className="text-primary">TDEE</span>
+                {lang === "en" ? "Calorie &" : "Kalori &"} <span className="text-primary">TDEE</span>
               </h1>
               <p className="text-white/55 font-sans text-base max-w-xl leading-relaxed">
-                Günlük enerji harcamanı hesapla. Yağ yakmak, kilo korumak veya kas kazanmak için tam ihtiyacını öğren.
+                {lang === "en"
+                  ? "Calculate your daily energy expenditure. Learn exactly what you need to burn fat, maintain weight or build muscle."
+                  : "Günlük enerji harcamanı hesapla. Yağ yakmak, kilo korumak veya kas kazanmak için tam ihtiyacını öğren."}
               </p>
             </div>
           </div>
           <div className="flex flex-wrap gap-4 mt-7">
             {[
-              { label: "Formül", val: "Mifflin-St Jeor" },
-              { label: "Hesaplama", val: "BMR × Aktivite" },
-              { label: "Çıktı", val: "3 Senaryo" },
+              { label: lang === "en" ? "Formula" : "Formül", val: "Mifflin-St Jeor" },
+              { label: lang === "en" ? "Calculation" : "Hesaplama", val: "BMR × Aktivite" },
+              { label: lang === "en" ? "Output" : "Çıktı", val: lang === "en" ? "3 Scenarios" : "3 Senaryo" },
             ].map((pill) => (
               <div key={pill.label} className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-primary" />
@@ -115,7 +125,7 @@ export default function CaloriePage() {
                   {s < step ? <CheckCircle2 className="w-4 h-4" /> : s}
                 </button>
                 <span className={`font-display text-xs uppercase tracking-wider hidden sm:block ${step === s ? "text-white" : "text-white/30"}`}>
-                  {s === 1 ? "Cinsiyet" : s === 2 ? "Bilgiler" : "Aktivite"}
+                  {s === 1 ? (lang === "en" ? "Gender" : "Cinsiyet") : s === 2 ? (lang === "en" ? "Details" : "Bilgiler") : (lang === "en" ? "Activity" : "Aktivite")}
                 </span>
                 {s < 3 && <div className={`w-8 h-px ${s < step ? "bg-primary/50" : "bg-white/10"}`} />}
               </div>
@@ -132,8 +142,10 @@ export default function CaloriePage() {
                 <AnimatePresence mode="wait">
                   {step === 1 && (
                     <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                      <h2 className="font-display text-lg uppercase tracking-widest text-white mb-2">Cinsiyet Seç</h2>
-                      <p className="text-white/40 font-sans text-sm mb-7">Bazal metabolizma hesabı cinsiyete göre farklılaşır.</p>
+                      <h2 className="font-display text-lg uppercase tracking-widest text-white mb-2">{t.calorie.step1}</h2>
+                      <p className="text-white/40 font-sans text-sm mb-7">
+                        {lang === "en" ? "Basal metabolic rate calculation varies by gender." : "Bazal metabolizma hesabı cinsiyete göre farklılaşır."}
+                      </p>
                       <div className="grid grid-cols-2 gap-4 mb-8">
                         {["erkek", "kadin"].map((g) => (
                           <button
@@ -144,62 +156,66 @@ export default function CaloriePage() {
                             }`}
                           >
                             <span className="text-4xl">{g === "erkek" ? "👨" : "👩"}</span>
-                            {g === "erkek" ? "Erkek" : "Kadın"}
+                            {g === "erkek" ? t.shared.male : t.shared.female}
                           </button>
                         ))}
                       </div>
                       <button onClick={() => setStep(2)} className="w-full bg-primary text-black py-4 font-display text-sm uppercase tracking-[0.2em] font-bold hover:bg-white transition-all flex items-center justify-center gap-3">
-                        Devam Et <ArrowRight className="w-5 h-5" />
+                        {t.calorie.next} <ArrowRight className="w-5 h-5" />
                       </button>
                     </motion.div>
                   )}
 
-                  {/* Step 2: Bilgiler */}
+                  {/* Step 2 */}
                   {step === 2 && (
                     <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                      <h2 className="font-display text-lg uppercase tracking-widest text-white mb-2">Fiziksel Bilgiler</h2>
-                      <p className="text-white/40 font-sans text-sm mb-7">Hesap ne kadar doğru olursa, sonuç o kadar isabetli olur.</p>
+                      <h2 className="font-display text-lg uppercase tracking-widest text-white mb-2">{t.calorie.step2}</h2>
+                      <p className="text-white/40 font-sans text-sm mb-7">
+                        {lang === "en" ? "The more accurate the data, the more precise the result." : "Hesap ne kadar doğru olursa, sonuç o kadar isabetli olur."}
+                      </p>
                       <div className="space-y-5 mb-7">
                         <div>
-                          <label className="block text-primary font-display text-xs tracking-widest uppercase mb-2">Yaş</label>
+                          <label className="block text-primary font-display text-xs tracking-widest uppercase mb-2">{t.shared.age}</label>
                           <div className="relative">
                             <input type="number" value={age} onChange={(e) => setAge(e.target.value)} placeholder="28" className={inputClass} />
-                            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/25 font-display">yıl</span>
+                            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/25 font-display">{t.shared.years}</span>
                           </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-primary font-display text-xs tracking-widest uppercase mb-2">Kilo</label>
+                            <label className="block text-primary font-display text-xs tracking-widest uppercase mb-2">{t.shared.weight}</label>
                             <div className="relative">
                               <input type="number" step="0.1" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="80" className={inputClass} />
-                              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/25 font-display">kg</span>
+                              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/25 font-display">{t.shared.kg}</span>
                             </div>
                           </div>
                           <div>
-                            <label className="block text-primary font-display text-xs tracking-widest uppercase mb-2">Boy</label>
+                            <label className="block text-primary font-display text-xs tracking-widest uppercase mb-2">{t.shared.height}</label>
                             <div className="relative">
                               <input type="number" value={height} onChange={(e) => setHeight(e.target.value)} placeholder="180" className={inputClass} />
-                              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/25 font-display">cm</span>
+                              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/25 font-display">{t.shared.cm}</span>
                             </div>
                           </div>
                         </div>
                       </div>
                       <div className="flex gap-3">
                         <button onClick={() => setStep(1)} className="px-5 py-4 border border-white/20 text-white/50 font-display text-sm uppercase tracking-widest hover:border-white/50 transition-all">
-                          Geri
+                          {t.calorie.back}
                         </button>
                         <button onClick={() => setStep(3)} disabled={!stepValid[2]} className="flex-1 bg-primary text-black py-4 font-display text-sm uppercase tracking-[0.2em] font-bold hover:bg-white transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-3">
-                          Devam Et <ArrowRight className="w-5 h-5" />
+                          {t.calorie.next} <ArrowRight className="w-5 h-5" />
                         </button>
                       </div>
                     </motion.div>
                   )}
 
-                  {/* Step 3: Aktivite */}
+                  {/* Step 3: Activity */}
                   {step === 3 && (
                     <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                      <h2 className="font-display text-lg uppercase tracking-widest text-white mb-2">Aktivite Seviyesi</h2>
-                      <p className="text-white/40 font-sans text-sm mb-6">Bu seçim sonucu en çok etkileyen faktör — dürüst ol.</p>
+                      <h2 className="font-display text-lg uppercase tracking-widest text-white mb-2">{t.calorie.step3}</h2>
+                      <p className="text-white/40 font-sans text-sm mb-6">
+                        {lang === "en" ? "This choice impacts the result the most — be honest." : "Bu seçim sonucu en çok etkileyen faktör — dürüst ol."}
+                      </p>
                       <div className="space-y-2.5 mb-7">
                         {activityLevels.map((lvl) => (
                           <button
@@ -222,10 +238,10 @@ export default function CaloriePage() {
                       </div>
                       <div className="flex gap-3">
                         <button onClick={() => setStep(2)} className="px-5 py-4 border border-white/20 text-white/50 font-display text-sm uppercase tracking-widest hover:border-white/50 transition-all">
-                          Geri
+                          {t.calorie.back}
                         </button>
                         <button onClick={calculate} disabled={!activity} className="flex-1 bg-primary text-black py-4 font-display text-sm uppercase tracking-[0.2em] font-bold hover:bg-white transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(245,197,24,0.25)]">
-                          Sonucu Göster <Flame className="w-5 h-5" />
+                          {t.calorie.showResult} <Flame className="w-5 h-5" />
                         </button>
                       </div>
                     </motion.div>
@@ -242,12 +258,12 @@ export default function CaloriePage() {
                     {/* Maintenance */}
                     <div className="bg-[#0D0D0D] border-2 border-primary p-6 text-center shadow-[0_0_30px_rgba(245,197,24,0.12)]">
                       <div className="flex items-center justify-center gap-2 text-primary font-display tracking-widest uppercase text-xs mb-3">
-                        <Minus className="w-4 h-4" /> Günlük İhtiyaç
+                        <Minus className="w-4 h-4" /> {t.calorie.daily}
                       </div>
                       <div className="text-6xl font-display font-bold text-white mb-1">{result.tdee}</div>
-                      <div className="text-white/40 font-sans text-xs">kcal / gün</div>
+                      <div className="text-white/40 font-sans text-xs">kcal / {lang === "en" ? "day" : "gün"}</div>
                       <div className="mt-4 pt-4 border-t border-white/8 text-white/35 font-sans text-xs">
-                        Bazal Metabolizma: <span className="text-white/70">{result.bmr} kcal</span>
+                        {t.calorie.bmrLabel}: <span className="text-white/70">{result.bmr} kcal</span>
                       </div>
                     </div>
                     {/* Cut */}
@@ -256,8 +272,8 @@ export default function CaloriePage() {
                         <TrendingDown className="w-5 h-5 text-red-400" />
                       </div>
                       <div className="flex-1">
-                        <div className="text-red-400 font-display text-xs uppercase tracking-widest mb-0.5">Definasyon (−500)</div>
-                        <div className="text-white font-sans text-xs text-white/50">Yağ yakımı için</div>
+                        <div className="text-red-400 font-display text-xs uppercase tracking-widest mb-0.5">{t.calorie.cut} (−500)</div>
+                        <div className="text-white font-sans text-xs text-white/50">{lang === "en" ? "For fat loss" : "Yağ yakımı için"}</div>
                       </div>
                       <div className="font-display text-2xl text-white">{result.cut}</div>
                     </div>
@@ -267,8 +283,8 @@ export default function CaloriePage() {
                         <TrendingUp className="w-5 h-5 text-green-400" />
                       </div>
                       <div className="flex-1">
-                        <div className="text-green-400 font-display text-xs uppercase tracking-widest mb-0.5">Bulk (+300)</div>
-                        <div className="text-white font-sans text-xs text-white/50">Kas kazanımı için</div>
+                        <div className="text-green-400 font-display text-xs uppercase tracking-widest mb-0.5">{t.calorie.bulk} (+300)</div>
+                        <div className="text-white font-sans text-xs text-white/50">{lang === "en" ? "For muscle gain" : "Kas kazanımı için"}</div>
                       </div>
                       <div className="font-display text-2xl text-white">{result.bulk}</div>
                     </div>
@@ -276,11 +292,13 @@ export default function CaloriePage() {
                     <div className="bg-primary/8 border border-primary/25 p-4 flex gap-3">
                       <Info className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                       <p className="text-white/60 font-sans text-xs leading-relaxed">
-                        Bu değerler başlangıç noktası. Gerçek günlük harcamanı belirlemek için 2 haftalık takip gerekir.
+                        {lang === "en"
+                          ? "These values are a starting point. It takes 2 weeks of tracking to determine your real daily expenditure."
+                          : "Bu değerler başlangıç noktası. Gerçek günlük harcamanı belirlemek için 2 haftalık takip gerekir."}
                       </p>
                     </div>
                     <button onClick={() => { setResult(null); setStep(1); setActivity("") }} className="w-full py-3 border border-white/15 text-white/50 font-display text-xs uppercase tracking-widest hover:border-white/40 transition-all">
-                      Yeniden Hesapla
+                      {t.calorie.recalculate}
                     </button>
                   </motion.div>
                 ) : (
@@ -288,8 +306,10 @@ export default function CaloriePage() {
                     <div className="w-20 h-20 rounded-full bg-white/4 flex items-center justify-center mb-5">
                       <Flame className="w-9 h-9 text-white/20" />
                     </div>
-                    <div className="font-display text-white/25 uppercase tracking-widest text-sm mb-2">3 Adım</div>
-                    <p className="text-white/20 font-sans text-xs">Adımları tamamladığında<br />3 farklı senaryo görünecek</p>
+                    <div className="font-display text-white/25 uppercase tracking-widest text-sm mb-2">{lang === "en" ? "3 Steps" : "3 Adım"}</div>
+                    <p className="text-white/20 font-sans text-xs">
+                      {lang === "en" ? "Complete the steps to see 3 different scenarios" : "Adımları tamamladığında 3 farklı senaryo görünecek"}
+                    </p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -303,15 +323,19 @@ export default function CaloriePage() {
                 className="mt-10 bg-gradient-to-r from-primary/15 via-primary/10 to-transparent border border-primary/30 p-8 flex flex-col md:flex-row items-center justify-between gap-6"
               >
                 <div>
-                  <div className="text-primary font-display uppercase tracking-widest text-xs mb-2">Sonraki Adım</div>
+                  <div className="text-primary font-display uppercase tracking-widest text-xs mb-2">{lang === "en" ? "Next Step" : "Sonraki Adım"}</div>
                   <h3 className="font-display text-2xl text-white uppercase mb-2">
-                    Günde <span className="text-primary">{result.tdee} kcal</span> yiyeceksin — Ama Nasıl?
+                    {lang === "en" ? "You eat" : "Günde"} <span className="text-primary">{result.tdee} kcal</span> {lang === "en" ? "a day — But How?" : "yiyeceksin — Ama Nasıl?"}
                   </h3>
-                  <p className="text-white/55 font-sans text-sm">Makro dağılımı, öğün zamanlaması ve yemek planı için kişisel koçluk al.</p>
+                  <p className="text-white/55 font-sans text-sm">
+                    {lang === "en"
+                      ? "Get personal coaching for macro distribution, meal timing and a complete nutrition plan."
+                      : "Makro dağılımı, öğün zamanlaması ve yemek planı için kişisel koçluk al."}
+                  </p>
                 </div>
                 <Link href="/#contact">
                   <button className="flex-shrink-0 bg-primary text-black font-display uppercase tracking-widest px-7 py-3.5 hover:bg-white transition-all duration-300 text-sm flex items-center gap-2 shadow-[0_0_20px_rgba(245,197,24,0.3)]">
-                    Plan Oluştur <ArrowRight className="w-4 h-4" />
+                    {lang === "en" ? "Create Plan" : "Plan Oluştur"} <ArrowRight className="w-4 h-4" />
                   </button>
                 </Link>
               </motion.div>
@@ -320,7 +344,7 @@ export default function CaloriePage() {
 
           {/* Other tools */}
           <div className="mt-14">
-            <div className="text-white/30 font-display uppercase tracking-widest text-xs mb-5">Diğer Araçlar</div>
+            <div className="text-white/30 font-display uppercase tracking-widest text-xs mb-5">{t.shared.otherTools}</div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {otherTools.map((tool) => (
                 <Link key={tool.href} href={tool.href}>

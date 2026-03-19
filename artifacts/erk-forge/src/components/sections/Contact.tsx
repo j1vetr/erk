@@ -1,20 +1,19 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Mail, MapPin, Phone, Instagram, CheckCircle2 } from "lucide-react"
+import { useLanguage } from "@/i18n/LanguageContext"
 
 export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const { t } = useLanguage()
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    // Simüle edilmiş API isteği
     await new Promise(resolve => setTimeout(resolve, 2000))
     setIsSubmitting(false)
     setIsSuccess(true)
-    
-    // 5 saniye sonra formu sıfırla
     setTimeout(() => {
       setIsSuccess(false)
       ;(e.target as HTMLFormElement).reset()
@@ -26,24 +25,23 @@ export function Contact() {
 
   return (
     <section id="contact" className="py-20 bg-black relative border-t border-white/5">
-      
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          
-          {/* Sol: İletişim Bilgileri */}
+
+          {/* Left: Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
             <h2 className="text-primary font-display uppercase tracking-[0.3em] mb-3 flex items-center gap-3 text-xs">
-              <span className="w-10 h-[2px] bg-primary block"></span> İLETİŞİME GEÇ
+              <span className="w-10 h-[2px] bg-primary block"></span> {t.contact.label}
             </h2>
             <h3 className="text-3xl md:text-5xl font-display font-bold uppercase text-white mb-6 leading-[1.1]">
-              ATEŞE ADIM <br/> <span className="text-primary">ATMAYA HAZIR MISIN?</span>
+              {t.contact.heading1} <br/> <span className="text-primary">{t.contact.heading2}</span>
             </h3>
             <p className="text-gray-400 mb-10 text-sm md:text-base font-sans leading-relaxed">
-              Bahane üretmeyi bırakıp harekete geçme vakti. Koçluk başvurusu için formu doldur. Sadece demire ve değişime adanmış kişilerle çalışıyorum. Kontenjanlar son derece sınırlıdır.
+              {t.contact.sub}
             </p>
 
             <div className="space-y-8">
@@ -52,17 +50,17 @@ export function Contact() {
                   <Mail className="w-8 h-8 text-primary" />
                 </div>
                 <div>
-                  <div className="text-sm text-gray-500 font-display uppercase tracking-[0.2em] mb-1">E-Posta</div>
+                  <div className="text-sm text-gray-500 font-display uppercase tracking-[0.2em] mb-1">{t.contact.emailLabel}</div>
                   <div className="font-sans text-xl text-white group-hover:text-primary transition-colors">info@erkforgecoaching.com</div>
                 </div>
               </div>
-              
+
               <div className="flex items-start gap-6 group cursor-pointer">
                 <div className="bg-[#111] p-4 border border-white/10 group-hover:border-primary transition-colors">
                   <Phone className="w-8 h-8 text-primary" />
                 </div>
                 <div>
-                  <div className="text-sm text-gray-500 font-display uppercase tracking-[0.2em] mb-1">Telefon / WhatsApp</div>
+                  <div className="text-sm text-gray-500 font-display uppercase tracking-[0.2em] mb-1">{t.contact.phoneLabel}</div>
                   <div className="font-sans text-xl text-white group-hover:text-primary transition-colors">+90 548 844 19 99</div>
                 </div>
               </div>
@@ -72,7 +70,7 @@ export function Contact() {
                   <Instagram className="w-8 h-8 text-primary" />
                 </div>
                 <div>
-                  <div className="text-sm text-gray-500 font-display uppercase tracking-[0.2em] mb-1">Instagram</div>
+                  <div className="text-sm text-gray-500 font-display uppercase tracking-[0.2em] mb-1">{t.contact.igLabel}</div>
                   <div className="font-sans text-xl text-white group-hover:text-primary transition-colors">@erk_ozkunt</div>
                 </div>
               </a>
@@ -82,14 +80,17 @@ export function Contact() {
                   <MapPin className="w-8 h-8 text-primary" />
                 </div>
                 <div>
-                  <div className="text-sm text-gray-500 font-display uppercase tracking-[0.2em] mb-1">Konum</div>
-                  <div className="font-sans text-xl text-white">İstanbul, Türkiye <span className="block text-gray-500 text-base mt-1">(Tüm Dünya İçin Online Koçluk)</span></div>
+                  <div className="text-sm text-gray-500 font-display uppercase tracking-[0.2em] mb-1">{t.contact.locationLabel}</div>
+                  <div className="font-sans text-xl text-white">
+                    {t.contact.locationValue}
+                    <span className="block text-gray-500 text-base mt-1">{t.contact.locationNote}</span>
+                  </div>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Sağ: İletişim Formu */}
+          {/* Right: Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -98,7 +99,7 @@ export function Contact() {
           >
             <AnimatePresence mode="wait">
               {isSuccess ? (
-                <motion.div 
+                <motion.div
                   key="success"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -106,71 +107,69 @@ export function Contact() {
                   className="absolute inset-0 bg-primary flex flex-col items-center justify-center text-black p-10 text-center z-20"
                 >
                   <CheckCircle2 className="w-24 h-24 mb-6" />
-                  <h4 className="font-display text-5xl uppercase font-bold mb-4">Mesaj Alındı</h4>
-                  <p className="font-sans text-xl font-medium">Hedeflerin incelenecek ve sana en kısa sürede dönüş yapılacaktır. Demiri sıcak tut.</p>
+                  <h4 className="font-display text-5xl uppercase font-bold mb-4">{t.contact.form.successTitle}</h4>
+                  <p className="font-sans text-xl font-medium">{t.contact.form.successMsg}</p>
                 </motion.div>
               ) : (
-                <motion.form 
+                <motion.form
                   key="form"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  onSubmit={onSubmit} 
+                  onSubmit={onSubmit}
                   className="space-y-6 relative z-10"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className={LabelClass}>Ad Soyad</label>
-                      <input type="text" required className={InputClass} placeholder="Adın ve Soyadın" />
+                      <label className={LabelClass}>{t.contact.form.name}</label>
+                      <input type="text" required className={InputClass} placeholder={t.contact.form.namePh} />
                     </div>
                     <div>
-                      <label className={LabelClass}>Telefon Numarası</label>
-                      <input type="tel" required className={InputClass} placeholder="05XX XXX XX XX" />
+                      <label className={LabelClass}>{t.contact.form.phone}</label>
+                      <input type="tel" required className={InputClass} placeholder={t.contact.form.phonePh} />
                     </div>
                   </div>
 
                   <div>
-                    <label className={LabelClass}>E-Posta Adresi</label>
-                    <input type="email" required className={InputClass} placeholder="ornek@email.com" />
+                    <label className={LabelClass}>{t.contact.form.email}</label>
+                    <input type="email" required className={InputClass} placeholder={t.contact.form.emailPh} />
                   </div>
 
                   <div>
-                    <label className={LabelClass}>İlgilendiğin Program</label>
+                    <label className={LabelClass}>{t.contact.form.program}</label>
                     <div className="relative">
                       <select required className={`${InputClass} appearance-none`}>
-                        <option value="" disabled selected>Program Seçiniz</option>
-                        <option value="baslangic">Başlangıç Programı</option>
-                        <option value="pro">Pro Forge Programı</option>
-                        <option value="elit">Elit Demir Programı</option>
-                        <option value="diger">Diğer / Kararsızım</option>
+                        <option value="" disabled>{t.contact.form.programPh}</option>
+                        <option value="baslangic">{t.contact.form.opt1}</option>
+                        <option value="pro">{t.contact.form.opt2}</option>
+                        <option value="elit">{t.contact.form.opt3}</option>
+                        <option value="diger">{t.contact.form.opt4}</option>
                       </select>
                       <ChevronDownSelect />
                     </div>
                   </div>
 
                   <div>
-                    <label className={LabelClass}>Mevcut Durumun ve Hedeflerin</label>
-                    <textarea 
-                      required 
+                    <label className={LabelClass}>{t.contact.form.goal}</label>
+                    <textarea
+                      required
                       rows={4}
-                      className={`${InputClass} resize-none`} 
-                      placeholder="Şu anki kilon, boyun, spor geçmişin ve ulaşmak istediğin hedef nedir?"
+                      className={`${InputClass} resize-none`}
+                      placeholder={t.contact.form.goalPh}
                     />
                   </div>
 
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     disabled={isSubmitting}
                     className="w-full bg-primary text-black py-5 font-display text-2xl uppercase tracking-widest font-bold hover:bg-white transition-colors flex justify-center items-center gap-3 disabled:opacity-70"
                   >
                     {isSubmitting ? (
                       <>
                         <div className="w-6 h-6 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
-                        Gönderiliyor...
+                        {t.contact.form.sending}
                       </>
-                    ) : (
-                      "Başvuruyu Gönder"
-                    )}
+                    ) : t.contact.form.submit}
                   </button>
                 </motion.form>
               )}

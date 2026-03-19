@@ -5,27 +5,29 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Dumbbell, ChevronRight, ArrowRight, Info, CheckCircle2, Zap } from "lucide-react"
 import { SEO } from "@/hooks/useSEO"
 import { Link } from "wouter"
-
-const otherTools = [
-  { name: "BMI Hesaplayıcı", desc: "Boy-kilo oranını öğren", href: "/araclar/bmi", icon: "📏" },
-  { name: "Kalori & TDEE", desc: "Günlük kalori ihtiyacın", href: "/araclar/kalori", icon: "🔥" },
-  { name: "Vücut Yağ Oranı", desc: "Yağ & kas kütleni öğren", href: "/araclar/vucut-analizi", icon: "📊" },
-]
-
-const exercises = [
-  { id: "bench", label: "Bench Press", icon: "🏋️" },
-  { id: "squat", label: "Squat", icon: "🦵" },
-  { id: "deadlift", label: "Deadlift", icon: "⚡" },
-  { id: "ohp", label: "Overhead Press", icon: "🤲" },
-  { id: "other", label: "Diğer Hareket", icon: "💪" },
-]
+import { useLanguage } from "@/i18n/LanguageContext"
 
 export default function OneRMPage() {
+  const { t, lang } = useLanguage()
   const [exercise, setExercise] = useState("")
   const [weight, setWeight] = useState("")
   const [reps, setReps] = useState("")
   const [result, setResult] = useState<number | null>(null)
   const resultRef = useRef<HTMLDivElement>(null)
+
+  const exercises = [
+    { id: "bench", label: "Bench Press", icon: "🏋️" },
+    { id: "squat", label: "Squat", icon: "🦵" },
+    { id: "deadlift", label: "Deadlift", icon: "⚡" },
+    { id: "ohp", label: "Overhead Press", icon: "🤲" },
+    { id: "other", label: lang === "en" ? "Other" : "Diğer Hareket", icon: "💪" },
+  ]
+
+  const otherTools = [
+    { name: t.toolsHub.tools[0].title, desc: t.toolsHub.tools[0].desc, href: "/araclar/bmi", icon: "📏" },
+    { name: t.toolsHub.tools[1].title, desc: t.toolsHub.tools[1].desc, href: "/araclar/kalori", icon: "🔥" },
+    { name: t.toolsHub.tools[3].title, desc: t.toolsHub.tools[3].desc, href: "/araclar/vucut-analizi", icon: "📊" },
+  ]
 
   const calculate = (e: React.FormEvent) => {
     e.preventDefault()
@@ -36,15 +38,18 @@ export default function OneRMPage() {
     }
   }
 
+  const tr = (en: string, tr: string) => lang === "en" ? en : tr
+  const repStr = lang === "en" ? "Reps" : "Tekrar"
+
   const percentages = result ? [
-    { pct: 100, val: result, reps: "1 Tekrar", zone: "Maksimum Güç", color: "text-red-400", barColor: "bg-red-500" },
-    { pct: 95, val: Math.round(result * 0.95), reps: "2–3 Tekrar", zone: "Güç", color: "text-orange-400", barColor: "bg-orange-500" },
-    { pct: 90, val: Math.round(result * 0.90), reps: "4 Tekrar", zone: "Güç", color: "text-orange-400", barColor: "bg-orange-500" },
-    { pct: 85, val: Math.round(result * 0.85), reps: "6 Tekrar", zone: "Güç / Hipertrofi", color: "text-yellow-400", barColor: "bg-yellow-500" },
-    { pct: 80, val: Math.round(result * 0.80), reps: "8 Tekrar", zone: "Hipertrofi", color: "text-primary", barColor: "bg-primary" },
-    { pct: 75, val: Math.round(result * 0.75), reps: "10 Tekrar", zone: "Hipertrofi", color: "text-primary", barColor: "bg-primary" },
-    { pct: 70, val: Math.round(result * 0.70), reps: "12 Tekrar", zone: "Hipertrofi", color: "text-green-400", barColor: "bg-green-500" },
-    { pct: 60, val: Math.round(result * 0.60), reps: "15–20 Tekrar", zone: "Dayanıklılık", color: "text-blue-400", barColor: "bg-blue-500" },
+    { pct: 100, val: result, reps: `1 ${repStr}`, zone: tr("Max Strength", "Maksimum Güç"), color: "text-red-400", barColor: "bg-red-500" },
+    { pct: 95, val: Math.round(result * 0.95), reps: `2–3 ${repStr}`, zone: tr("Strength", "Güç"), color: "text-orange-400", barColor: "bg-orange-500" },
+    { pct: 90, val: Math.round(result * 0.90), reps: `4 ${repStr}`, zone: tr("Strength", "Güç"), color: "text-orange-400", barColor: "bg-orange-500" },
+    { pct: 85, val: Math.round(result * 0.85), reps: `6 ${repStr}`, zone: tr("Strength / Hypertrophy", "Güç / Hipertrofi"), color: "text-yellow-400", barColor: "bg-yellow-500" },
+    { pct: 80, val: Math.round(result * 0.80), reps: `8 ${repStr}`, zone: tr("Hypertrophy", "Hipertrofi"), color: "text-primary", barColor: "bg-primary" },
+    { pct: 75, val: Math.round(result * 0.75), reps: `10 ${repStr}`, zone: tr("Hypertrophy", "Hipertrofi"), color: "text-primary", barColor: "bg-primary" },
+    { pct: 70, val: Math.round(result * 0.70), reps: `12 ${repStr}`, zone: tr("Hypertrophy", "Hipertrofi"), color: "text-green-400", barColor: "bg-green-500" },
+    { pct: 60, val: Math.round(result * 0.60), reps: `15–20 ${repStr}`, zone: tr("Endurance", "Dayanıklılık"), color: "text-blue-400", barColor: "bg-blue-500" },
   ] : []
 
   const inputClass = "w-full bg-black border border-white/15 focus:border-primary focus:ring-1 focus:ring-primary/30 px-5 py-4 text-white text-2xl font-display text-center outline-none transition-all placeholder:text-white/20"
@@ -52,8 +57,10 @@ export default function OneRMPage() {
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
       <SEO
-        title="1RM Hesaplayıcı | Maksimum Ağırlık Gücünü Öğren"
-        description="Bench press, squat, deadlift için 1 tekrar maksimumunu (1RM) hesapla. Antrenman yüzdelerini ve güç bölgelerini otomatik olarak gör."
+        title={lang === "en" ? "1RM Calculator | Find Your One Rep Max" : "1RM Hesaplayıcı | Maksimum Ağırlık Gücünü Öğren"}
+        description={lang === "en"
+          ? "Calculate your 1 rep max (1RM) for bench press, squat and deadlift. Automatically see training percentages and strength zones."
+          : "Bench press, squat, deadlift için 1 tekrar maksimumunu (1RM) hesapla. Antrenman yüzdelerini ve güç bölgelerini otomatik olarak gör."}
         canonical="/araclar/1rm"
       />
       <Navbar />
@@ -64,9 +71,11 @@ export default function OneRMPage() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/6 rounded-full blur-[100px] pointer-events-none" />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex items-center gap-2 text-white/40 font-sans text-sm mb-6">
-            <Link href="/araclar" className="hover:text-primary transition-colors">Araçlar</Link>
+            <Link href="/araclar" className="hover:text-primary transition-colors">
+              {lang === "en" ? "Tools" : "Araçlar"}
+            </Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-white/70">1RM Hesaplayıcı</span>
+            <span className="text-white/70">{lang === "en" ? "1RM Calculator" : "1RM Hesaplayıcı"}</span>
           </div>
           <div className="flex items-start gap-5">
             <div className="w-14 h-14 bg-primary/15 border border-primary/30 flex items-center justify-center flex-shrink-0 mt-1">
@@ -74,18 +83,20 @@ export default function OneRMPage() {
             </div>
             <div>
               <h1 className="text-4xl md:text-5xl font-display font-bold uppercase text-white leading-none mb-3">
-                1RM <span className="text-primary">Hesaplayıcı</span>
+                1RM <span className="text-primary">{lang === "en" ? "Calculator" : "Hesaplayıcı"}</span>
               </h1>
               <p className="text-white/55 font-sans text-base max-w-xl leading-relaxed">
-                Maksimum tek tekrar gücünü hesapla. Antrenman ağırlıklarını bilimsel yüzdelerle planla.
+                {lang === "en"
+                  ? "Calculate your one-rep max. Plan training weights with scientific percentages."
+                  : "Maksimum tek tekrar gücünü hesapla. Antrenman ağırlıklarını bilimsel yüzdelerle planla."}
               </p>
             </div>
           </div>
           <div className="flex flex-wrap gap-4 mt-7">
             {[
-              { label: "Formül", val: "Epley Yöntemi" },
-              { label: "Limit", val: "Maks 30 tekrar" },
-              { label: "Çıktı", val: "8 Yüzde Zonu" },
+              { label: lang === "en" ? "Formula" : "Formül", val: lang === "en" ? "Epley Method" : "Epley Yöntemi" },
+              { label: lang === "en" ? "Limit" : "Limit", val: lang === "en" ? "Max 30 reps" : "Maks 30 tekrar" },
+              { label: lang === "en" ? "Output" : "Çıktı", val: lang === "en" ? "8 % Zones" : "8 Yüzde Zonu" },
             ].map((pill) => (
               <div key={pill.label} className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-primary" />
@@ -105,12 +116,18 @@ export default function OneRMPage() {
             {/* Form */}
             <div className="lg:col-span-2 space-y-5">
               <div className="bg-[#0D0D0D] border border-white/10 p-7">
-                <h2 className="font-display text-lg uppercase tracking-widest text-white mb-2">Egzersiz & Değerler</h2>
-                <p className="text-white/40 font-sans text-sm mb-6">Güvenli tekrar sayısı ile kaldırdığın ağırlığı gir.</p>
+                <h2 className="font-display text-lg uppercase tracking-widest text-white mb-2">
+                  {lang === "en" ? "Exercise & Values" : "Egzersiz & Değerler"}
+                </h2>
+                <p className="text-white/40 font-sans text-sm mb-6">
+                  {lang === "en" ? "Enter the weight you lifted with a safe rep count." : "Güvenli tekrar sayısı ile kaldırdığın ağırlığı gir."}
+                </p>
 
                 {/* Exercise selector */}
                 <div className="mb-6">
-                  <label className="block text-primary font-display text-xs tracking-widest uppercase mb-3">Hareket (Opsiyonel)</label>
+                  <label className="block text-primary font-display text-xs tracking-widest uppercase mb-3">
+                    {lang === "en" ? "Movement (Optional)" : "Hareket (Opsiyonel)"}
+                  </label>
                   <div className="grid grid-cols-2 gap-2">
                     {exercises.map((ex) => (
                       <button
@@ -132,27 +149,35 @@ export default function OneRMPage() {
                   <div>
                     <div className="flex items-center gap-3 mb-3">
                       <div className="w-7 h-7 rounded-full bg-primary text-black flex items-center justify-center font-display text-sm font-bold">1</div>
-                      <label className="font-display text-white uppercase tracking-widest text-sm">Kaldırılan Ağırlık</label>
+                      <label className="font-display text-white uppercase tracking-widest text-sm">
+                        {lang === "en" ? "Weight Lifted" : "Kaldırılan Ağırlık"}
+                      </label>
                     </div>
                     <div className="relative">
                       <input type="number" step="0.5" required value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="100" className={inputClass} />
                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/25 font-display text-lg">kg</span>
                     </div>
-                    <p className="text-white/30 font-sans text-xs mt-2 ml-10">Kontrolü tamamen kaybetmeden tamamladığın ağırlık</p>
+                    <p className="text-white/30 font-sans text-xs mt-2 ml-10">
+                      {lang === "en" ? "Weight completed without losing control" : "Kontrolü tamamen kaybetmeden tamamladığın ağırlık"}
+                    </p>
                   </div>
                   <div>
                     <div className="flex items-center gap-3 mb-3">
                       <div className="w-7 h-7 rounded-full bg-primary text-black flex items-center justify-center font-display text-sm font-bold">2</div>
-                      <label className="font-display text-white uppercase tracking-widest text-sm">Tekrar Sayısı</label>
+                      <label className="font-display text-white uppercase tracking-widest text-sm">
+                        {lang === "en" ? "Rep Count" : "Tekrar Sayısı"}
+                      </label>
                     </div>
                     <div className="relative">
                       <input type="number" min="1" max="30" required value={reps} onChange={(e) => setReps(e.target.value)} placeholder="8" className={inputClass} />
                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/25 font-display text-lg">rep</span>
                     </div>
-                    <p className="text-white/30 font-sans text-xs mt-2 ml-10">En iyi sonuç için 1–10 tekrar arası ideal</p>
+                    <p className="text-white/30 font-sans text-xs mt-2 ml-10">
+                      {lang === "en" ? "1–10 reps is ideal for best accuracy" : "En iyi sonuç için 1–10 tekrar arası ideal"}
+                    </p>
                   </div>
                   <button type="submit" className="w-full bg-primary text-black py-4 font-display text-sm uppercase tracking-[0.2em] font-bold hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(245,197,24,0.25)] flex items-center justify-center gap-3">
-                    Gücümü Hesapla <Zap className="w-5 h-5" />
+                    {lang === "en" ? "Calculate My Strength" : "Gücümü Hesapla"} <Zap className="w-5 h-5" />
                   </button>
                 </form>
               </div>
@@ -161,10 +186,14 @@ export default function OneRMPage() {
               <div className="bg-[#0D0D0D] border border-white/8 p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <Info className="w-4 h-4 text-primary" />
-                  <span className="font-display text-xs uppercase tracking-widest text-white/50">Nasıl Kullanılır?</span>
+                  <span className="font-display text-xs uppercase tracking-widest text-white/50">
+                    {lang === "en" ? "How to Use?" : "Nasıl Kullanılır?"}
+                  </span>
                 </div>
                 <p className="text-white/40 font-sans text-xs leading-relaxed">
-                  Antrenman periyotlamasında %80–85 ağırlık (8–6 tekrar) hipertrofi için ideal zona karşılık gelir. Güç gelişimi için %90+ ile çalış.
+                  {lang === "en"
+                    ? "In periodization, 80–85% (6–8 reps) corresponds to the ideal hypertrophy zone. Work at 90%+ for strength development."
+                    : "Antrenman periyotlamasında %80–85 ağırlık (8–6 tekrar) hipertrofi için ideal zona karşılık gelir. Güç gelişimi için %90+ ile çalış."}
                 </p>
               </div>
             </div>
@@ -176,7 +205,7 @@ export default function OneRMPage() {
                   <motion.div key="result" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
                     {/* Main 1RM */}
                     <div className="bg-[#0D0D0D] border-2 border-primary p-7 text-center shadow-[0_0_30px_rgba(245,197,24,0.12)]">
-                      <div className="text-primary font-display tracking-[0.3em] uppercase text-xs mb-3">Tahmini 1RM</div>
+                      <div className="text-primary font-display tracking-[0.3em] uppercase text-xs mb-3">{lang === "en" ? "Estimated 1RM" : "Tahmini 1RM"}</div>
                       <div className="text-8xl font-display font-bold text-white tracking-wider leading-none mb-2">
                         {result}
                       </div>
@@ -190,7 +219,7 @@ export default function OneRMPage() {
 
                     {/* Percentage table */}
                     <div className="bg-[#0D0D0D] border border-white/10 p-5">
-                      <h3 className="font-display text-sm text-white uppercase tracking-widest mb-4 pb-3 border-b border-white/8">Antrenman Yüzdeleri</h3>
+                      <h3 className="font-display text-sm text-white uppercase tracking-widest mb-4 pb-3 border-b border-white/8">{lang === "en" ? "Training Percentages" : "Antrenman Yüzdeleri"}</h3>
                       <div className="space-y-2">
                         {percentages.map((item, idx) => (
                           <motion.div
@@ -226,9 +255,11 @@ export default function OneRMPage() {
                     <div className="w-24 h-24 rounded-full bg-white/4 flex items-center justify-center mb-6">
                       <Dumbbell className="w-10 h-10 text-white/15" />
                     </div>
-                    <div className="font-display text-white/25 uppercase tracking-widest text-sm mb-3">Güç Hesabı</div>
+                    <div className="font-display text-white/25 uppercase tracking-widest text-sm mb-3">{lang === "en" ? "Strength Calc" : "Güç Hesabı"}</div>
                     <p className="text-white/20 font-sans text-sm max-w-xs leading-relaxed">
-                      Ağırlık ve tekrar sayını girdiğinde 8 farklı antrenman zonunu göreceksin.
+                      {lang === "en"
+                        ? "Enter your weight and rep count to see 8 different training zones."
+                        : "Ağırlık ve tekrar sayını girdiğinde 8 farklı antrenman zonunu göreceksin."}
                     </p>
                   </motion.div>
                 )}
@@ -243,15 +274,19 @@ export default function OneRMPage() {
                 className="mt-10 bg-gradient-to-r from-primary/15 via-primary/10 to-transparent border border-primary/30 p-8 flex flex-col md:flex-row items-center justify-between gap-6"
               >
                 <div>
-                  <div className="text-primary font-display uppercase tracking-widest text-xs mb-2">Sonraki Adım</div>
+                  <div className="text-primary font-display uppercase tracking-widest text-xs mb-2">{lang === "en" ? "Next Step" : "Sonraki Adım"}</div>
                   <h3 className="font-display text-2xl text-white uppercase mb-2">
-                    1RM Değerin <span className="text-primary">{result} kg</span> — Bunu Kır
+                    {lang === "en" ? "Your 1RM is" : "1RM Değerin"} <span className="text-primary">{result} kg</span> — {lang === "en" ? "Let's Break It" : "Bunu Kır"}
                   </h3>
-                  <p className="text-white/55 font-sans text-sm">Periyotlamalı bir güç programıyla 12 haftada %15–25 artış hedefleyelim.</p>
+                  <p className="text-white/55 font-sans text-sm">
+                    {lang === "en"
+                      ? "Let's target a 15–25% increase in 12 weeks with a periodized strength program."
+                      : "Periyotlamalı bir güç programıyla 12 haftada %15–25 artış hedefleyelim."}
+                  </p>
                 </div>
                 <Link href="/#contact">
                   <button className="flex-shrink-0 bg-primary text-black font-display uppercase tracking-widest px-7 py-3.5 hover:bg-white transition-all duration-300 text-sm flex items-center gap-2 shadow-[0_0_20px_rgba(245,197,24,0.3)]">
-                    Program Oluştur <ArrowRight className="w-4 h-4" />
+                    {lang === "en" ? "Create Program" : "Program Oluştur"} <ArrowRight className="w-4 h-4" />
                   </button>
                 </Link>
               </motion.div>
@@ -260,7 +295,7 @@ export default function OneRMPage() {
 
           {/* Other tools */}
           <div className="mt-14">
-            <div className="text-white/30 font-display uppercase tracking-widest text-xs mb-5">Diğer Araçlar</div>
+            <div className="text-white/30 font-display uppercase tracking-widest text-xs mb-5">{t.shared.otherTools}</div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {otherTools.map((tool) => (
                 <Link key={tool.href} href={tool.href}>

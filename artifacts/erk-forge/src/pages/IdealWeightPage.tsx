@@ -5,14 +5,10 @@ import { Footer } from "@/components/layout/Footer"
 import { motion, AnimatePresence } from "framer-motion"
 import { Scale, ChevronRight, ArrowRight, Info, CheckCircle2, Target } from "lucide-react"
 import { Link } from "wouter"
-
-const otherTools = [
-  { name: "BMI Hesaplayıcı", desc: "Boy-kilo oranını öğren", href: "/araclar/bmi", icon: "📏" },
-  { name: "Makro Hesaplayıcı", desc: "Protein / Karb / Yağ dağılımın", href: "/araclar/makro", icon: "🥩" },
-  { name: "Vücut Yağ Oranı", desc: "Yağ & kas kütleni öğren", href: "/araclar/vucut-analizi", icon: "📊" },
-]
+import { useLanguage } from "@/i18n/LanguageContext"
 
 export default function IdealWeightPage() {
+  const { t, lang } = useLanguage()
   const [height, setHeight] = useState("")
   const [gender, setGender] = useState("erkek")
   const [frame, setFrame] = useState("orta")
