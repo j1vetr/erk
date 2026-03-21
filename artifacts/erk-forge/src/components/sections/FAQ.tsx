@@ -25,10 +25,10 @@ export function FAQ() {
               <div className="w-8 h-px bg-primary" />
               <span className="font-display text-primary text-xs tracking-[0.45em] uppercase">{t.faq.label}</span>
             </div>
-            <h2 className="font-display text-5xl md:text-7xl font-bold uppercase leading-none">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold uppercase leading-none">
               {t.faq.heading1}{" "}
-              <span className="text-primary">{t.faq.heading2}</span>
-              <br />{t.faq.heading3}
+              <span className="text-primary">{t.faq.heading2}</span>{" "}
+              {t.faq.heading3}
             </h2>
           </div>
           <div className="lg:text-right">
@@ -61,8 +61,8 @@ export function FAQ() {
                   className="w-full text-left group relative"
                 >
                   {/* Main row */}
-                  <div className={`relative flex items-center gap-6 py-7 px-2 transition-all duration-300 ${
-                    isOpen ? "pl-6" : "hover:pl-4"
+                  <div className={`relative flex items-center gap-3 sm:gap-6 py-6 sm:py-7 px-2 transition-all duration-300 ${
+                    isOpen ? "pl-4 sm:pl-6" : "hover:pl-2 sm:hover:pl-4"
                   }`}>
 
                     {/* Gold left border when open */}
@@ -111,13 +111,11 @@ export function FAQ() {
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-                      className="overflow-hidden"
+                      style={{ overflow: "hidden" }}
                     >
-                      <div className="flex gap-6 px-2 pb-8 pl-6">
-                        {/* Left spacer aligns with question text */}
-                        <div className="w-[calc(1.5rem+1.5rem)] shrink-0" />
-                        <div className="flex-1 border-l border-primary/20 pl-6">
-                          <p className="text-white/55 font-sans text-sm md:text-base leading-relaxed">
+                      <div className="px-4 sm:px-6 pb-8 pt-1">
+                        <div className="border-l-2 border-primary/25 pl-4 sm:pl-5">
+                          <p className="text-white/55 font-sans text-sm leading-relaxed">
                             {faq.a}
                           </p>
                         </div>
