@@ -1,4 +1,4 @@
-import { Instagram, Youtube, Twitter, MapPin, Mail, Phone } from "lucide-react"
+import { Instagram, Mail, Phone } from "lucide-react"
 import { useLanguage } from "@/i18n/LanguageContext"
 
 export function Footer() {
@@ -21,12 +21,6 @@ export function Footer() {
             <div className="flex gap-4">
               <a href="https://www.instagram.com/erk_ozkunt" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-black transition-colors">
                 <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-black transition-colors">
-                <Youtube className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-black transition-colors">
-                <Twitter className="w-5 h-5" />
               </a>
             </div>
           </div>
@@ -55,10 +49,6 @@ export function Footer() {
           <div>
             <h4 className="font-display text-2xl text-white mb-6 tracking-wide">{t.footer.contact}</h4>
             <ul className="space-y-4 font-sans text-gray-400">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                <span>{t.contact.locationValue}<br/>{t.footer.locationNote}</span>
-              </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-primary shrink-0" />
                 <span>info@erkforgecoaching.com</span>

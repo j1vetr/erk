@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Mail, MapPin, Phone, Instagram, CheckCircle2 } from "lucide-react"
+import { Mail, Phone, Instagram, CheckCircle2 } from "lucide-react"
 import { useLanguage } from "@/i18n/LanguageContext"
 
 export function Contact() {
@@ -75,18 +75,6 @@ export function Contact() {
                 </div>
               </a>
 
-              <div className="flex items-start gap-6">
-                <div className="bg-[#111] p-4 border border-white/10">
-                  <MapPin className="w-8 h-8 text-primary" />
-                </div>
-                <div>
-                  <div className="text-sm text-gray-500 font-display uppercase tracking-[0.2em] mb-1">{t.contact.locationLabel}</div>
-                  <div className="font-sans text-xl text-white">
-                    {t.contact.locationValue}
-                    <span className="block text-gray-500 text-base mt-1">{t.contact.locationNote}</span>
-                  </div>
-                </div>
-              </div>
             </div>
           </motion.div>
 
