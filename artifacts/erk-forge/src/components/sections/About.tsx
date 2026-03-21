@@ -83,9 +83,9 @@ export function About() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.15 }}
           >
-            <h2 className="font-display text-4xl md:text-5xl xl:text-6xl font-bold uppercase leading-[1.2] mb-8 tracking-tight">
-              {t.about.heading1}<br />
-              <span className="text-primary">{t.about.heading2}</span><br />
+            <h2 className="font-display text-4xl md:text-5xl xl:text-6xl font-bold uppercase leading-[1.1] mb-8 tracking-tight">
+              {t.about.heading1}{" "}
+              <span className="text-primary">{t.about.heading2}</span>{" "}
               {t.about.heading3}
             </h2>
 
@@ -94,15 +94,24 @@ export function About() {
               <p className="text-white/60 text-sm leading-relaxed font-sans">{t.about.body2}</p>
             </div>
 
-            <div className="flex gap-8 mb-10 border-t border-b border-white/10 py-7">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.35 }}
-              >
-                <div className="font-display text-4xl md:text-5xl font-bold text-primary leading-none mb-1.5">7+</div>
-                <div className="text-white/55 text-[10px] font-display tracking-[0.3em] uppercase">{t.about.statExp}</div>
-              </motion.div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-0 mb-10 border-t border-b border-white/10 divide-x divide-white/8">
+              {[
+                { value: "7+",   label: t.about.statExp },
+                { value: "150+", label: t.about.statClients },
+                { value: "48S",  label: t.about.statDelivery },
+                { value: "%90+", label: t.about.statSuccess },
+              ].map((stat, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.3 + i * 0.08 }}
+                  className={`py-6 text-center ${i % 2 === 0 && i > 1 ? "border-t border-white/8 sm:border-t-0" : ""}`}
+                >
+                  <div className="font-display text-3xl md:text-4xl font-bold text-primary leading-none mb-1.5">{stat.value}</div>
+                  <div className="text-white/40 text-[9px] font-display tracking-[0.28em] uppercase">{stat.label}</div>
+                </motion.div>
+              ))}
             </div>
 
             <div className="grid grid-cols-2 gap-x-8 gap-y-6">

@@ -41,6 +41,9 @@ const tr = {
     body1: "Benim adım Erk. Felsefem çok basit: zayıf metal kırılır, güçlü demir dayanır. Sıradanlıktan sıkılmış, sınırlarını zorlamaya hazır bireyleri alıyor; fiziksel ve mental zirvelerine ulaştırıyorum.",
     body2: "Bu 30 günlük geçici bir çözüm değil — antrenman yapma, beslenme ve düşünme biçiminin baştan aşağı yeniden inşası.",
     statExp: "Yıl Deneyim",
+    statClients: "Danışan",
+    statDelivery: "Program Teslimi",
+    statSuccess: "Başarı Oranı",
     certLabel: "ISSA Sertifikalı",
     certTitle: "Master Trainer",
     pillars: [
@@ -421,6 +424,9 @@ const en = {
     body1: "My name is Erk. My philosophy is simple: weak metal breaks, strong iron endures. I take individuals who are tired of mediocrity and ready to push their limits — and guide them to their physical and mental peak.",
     body2: "This is not a 30-day quick fix — it's a complete rebuild of how you train, eat, and think.",
     statExp: "Years Experience",
+    statClients: "Clients",
+    statDelivery: "Program Delivery",
+    statSuccess: "Success Rate",
     certLabel: "ISSA Certified",
     certTitle: "Master Trainer",
     pillars: [
