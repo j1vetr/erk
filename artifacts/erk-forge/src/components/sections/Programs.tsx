@@ -15,6 +15,7 @@ export function Programs() {
   const [selected, setSelected] = useState(0)
   const [progress, setProgress] = useState(0)
   const [showPaypalModal, setShowPaypalModal] = useState(false)
+  const [paused, setPaused] = useState(false)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const startRef = useRef<number>(Date.now())
   const { t, lang } = useLanguage()
@@ -22,11 +23,10 @@ export function Programs() {
   const plans = t.programs.plans.map((p, i) => ({ ...p, highlight: i === 1 }))
   const plan = plans[selected]
 
-  const resetCycle = (idx?: number) => {
+  const startCycle = () => {
     if (timerRef.current) clearInterval(timerRef.current)
     setProgress(0)
     startRef.current = Date.now()
-    if (idx !== undefined) setSelected(idx)
 
     timerRef.current = setInterval(() => {
       const elapsed = Date.now() - startRef.current
@@ -40,8 +40,16 @@ export function Programs() {
     }, 30)
   }
 
+  const handleTabClick = (idx: number) => {
+    if (timerRef.current) clearInterval(timerRef.current)
+    timerRef.current = null
+    setProgress(0)
+    setSelected(idx)
+    setPaused(true)
+  }
+
   useEffect(() => {
-    resetCycle()
+    startCycle()
     return () => { if (timerRef.current) clearInterval(timerRef.current) }
   }, [])
 
@@ -67,7 +75,7 @@ export function Programs() {
           {plans.map((p, i) => (
             <button
               key={i}
-              onClick={() => resetCycle(i)}
+              onClick={() => handleTabClick(i)}
               className={`relative text-center py-6 px-4 border transition-all duration-300 group ${
                 selected === i
                   ? p.highlight ? "bg-primary border-primary shadow-[0_0_40px_rgba(245,197,24,0.3)]" : "bg-white/8 border-primary/60"
