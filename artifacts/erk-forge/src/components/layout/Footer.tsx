@@ -72,7 +72,7 @@ export function Footer() {
             href="https://toov.com.tr"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-col items-center md:items-end gap-1.5 group"
+            className="flex flex-col md:flex-row items-center gap-1.5 md:gap-2.5 group"
           >
             <span className="font-display text-[9px] tracking-[0.35em] uppercase text-white/20 group-hover:text-white/40 transition-colors duration-300">
               Geliştirici
