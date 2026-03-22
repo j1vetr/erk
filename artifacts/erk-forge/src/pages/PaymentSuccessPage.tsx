@@ -196,6 +196,30 @@ export default function PaymentSuccessPage() {
             ))}
           </motion.div>
 
+          {/* WhatsApp application form note */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.38 }}
+            className="border border-primary/40 bg-primary/8 p-5 mb-6"
+          >
+            <div className="flex items-start gap-3">
+              <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center shrink-0 mt-0.5">
+                <span className="text-black font-display font-bold text-xs">!</span>
+              </div>
+              <div>
+                <div className="text-primary font-display text-[10px] tracking-[0.35em] uppercase mb-1.5">
+                  {tr ? "Önemli — Başvuru Formu" : "Important — Application Form"}
+                </div>
+                <p className="text-white/80 font-sans text-sm leading-relaxed">
+                  {tr
+                    ? "Ödeme sonrası aşağıdaki butona tıklayarak WhatsApp'tan bize ulaş ve başvuru formu linkini talep et. Programın eksiksiz hazırlanabilmesi için bu formun doldurulması zorunludur."
+                    : "After payment, tap the WhatsApp button below to reach us and request your application form link. Completing this form is required for your personalized program to be prepared."}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
           {/* What happens next */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}

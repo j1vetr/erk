@@ -268,9 +268,21 @@ export function Programs() {
                   ? "You will be redirected to PayPal to complete your payment securely. The coaching process begins once your payment is confirmed."
                   : "Ödemeyi tamamlamak için PayPal sayfasına yönlendirileceksiniz. Ödemen onaylandıktan sonra koçluk süreci başlıyor."}
               </p>
-              <div className="flex items-center gap-2 text-white/30 font-sans text-xs mb-8">
+              <div className="flex items-center gap-2 text-white/30 font-sans text-xs mb-5">
                 <ShieldCheck className="w-3.5 h-3.5 text-green-500/70 flex-shrink-0" />
                 {lang === "en" ? "256-bit SSL encrypted, processed by PayPal" : "256-bit SSL şifreli, PayPal güvencesiyle işleniyor"}
+              </div>
+
+              {/* WhatsApp note */}
+              <div className="border-l-[3px] border-primary bg-primary/6 px-4 py-3 mb-6">
+                <div className="text-primary font-display text-[9px] tracking-[0.3em] uppercase mb-1">
+                  {lang === "en" ? "Important Note" : "Önemli Not"}
+                </div>
+                <p className="text-white/65 font-sans text-xs leading-relaxed">
+                  {lang === "en"
+                    ? "After completing your payment, please contact us via WhatsApp on the confirmation page to receive your application form link. The form is required to prepare your personalized program."
+                    : "Ödeme tamamlandıktan sonra yönlendirileceğin onay sayfasında WhatsApp üzerinden bizimle iletişime geç ve başvuru formu linkini al. Form, programının eksiksiz hazırlanabilmesi için gereklidir."}
+                </p>
               </div>
 
               {/* Actions */}
