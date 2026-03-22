@@ -62,11 +62,21 @@ export function Footer() {
 
         </div>
 
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 font-sans">
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-gray-500 font-sans">
           <p>&copy; {new Date().getFullYear()} Erk Forge Coaching. {t.footer.copyright}</p>
-          <div className="flex gap-6 mt-4 md:mt-0">
+          <div className="flex gap-6">
             <a href="#" className="hover:text-white transition-colors">{t.footer.privacy}</a>
             <a href="#" className="hover:text-white transition-colors">{t.footer.terms}</a>
+          </div>
+          <div className="flex flex-col items-center md:items-end gap-1.5">
+            <span className="font-display text-[9px] tracking-[0.35em] uppercase text-white/20">
+              Geliştirici
+            </span>
+            <img
+              src={`${import.meta.env.BASE_URL}images/toov.png`}
+              alt="TOOV"
+              className="h-6 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity duration-300"
+            />
           </div>
         </div>
       </div>
