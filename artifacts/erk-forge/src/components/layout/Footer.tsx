@@ -68,16 +68,21 @@ export function Footer() {
             <a href="#" className="hover:text-white transition-colors">{t.footer.privacy}</a>
             <a href="#" className="hover:text-white transition-colors">{t.footer.terms}</a>
           </div>
-          <div className="flex flex-col items-center md:items-end gap-1.5">
-            <span className="font-display text-[9px] tracking-[0.35em] uppercase text-white/20">
+          <a
+            href="https://toov.com.tr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-col items-center md:items-end gap-1.5 group"
+          >
+            <span className="font-display text-[9px] tracking-[0.35em] uppercase text-white/20 group-hover:text-white/40 transition-colors duration-300">
               Geliştirici
             </span>
             <img
               src={`${import.meta.env.BASE_URL}images/toov.png`}
               alt="TOOV"
-              className="h-6 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity duration-300"
+              className="h-6 w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300"
             />
-          </div>
+          </a>
         </div>
       </div>
     </footer>
